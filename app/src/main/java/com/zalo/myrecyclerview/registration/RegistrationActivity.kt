@@ -56,7 +56,7 @@ class RegistrationActivity : AppCompatActivity() {
         val positiveButtonClickListener = { dialog: DialogInterface, which: Int ->
             Toast.makeText(
                 applicationContext,
-                "OK", Toast.LENGTH_SHORT
+                getString(R.string.yes), Toast.LENGTH_SHORT
             ).show()
             finish()
         }
@@ -64,21 +64,21 @@ class RegistrationActivity : AppCompatActivity() {
         val negativeButtonClickListener = { dialog: DialogInterface, which: Int ->
             Toast.makeText(
                 applicationContext,
-                "NO", Toast.LENGTH_SHORT
+                getString(R.string.no), Toast.LENGTH_SHORT
             ).show()
             dialog.dismiss()
         }
 
         val builder = AlertDialog.Builder(this)
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            builder.setTitle("Alerta!!")
-            builder.setMessage("DESEA SALIR?")
+            builder.setTitle(getString(R.string.warningText))
+            builder.setMessage(getString(R.string.closeApp))
             builder.setPositiveButton(
-                "OK",
+                getString(R.string.yes),
                 DialogInterface.OnClickListener(function = positiveButtonClickListener)
 
             )
-            builder.setNegativeButton("NO", negativeButtonClickListener)
+            builder.setNegativeButton(getString(R.string.no), negativeButtonClickListener)
             builder.show()
         }
 

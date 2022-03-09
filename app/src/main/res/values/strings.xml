@@ -24,4 +24,8 @@
     <string name="femaleText">Femenino</string>
     <string name="maleText">Masculino</string>
     <string name="noGenederText">No tiene Genero</string>
+    <string name="yes">SI</string>
+    <string name="no">NO</string>
+    <string name="warningText">Alerta</string>
+    <string name="closeApp">DESEA SALIR?</string>
 </resources>

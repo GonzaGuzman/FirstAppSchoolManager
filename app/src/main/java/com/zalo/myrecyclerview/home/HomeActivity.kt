@@ -1,24 +1,17 @@
 package com.zalo.myrecyclerview.home
 
-import android.accessibilityservice.AccessibilityGestureEvent
-import android.app.Activity
+
 import android.app.AlertDialog
-import android.content.ClipboardManager
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Message
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_BACK
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.*
-import androidx.core.app.NotificationCompat.CATEGORY_MESSAGE
-import androidx.core.app.NotificationCompat.getExtras
-import androidx.core.view.KeyEventDispatcher
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.addStudent.AddStudent
 import com.zalo.myrecyclerview.addStudent.AddStudent.Companion.AGE
 import com.zalo.myrecyclerview.addStudent.AddStudent.Companion.GENDER
@@ -92,7 +85,7 @@ class HomeActivity : AppCompatActivity() {
         val positiveButtonClickListener = { dialog: DialogInterface, which: Int ->
             Toast.makeText(
                 applicationContext,
-                "OK", Toast.LENGTH_SHORT
+                getString(R.string.yes), Toast.LENGTH_SHORT
             ).show()
             finish()
         }
@@ -100,21 +93,21 @@ class HomeActivity : AppCompatActivity() {
         val negativeButtonClickListener = { dialog: DialogInterface, which: Int ->
             Toast.makeText(
                 applicationContext,
-                "NO", Toast.LENGTH_SHORT
+                getString(R.string.no), Toast.LENGTH_SHORT
             ).show()
             dialog.dismiss()
         }
 
         val builder = AlertDialog.Builder(this)
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            builder.setTitle("Alerta!!")
-            builder.setMessage("DESEA SALIR?")
+        if (keyCode == KEYCODE_BACK) {
+            builder.setTitle(getString(R.string.warningText))
+            builder.setMessage(getString(R.string.closeApp))
             builder.setPositiveButton(
-                "OK",
+                getString(R.string.yes),
                 DialogInterface.OnClickListener(function = positiveButtonClickListener)
 
             )
-            builder.setNegativeButton("NO", negativeButtonClickListener)
+            builder.setNegativeButton(getString(R.string.no), negativeButtonClickListener)
             builder.show()
         }
 
