@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".addStudent.AddStudent">
+
+    <EditText
+        android:id="@+id/studentName"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:hint="@string/enterName"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/studentLastName"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:hint="@string/enterLastName"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/studentName" />
+
+    <EditText
+        android:id="@+id/studentAge"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:hint="@string/enterAge"
+        android:inputType="number"
+        android:maxLength="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/studentLastName" />
+
+    <TextView
+        android:id="@+id/titleRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/match_constraint"
+        android:text="@string/textActivityAdd"
+        android:textAlignment="center"
+        android:textSize="@dimen/sizeTitleRadioGrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/studentAge" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupGender"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/match_constraint"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleRadioGroup">
+
+        <RadioButton
+            android:id="@+id/radioButtonMale"
+            android:layout_width="@dimen/width_radioButton"
+            android:layout_height="wrap_content"
+            android:text="@string/textRadioButtonMale" />
+
+        <RadioButton
+            android:id="@+id/radioButtonFemale"
+            android:layout_width="@dimen/width_radioButton"
+            android:layout_height="wrap_content"
+            android:text="@string/textRadioButtonFemale" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/aggregateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="@string/textButtonValidation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cancelButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textCancelButton"
+        app:layout_constraintBottom_toBottomOf="@id/aggregateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/aggregateButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

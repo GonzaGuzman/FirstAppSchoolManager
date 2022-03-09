@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">MyRecyclerView</string>
+    <string name="add">Agregar\n Alumno</string>
+    <string name="nameHint">Nombre</string>
+    <string name="added">Agregado!</string>
+    <string name="nameSchool">Nombre de la Escuela</string>
+    <string name="primary">Primaria</string>
+    <string name="highSchool">Secundaria</string>
+    <string name="continueBtn">Continuar</string>
+    <string name="end">Salir</string>
+    <string name="primaryEducation">EDUCACIÓN PRIMARIA</string>
+    <string name="highSchoolEducation">EDUCACIÓN SECUNDARIA</string>
+    <string name="studentNameListTitle">LISTADO DE ALUMNOS</string>
+    <string name="errorMessageEmptyNameSchool">POR FAVOR INGRESE EL NOMBRE DE LA ESCUELA</string>
+    <string name="headerRegistration">REGISTRO UNIVERSAL DE ESCUELAS \n R.U.E</string>
+    <string name="textRadioButtonMale">Masculino</string>
+    <string name="textRadioButtonFemale">Femenino</string>
+    <string name="textButtonValidation">AGREGAR A LA LISTA</string>
+    <string name="textActivityAdd">GENERO</string>
+    <string name="enterAge">Ingrese el edad</string>
+    <string name="enterLastName">Ingrese el Apellido</string>
+    <string name="enterName">Ingrese el Nombre</string>
+    <string name="textCancelButton">CANCELAR</string>
+    <string name="femaleText">Femenino</string>
+    <string name="maleText">Masculino</string>
+    <string name="noGenederText">No tiene Genero</string>
+</resources>
