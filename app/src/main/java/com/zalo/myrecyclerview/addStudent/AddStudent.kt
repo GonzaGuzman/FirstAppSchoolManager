@@ -63,6 +63,7 @@ class AddStudent : AppCompatActivity() {
                 binding.radioButtonMale.id -> getString(R.string.maleText)
                 else -> getString(R.string.noGenederText)
             }
+
             intent.putExtra(NAME, inputTextName.text.toString())
             intent.putExtra(LASTNAME, inputTextLastName.text.toString())
             intent.putExtra(AGE, inputTextAge.text.toString().toInt())
