@@ -1,21 +1,17 @@
 package com.zalo.myrecyclerview.addStudent
 
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
+import com.zalo.myrecyclerview.GeneralActivity
 import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.databinding.ActivityAddStudentBinding
 
-class AddStudent : AppCompatActivity() {
+class AddStudent : GeneralActivity() {
     companion object {
         const val NAME = "NAME"
         const val LASTNAME = "LASTNAME"
@@ -75,39 +71,6 @@ class AddStudent : AppCompatActivity() {
         }
 
 
-    }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        val positiveButtonClickListener = { dialog: DialogInterface, which: Int ->
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.yes), Toast.LENGTH_SHORT
-            ).show()
-            finish()
-        }
-
-        val negativeButtonClickListener = { dialog: DialogInterface, which: Int ->
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.no), Toast.LENGTH_SHORT
-            ).show()
-            dialog.dismiss()
-        }
-
-        val builder = AlertDialog.Builder(this)
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            builder.setTitle(getString(R.string.warningText))
-            builder.setMessage(getString(R.string.closeApp))
-            builder.setPositiveButton(
-                getString(R.string.yes),
-                DialogInterface.OnClickListener(function = positiveButtonClickListener)
-
-            )
-            builder.setNegativeButton(getString(R.string.no), negativeButtonClickListener)
-            builder.show()
-        }
-
-        return super.onKeyDown(keyCode, event)
     }
 
     private val textWatcher = object : TextWatcher {

@@ -1,17 +1,11 @@
 package com.zalo.myrecyclerview.home
 
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_BACK
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zalo.myrecyclerview.R
+import com.zalo.myrecyclerview.GeneralActivity
 import com.zalo.myrecyclerview.addStudent.AddStudent
 import com.zalo.myrecyclerview.addStudent.AddStudent.Companion.AGE
 import com.zalo.myrecyclerview.addStudent.AddStudent.Companion.GENDER
@@ -19,11 +13,9 @@ import com.zalo.myrecyclerview.addStudent.AddStudent.Companion.LASTNAME
 import com.zalo.myrecyclerview.addStudent.AddStudent.Companion.NAME
 import com.zalo.myrecyclerview.databinding.ActivityMainBinding
 import com.zalo.myrecyclerview.home.adapter.StudentAdapter
-import com.zalo.myrecyclerview.registration.RegistrationActivity.Companion.HIGH_SCHOOL
-import com.zalo.myrecyclerview.registration.RegistrationActivity.Companion.NAME_SCHOOL
-import com.zalo.myrecyclerview.registration.RegistrationActivity.Companion.PRIMARY
+import com.zalo.myrecyclerview.util.MySharedPreferences
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : GeneralActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var list: ArrayList<Student>
@@ -50,12 +42,12 @@ class HomeActivity : AppCompatActivity() {
 
     private fun retrieveExtras() {
 
-        val schoolName = intent.getStringExtra(NAME_SCHOOL)
-        if (intent.getBooleanExtra(PRIMARY, false)) {
+        val schoolName = MySharedPreferences().schoolName
+        if (MySharedPreferences().isPrimary) {
             binding.CheckHomePrimary.isChecked = true
         }
 
-        if (intent.getBooleanExtra(HIGH_SCHOOL, false)) {
+        if (MySharedPreferences().isHighSchool) {
             binding.CheckHomeHighSchool.isChecked = true
         }
         binding.CheckHomePrimary.isEnabled = false
@@ -79,39 +71,6 @@ class HomeActivity : AppCompatActivity() {
         binding.recycler.layoutManager = LinearLayoutManager(this)
 
     }
-// Bloque de codigo para validar la finalizacion de la app al tocar la KEY Back el teclado del movil
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        val positiveButtonClickListener = { dialog: DialogInterface, which: Int ->
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.yes), Toast.LENGTH_SHORT
-            ).show()
-            finish()
-        }
-
-        val negativeButtonClickListener = { dialog: DialogInterface, which: Int ->
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.no), Toast.LENGTH_SHORT
-            ).show()
-            dialog.dismiss()
-        }
-
-        val builder = AlertDialog.Builder(this)
-        if (keyCode == KEYCODE_BACK) {
-            builder.setTitle(getString(R.string.warningText))
-            builder.setMessage(getString(R.string.closeApp))
-            builder.setPositiveButton(
-                getString(R.string.yes),
-                DialogInterface.OnClickListener(function = positiveButtonClickListener)
-
-            )
-            builder.setNegativeButton(getString(R.string.no), negativeButtonClickListener)
-            builder.show()
-        }
-
-        return super.onKeyDown(keyCode, event)
-    }
 
 }

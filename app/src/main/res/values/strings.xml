@@ -28,4 +28,6 @@
     <string name="no">NO</string>
     <string name="warningText">Alerta</string>
     <string name="closeApp">DESEA SALIR?</string>
+    <string name="close_session">CERRAR SESION</string>
+    <string name="whish_to_continue">DESEA CONTINUAR?</string>
 </resources>
