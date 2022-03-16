@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 abstract class GeneralActivity : AppCompatActivity() {
 
 
+
+
 // Bloque de codigo para validar la finalizacion de la app al tocar la KEY Back el teclado del movil
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

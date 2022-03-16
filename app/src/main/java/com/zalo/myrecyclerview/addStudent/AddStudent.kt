@@ -10,14 +10,11 @@ import android.widget.EditText
 import com.zalo.myrecyclerview.GeneralActivity
 import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.databinding.ActivityAddStudentBinding
+import com.zalo.myrecyclerview.home.Student
+import com.zalo.myrecyclerview.util.MyApplication
 
 class AddStudent : GeneralActivity() {
-    companion object {
-        const val NAME = "NAME"
-        const val LASTNAME = "LASTNAME"
-        const val AGE = "AGE"
-        const val GENDER = "GENDER"
-    }
+
 
     private lateinit var inputTextName: EditText
     private lateinit var inputTextLastName: EditText
@@ -31,7 +28,6 @@ class AddStudent : GeneralActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddStudentBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         initComponent()
 
     }
@@ -60,10 +56,14 @@ class AddStudent : GeneralActivity() {
                 else -> getString(R.string.noGenederText)
             }
 
-            intent.putExtra(NAME, inputTextName.text.toString())
-            intent.putExtra(LASTNAME, inputTextLastName.text.toString())
-            intent.putExtra(AGE, inputTextAge.text.toString().toInt())
-            intent.putExtra(GENDER, genderDate)
+            val student = Student(
+                0,
+                inputTextName.text.toString(),
+                inputTextLastName.text.toString(),
+                inputTextAge.text.toString().toInt(),
+                genderDate
+            )
+            MyApplication.dataBase.studentDao().insert(student)
             setResult(RESULT_OK, intent)
             finish()
 

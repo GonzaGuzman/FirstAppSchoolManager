@@ -3,31 +3,24 @@ package com.zalo.myrecyclerview.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zalo.myrecyclerview.GeneralActivity
 import com.zalo.myrecyclerview.addStudent.AddStudent
-import com.zalo.myrecyclerview.addStudent.AddStudent.Companion.AGE
-import com.zalo.myrecyclerview.addStudent.AddStudent.Companion.GENDER
-import com.zalo.myrecyclerview.addStudent.AddStudent.Companion.LASTNAME
-import com.zalo.myrecyclerview.addStudent.AddStudent.Companion.NAME
 import com.zalo.myrecyclerview.databinding.ActivityMainBinding
 import com.zalo.myrecyclerview.home.adapter.StudentAdapter
+import com.zalo.myrecyclerview.util.MyApplication.Companion.dataBase
 import com.zalo.myrecyclerview.util.MySharedPreferences
 
 class HomeActivity : GeneralActivity() {
 
+    lateinit var studentList: MutableList<Student>
     private lateinit var binding: ActivityMainBinding
-    private lateinit var list: ArrayList<Student>
     private lateinit var adapter: StudentAdapter
     private var resultLauncher = registerForActivityResult(StartActivityForResult()) {
         if (it.resultCode == RESULT_OK) {
-            val nameStudent = it.data?.getStringExtra(NAME).orEmpty()
-            val lastNameStudent = it.data?.getStringExtra(LASTNAME).orEmpty()
-            val ageStudent = it.data?.getIntExtra(AGE, 0) ?: 0
-            val genderStudent = it.data?.getStringExtra(GENDER).orEmpty()
-            list.add(Student(nameStudent, lastNameStudent, ageStudent, genderStudent))
-            adapter.notifyDataSetChanged()
+            Toast.makeText(this,"Lista Actualizada", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -36,8 +29,10 @@ class HomeActivity : GeneralActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        studentList = ArrayList()
         retrieveExtras()
         initComponents()
+
     }
 
     private fun retrieveExtras() {
@@ -60,17 +55,22 @@ class HomeActivity : GeneralActivity() {
         binding.endButtonHome.setOnClickListener {
             finish()
         }
-        list = arrayListOf()
         binding.btnAdd.setOnClickListener {
             val intent = Intent(this, AddStudent::class.java)
             resultLauncher.launch(intent)
         }
-        adapter = StudentAdapter(list)
 
-        binding.recycler.adapter = adapter
+        adapter = StudentAdapter(dataBase.studentDao().getAllStudent())
         binding.recycler.layoutManager = LinearLayoutManager(this)
+        binding.recycler.adapter = adapter
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        adapter = StudentAdapter(dataBase.studentDao().getAllStudent())
+        binding.recycler.adapter = adapter
+
+    }
 
 }
