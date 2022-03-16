@@ -19,8 +19,8 @@ class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.setOnClickListener {
             Toast.makeText(
                 binding.lastNameStudentItem.context,
-                MyApplication.dataBase.studentDao().getById(binding.tvIdItem.text.toString().toInt()).name,
-                Toast.LENGTH_LONG
+                student.toString(),
+                Toast.LENGTH_SHORT
             ).show()
         }
     }

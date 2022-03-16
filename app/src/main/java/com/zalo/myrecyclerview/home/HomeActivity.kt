@@ -59,16 +59,14 @@ class HomeActivity : GeneralActivity() {
             val intent = Intent(this, AddStudent::class.java)
             resultLauncher.launch(intent)
         }
-
-        adapter = StudentAdapter(dataBase.studentDao().getAllStudent())
-        binding.recycler.layoutManager = LinearLayoutManager(this)
-        binding.recycler.adapter = adapter
-
     }
 
     override fun onResume() {
         super.onResume()
-        adapter = StudentAdapter(dataBase.studentDao().getAllStudent())
+        studentList.clear()
+        binding.recycler.layoutManager = LinearLayoutManager(this)
+        studentList.addAll(dataBase.studentDao().getAllStudent())
+        adapter = StudentAdapter(studentList)
         binding.recycler.adapter = adapter
 
     }
