@@ -16,13 +16,6 @@ class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val idStudent = student.id
         binding.tvIdItem.text = idStudent.toString()
         binding.lastNameStudentItem.text = student.lastName
-        itemView.setOnClickListener {
-            Toast.makeText(
-                binding.lastNameStudentItem.context,
-                student.toString(),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
     }
 }
 

@@ -2,9 +2,13 @@ package com.zalo.myrecyclerview.home.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.zalo.myrecyclerview.R
+import com.zalo.myrecyclerview.addStudent.AddStudent
+import com.zalo.myrecyclerview.detail.DetailActivity
 import com.zalo.myrecyclerview.home.Student
 
 class StudentAdapter(private val list: List<Student>) : RecyclerView.Adapter<StudentViewHolder>() {
@@ -15,10 +19,19 @@ class StudentAdapter(private val list: List<Student>) : RecyclerView.Adapter<Stu
     }
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
-        holder.bind(list[position])
+        val item =list[position]
+        holder.bind(item)
+        holder.itemView.setOnClickListener(View.OnClickListener {
+            val intent = Intent(holder.itemView.context, DetailActivity::class.java)
+
+            intent.putExtra("itemId",item.id)
+            intent.putExtra("itemNAME",item.name)
+            intent.putExtra("itemLAST_NAME",item.lastName)
+            intent.putExtra("itemAGE",item.age)
+            intent.putExtra("itemGENDER",item.gender)
+            holder.itemView.context.startActivity(intent)
+        })
        }
 
     override fun getItemCount(): Int = list.size
-
-
 }

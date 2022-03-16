@@ -30,4 +30,6 @@
     <string name="closeApp">DESEA SALIR?</string>
     <string name="close_session">CERRAR SESION</string>
     <string name="whish_to_continue">DESEA CONTINUAR?</string>
+    <string name="edit_data">Editar datos</string>
+    <string name="remove_data">Eliminar datos</string>
 </resources>
