@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/sizeTitleRadioGrop"
+    android:orientation="vertical"
+    tools:context=".detail.DetailActivity">
+
+    <TextView
+        android:id="@+id/tvId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemTextSize"
+        android:text="Id"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/etId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemTextSize"
+        android:enabled="false"
+        android:textAlignment="center"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="italic"
+        tools:text="ID" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemTextSize"
+        android:text="Nombre"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemTextSize"
+        android:enabled="false"
+        android:textAlignment="center"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="italic"
+        tools:text="nombre" />
+
+    <TextView
+        android:id="@+id/tvLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemTextSize"
+        android:text="Apellido"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/etLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemTextSize"
+        android:enabled="false"
+        android:textAlignment="center"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="italic"
+        tools:text="nombre" />
+
+    <TextView
+        android:id="@+id/tvAge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemTextSize"
+        android:text="Edad"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/etAge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemTextSize"
+        android:enabled="false"
+        android:textAlignment="center"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="italic"
+        tools:text="nombre" />
+
+    <TextView
+        android:id="@+id/tvGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemTextSize"
+        android:text="Genero"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/etGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemTextSize"
+        android:enabled="false"
+        android:textAlignment="center"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="italic"
+        tools:text="Genero" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/itemTextSize"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnModify"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start|center"
+            android:layout_margin="@dimen/cardview_default_radius"
+            android:layout_weight="1"
+            android:text="@string/edit_data" />
+
+        <Button
+            android:id="@+id/btnRemove"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end|center"
+            android:layout_margin="@dimen/cardview_default_radius"
+            android:layout_weight="1"
+            android:text="@string/remove_data" />
+    </LinearLayout>
+
+
+</LinearLayout>
