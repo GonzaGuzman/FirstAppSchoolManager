@@ -25,7 +25,7 @@ class RegistrationActivity : GeneralActivity() {
 
     private fun initComponent() {
 
-        if (MySharedPreferences().schoolName.isNotEmpty()) {
+        if (sharedPreferences.schoolName.isNotEmpty()) {
             binding.schoolNameEditText.isEnabled = false
             binding.primaryCheck.isEnabled = false
             binding.highSchoolCheck.isEnabled = false

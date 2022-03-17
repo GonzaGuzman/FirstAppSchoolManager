@@ -12,6 +12,9 @@ import com.zalo.myrecyclerview.databinding.ActivityMainBinding
 import com.zalo.myrecyclerview.home.adapter.StudentAdapter
 import com.zalo.myrecyclerview.util.MyApplication.Companion.dataBase
 import com.zalo.myrecyclerview.util.MySharedPreferences
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
+
 
 class HomeActivity : GeneralActivity() {
 
@@ -20,7 +23,7 @@ class HomeActivity : GeneralActivity() {
     private lateinit var adapter: StudentAdapter
     private var resultLauncher = registerForActivityResult(StartActivityForResult()) {
         if (it.resultCode == RESULT_OK) {
-            Toast.makeText(this,"Lista Actualizada", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Lista Actualizada", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -35,6 +38,8 @@ class HomeActivity : GeneralActivity() {
 
     }
 
+    //hacer una instancia de myShared preferences en el general activity
+    //usar also y apply
     private fun retrieveExtras() {
 
         val schoolName = MySharedPreferences().schoolName
@@ -61,13 +66,23 @@ class HomeActivity : GeneralActivity() {
         }
     }
 
+    //mejorar
     override fun onResume() {
         super.onResume()
         studentList.clear()
         binding.recycler.layoutManager = LinearLayoutManager(this)
-        studentList.addAll(dataBase.studentDao().getAllStudent())
-        adapter = StudentAdapter(studentList)
-        binding.recycler.adapter = adapter
+
+        dataBase.studentDao().getAllStudent()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ students ->
+                studentList.addAll(students)
+                adapter = StudentAdapter(studentList)
+                binding.recycler.adapter = adapter
+            }, {
+                println(it.message)
+            })
+
 
     }
 

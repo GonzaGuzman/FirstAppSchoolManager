@@ -12,6 +12,9 @@ import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.databinding.ActivityAddStudentBinding
 import com.zalo.myrecyclerview.home.Student
 import com.zalo.myrecyclerview.util.MyApplication
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class AddStudent : GeneralActivity() {
 
@@ -19,8 +22,8 @@ class AddStudent : GeneralActivity() {
     private lateinit var inputTextName: EditText
     private lateinit var inputTextLastName: EditText
     private lateinit var inputTextAge: EditText
-
-    private lateinit var action_button: Button
+    private lateinit var student: Student
+    private lateinit var actionButton: Button
 
     private lateinit var binding: ActivityAddStudentBinding
 
@@ -29,6 +32,7 @@ class AddStudent : GeneralActivity() {
         binding = ActivityAddStudentBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initComponent()
+        retrieverExtras()
 
     }
 
@@ -38,7 +42,7 @@ class AddStudent : GeneralActivity() {
         inputTextName = binding.studentName
         inputTextLastName = binding.studentLastName
         inputTextAge = binding.studentAge
-        action_button = binding.aggregateButton
+        actionButton = binding.aggregateButton
         inputTextName.addTextChangedListener(textWatcher)
         inputTextLastName.addTextChangedListener(textWatcher)
         inputTextAge.addTextChangedListener(textWatcher)
@@ -48,7 +52,7 @@ class AddStudent : GeneralActivity() {
             finish()
         }
 
-        action_button.setOnClickListener {
+        actionButton.setOnClickListener {
 
             val genderDate = when (binding.radioGroupGender.checkedRadioButtonId) {
                 binding.radioButtonFemale.id -> getString(R.string.femaleText)
@@ -63,10 +67,16 @@ class AddStudent : GeneralActivity() {
                 inputTextAge.text.toString().toInt(),
                 genderDate
             )
-            MyApplication.dataBase.studentDao().insert(student)
-            setResult(RESULT_OK, intent)
-            finish()
-
+            CompositeDisposable()
+                .add(
+                    MyApplication.dataBase.studentDao().insert(student)
+                        .subscribeOn(Schedulers.io())
+                        //  .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            setResult(RESULT_OK, intent)
+                            finish()
+                        }, {})
+                )
 
         }
 
@@ -82,10 +92,19 @@ class AddStudent : GeneralActivity() {
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-            action_button.isEnabled =
+            actionButton.isEnabled =
                 inputTextName.text.isNotEmpty() && inputTextLastName.text.isNotEmpty() && inputTextAge.text.isNotEmpty()
         }
     }
 
+    private fun retrieverExtras() {
+        MyApplication.dataBase.studentDao().getById(intent.getIntExtra("itemId", 0))
+            .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ student = it }, {
+                println(it.message)
+            })
+
+    }
 
 }

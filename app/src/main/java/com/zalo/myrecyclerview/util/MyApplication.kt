@@ -12,8 +12,7 @@ class MyApplication : Application() {
         preferences = applicationContext.getSharedPreferences("schoolPreferences", 0)
 
         dataBase =
-            Room.databaseBuilder(this, StudentDataBase::class.java, "studentDB")
-                .allowMainThreadQueries().build()
+            Room.databaseBuilder(this, StudentDataBase::class.java, "studentDB").build()
     }
 
     companion object {

@@ -1,17 +1,28 @@
 package com.zalo.myrecyclerview.detail
 
+
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.text.set
+import com.zalo.myrecyclerview.GeneralActivity
+import com.zalo.myrecyclerview.addStudent.AddStudent
 import com.zalo.myrecyclerview.databinding.ActivityDetailBinding
 import com.zalo.myrecyclerview.home.Student
-import com.zalo.myrecyclerview.util.MyApplication
 import com.zalo.myrecyclerview.util.MyApplication.Companion.dataBase
+import io.reactivex.Completable
+import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : GeneralActivity() {
+
+
     private lateinit var binding: ActivityDetailBinding
+    private lateinit var student: Student
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -30,16 +41,41 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initComponent() {
-        val student = dataBase.studentDao().getById(intent.getIntExtra("itemId", 0))
+        dataBase.studentDao().getById(intent.getIntExtra("itemId", 0))
+            .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ student = it }, {
+                println(it.message)
+            })
+
         binding.btnRemove.setOnClickListener {
+            CompositeDisposable()
+                .add(
             dataBase.studentDao().delete(student)
-            Toast.makeText(this, "DATOS ELIMINADOS", Toast.LENGTH_SHORT).show()
-            onBackPressed()
+
+              //  .subscribeOn(Schedulers.io())
+                //.observeOn(AndroidSchedulers.mainThread())
+                .subscribeAndLogErrors {
+                    "Datos Eliminados".showMessagge(this)
+                    finish()
+                }
+)
         }
 
-        binding.btnModify.setOnClickListener{
-
+        binding.btnModify.setOnClickListener {
+            val intent = Intent(this, AddStudent::class.java)
+            startActivity(intent)
         }
-
     }
+}
+/*
+fun <T>Single<T>.subscribeAndLogErrors(block: (T) -> Unit): Disposable {
+    return this.subscribe(
+        { block(it) },
+        { println(it.message) }
+    )
+}
+*/
+fun String.showMessagge(context: Context) {
+    Toast.makeText(context, this, Toast.LENGTH_SHORT).show()
 }
