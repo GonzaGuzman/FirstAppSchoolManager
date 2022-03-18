@@ -13,14 +13,14 @@ class MySharedPreferences {
         get() = prefs.getBoolean(IS_HIGH_SCHOOL, false)
         set(value) = prefs.edit().putBoolean(IS_HIGH_SCHOOL, value).apply()
 
-fun wipe(){
-    prefs.edit().clear().apply()
-}
+    fun wipe() {
+        prefs.edit().clear().apply()
+    }
 
     companion object {
         val prefs = MyApplication.preferences
         const val SCHOOL_NAME = "schoolName"
-        const val IS_PRIMARY ="isPrimary"
+        const val IS_PRIMARY = "isPrimary"
         const val IS_HIGH_SCHOOL = "isHighSchool"
 
     }

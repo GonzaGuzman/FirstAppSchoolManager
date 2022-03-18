@@ -9,7 +9,7 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        preferences = applicationContext.getSharedPreferences("schoolPreferences", 0)
+        preferences = getSharedPreferences("schoolPreferences", 0)
 
         dataBase =
             Room.databaseBuilder(this, StudentDataBase::class.java, "studentDB").build()
@@ -19,5 +19,4 @@ class MyApplication : Application() {
         lateinit var preferences: SharedPreferences
         lateinit var dataBase: StudentDataBase
     }
-
 }
