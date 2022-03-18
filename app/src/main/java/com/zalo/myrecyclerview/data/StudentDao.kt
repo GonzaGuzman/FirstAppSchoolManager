@@ -3,8 +3,7 @@ package com.zalo.myrecyclerview.data
 import androidx.room.*
 import com.zalo.myrecyclerview.home.Student
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.Completable
-
+import io.reactivex.rxjava3.core.Completable
 
 @Dao
 interface StudentDao {
@@ -16,11 +15,11 @@ interface StudentDao {
     fun getById(id: Int): Single<Student>
 
     @Update
-    fun upDate(student: Student): Completable
+    fun update(student: Student): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(student: Student): Completable
 
     @Delete
-    fun delete(student: Student):Single<Unit>
+    fun delete(student: Student): Single<Unit>
 }

@@ -10,6 +10,7 @@ import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.databinding.ActivityRegistrationBinding
 import com.zalo.myrecyclerview.home.HomeActivity
 import com.zalo.myrecyclerview.util.MySharedPreferences
+import com.zalo.myrecyclerview.util.showMessage
 
 class RegistrationActivity : GeneralActivity() {
 
@@ -20,7 +21,6 @@ class RegistrationActivity : GeneralActivity() {
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initComponent()
-
     }
 
     private fun initComponent() {
@@ -60,22 +60,16 @@ class RegistrationActivity : GeneralActivity() {
     }
 
     private fun closeSession() {
-        val positiveButtonClickListener = { dialog: DialogInterface, which: Int ->
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.yes), Toast.LENGTH_SHORT
-            ).show()
+        val positiveButtonClickListener = { _: DialogInterface, _: Int ->
+            getString(R.string.yes).showMessage(this)
             binding.primaryCheck.isEnabled = true
             binding.highSchoolCheck.isEnabled = true
             binding.schoolNameEditText.isEnabled = true
             binding.schoolNameEditText.setText("")
             MySharedPreferences().wipe()
         }
-        val negativeButtonClickListener = { dialog: DialogInterface, which: Int ->
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.no), Toast.LENGTH_SHORT
-            ).show()
+        val negativeButtonClickListener = { dialog: DialogInterface, _: Int ->
+            getString(R.string.no).showMessage(this)
             dialog.dismiss()
         }
         val builder = AlertDialog.Builder(this)
@@ -89,5 +83,4 @@ class RegistrationActivity : GeneralActivity() {
         builder.show()
 
     }
-
 }

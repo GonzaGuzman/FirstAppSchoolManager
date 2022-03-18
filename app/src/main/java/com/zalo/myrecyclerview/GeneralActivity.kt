@@ -5,30 +5,21 @@ import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.zalo.myrecyclerview.util.MyApplication
 import com.zalo.myrecyclerview.util.MySharedPreferences
-
+import com.zalo.myrecyclerview.util.showMessage
 
 abstract class GeneralActivity : AppCompatActivity() {
 
+    val sharedPreferences = MySharedPreferences()
 
-val sharedPreferences= MySharedPreferences()
-
-// Bloque de codigo para validar la finalizacion de la app al tocar la KEY Back el teclado del movil
-
+    // Bloque de codigo para validar la finalizacion de la app al tocar la KEY Back el teclado del movil
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         val positiveButtonClickListener = { dialog: DialogInterface, which: Int ->
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.yes), Toast.LENGTH_LONG
-            ).show()
+            getString(R.string.yes).showMessage(this)
             finish()
         }
         val negativeButtonClickListener = { dialog: DialogInterface, which: Int ->
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.no), Toast.LENGTH_LONG
-            ).show()
+            getString(R.string.no).showMessage(this)
             dialog.dismiss()
         }
 

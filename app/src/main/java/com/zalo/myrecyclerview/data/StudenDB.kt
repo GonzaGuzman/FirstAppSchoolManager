@@ -9,6 +9,5 @@ import com.zalo.myrecyclerview.home.Student
     version = 1
 )
 abstract class StudentDataBase : RoomDatabase() {
-
     abstract fun studentDao(): StudentDao
 }

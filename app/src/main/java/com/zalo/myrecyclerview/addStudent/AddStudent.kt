@@ -12,12 +12,12 @@ import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.databinding.ActivityAddStudentBinding
 import com.zalo.myrecyclerview.home.Student
 import com.zalo.myrecyclerview.util.MyApplication
-import io.reactivex.disposables.CompositeDisposable
+import com.zalo.myrecyclerview.util.subscribeAndLogErrors
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class AddStudent : GeneralActivity() {
-
 
     private lateinit var inputTextName: EditText
     private lateinit var inputTextLastName: EditText
@@ -71,11 +71,11 @@ class AddStudent : GeneralActivity() {
                 .add(
                     MyApplication.dataBase.studentDao().insert(student)
                         .subscribeOn(Schedulers.io())
-                        //  .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeAndLogErrors {
                             setResult(RESULT_OK, intent)
                             finish()
-                        }, {})
+                        }
                 )
 
         }
@@ -99,12 +99,10 @@ class AddStudent : GeneralActivity() {
 
     private fun retrieverExtras() {
         MyApplication.dataBase.studentDao().getById(intent.getIntExtra("itemId", 0))
-            .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ student = it }, {
-                println(it.message)
-            })
-
+            .subscribeAndLogErrors {
+                student = it
+            }
     }
-
 }

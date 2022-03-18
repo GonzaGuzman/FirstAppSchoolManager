@@ -1,6 +1,5 @@
 package com.zalo.myrecyclerview.home
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -12,9 +11,10 @@ import com.zalo.myrecyclerview.databinding.ActivityMainBinding
 import com.zalo.myrecyclerview.home.adapter.StudentAdapter
 import com.zalo.myrecyclerview.util.MyApplication.Companion.dataBase
 import com.zalo.myrecyclerview.util.MySharedPreferences
+import com.zalo.myrecyclerview.util.showMessage
+import com.zalo.myrecyclerview.util.subscribeAndLogErrors
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-
 
 class HomeActivity : GeneralActivity() {
 
@@ -23,10 +23,9 @@ class HomeActivity : GeneralActivity() {
     private lateinit var adapter: StudentAdapter
     private var resultLauncher = registerForActivityResult(StartActivityForResult()) {
         if (it.resultCode == RESULT_OK) {
-            Toast.makeText(this, "Lista Actualizada", Toast.LENGTH_LONG).show()
+            "Lista Actualizada".showMessage(this)
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,15 +74,10 @@ class HomeActivity : GeneralActivity() {
         dataBase.studentDao().getAllStudent()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ students ->
+            .subscribeAndLogErrors { students ->
                 studentList.addAll(students)
                 adapter = StudentAdapter(studentList)
                 binding.recycler.adapter = adapter
-            }, {
-                println(it.message)
-            })
-
-
+            }
     }
-
 }
