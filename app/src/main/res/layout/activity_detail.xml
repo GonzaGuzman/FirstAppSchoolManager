@@ -1,137 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/sizeTitleRadioGrop"
-    android:orientation="vertical"
     tools:context=".detail.DetailActivity">
 
     <TextView
         android:id="@+id/tvId"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/itemTextSize"
+        android:layout_marginTop="@dimen/margin20"
+        android:layout_marginBottom="@dimen/margin20"
         android:text="Id"
         android:textSize="@dimen/itemTextSize"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/tvIdVisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/etId"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvIdVisible"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/itemTextSize"
-        android:enabled="false"
+        android:layout_marginBottom="@dimen/margin20"
         android:textAlignment="center"
         android:textSize="@dimen/itemTextSize"
         android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/tvName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvId"
         tools:text="ID" />
 
     <TextView
         android:id="@+id/tvName"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/itemTextSize"
+        android:layout_marginBottom="@dimen/margin20"
         android:text="Nombre"
         android:textSize="@dimen/itemTextSize"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/tvNameVisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvIdVisible" />
+
+    <TextView
+        android:id="@+id/tvNameVisible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin20"
+        android:textAlignment="center"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/tvLastName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        tools:text="nombre" />
 
     <EditText
         android:id="@+id/etName"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/itemTextSize"
+        android:layout_marginBottom="@dimen/margin20"
         android:enabled="false"
         android:textAlignment="center"
         android:textSize="@dimen/itemTextSize"
         android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/tvLastName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
         tools:text="nombre" />
 
     <TextView
         android:id="@+id/tvLastName"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/itemTextSize"
+        android:layout_marginBottom="@dimen/margin20"
         android:text="Apellido"
         android:textSize="@dimen/itemTextSize"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/tvLastNameVisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNameVisible" />
+
+    <TextView
+        android:id="@+id/tvLastNameVisible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin20"
+        android:textAlignment="center"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/tvAge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLastName"
+        tools:text="apellido" />
 
     <EditText
         android:id="@+id/etLastName"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/itemTextSize"
+        android:layout_marginBottom="@dimen/margin20"
         android:enabled="false"
         android:textAlignment="center"
         android:textSize="@dimen/itemTextSize"
         android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/tvAge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLastName"
         tools:text="nombre" />
 
     <TextView
         android:id="@+id/tvAge"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/itemTextSize"
+        android:layout_marginBottom="@dimen/margin20"
         android:text="Edad"
         android:textSize="@dimen/itemTextSize"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/tvAgeVisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLastNameVisible" />
+
+    <TextView
+        android:id="@+id/tvAgeVisible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin20"
+        android:textAlignment="center"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/tvGender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAge"
+        tools:text="edad" />
 
     <EditText
         android:id="@+id/etAge"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/itemTextSize"
+        android:layout_marginBottom="@dimen/margin20"
         android:enabled="false"
         android:textAlignment="center"
         android:textSize="@dimen/itemTextSize"
         android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/tvGender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAge"
         tools:text="nombre" />
 
     <TextView
         android:id="@+id/tvGender"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/itemTextSize"
+        android:layout_marginBottom="@dimen/margin20"
         android:text="Genero"
         android:textSize="@dimen/itemTextSize"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/tvGenderVisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAgeVisible" />
+
+    <TextView
+        android:id="@+id/tvGenderVisible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin20"
+        android:textAlignment="center"
+        android:textSize="@dimen/itemTextSize"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGender"
+        tools:text="Genero" />
 
     <EditText
         android:id="@+id/etGender"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/itemTextSize"
+        android:layout_marginBottom="@dimen/margin20"
         android:enabled="false"
         android:textAlignment="center"
         android:textSize="@dimen/itemTextSize"
         android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGender"
         tools:text="Genero" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/itemTextSize"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnModify"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start|center"
-            android:layout_margin="@dimen/cardview_default_radius"
-            android:layout_weight="1"
-            android:text="@string/edit_data" />
+    <Button
+        android:id="@+id/btnModify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin5"
+        android:padding="@dimen/padding30"
+        android:text="@string/edit_data"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnRemove"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvGenderVisible" />
 
-        <Button
-            android:id="@+id/btnRemove"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="end|center"
-            android:layout_margin="@dimen/cardview_default_radius"
-            android:layout_weight="1"
-            android:text="@string/remove_data" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin20"
+        android:padding="@dimen/padding30"
+        android:text="@string/remove_data"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnModify"
+        app:layout_constraintTop_toBottomOf="@id/tvGenderVisible" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

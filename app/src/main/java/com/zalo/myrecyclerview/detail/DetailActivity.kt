@@ -28,11 +28,11 @@ class DetailActivity : GeneralActivity() {
     }
 
     private fun retrieverExtras() {
-        binding.etId.hint = intent.getIntExtra("itemId", 0).toString()
-        binding.etName.hint = intent.getStringExtra("itemNAME").toString()
-        binding.etLastName.hint = intent.getStringExtra("itemLAST_NAME").toString()
-        binding.etAge.hint = intent.getIntExtra("itemAGE", 0).toString()
-        binding.etGender.hint = intent.getStringExtra("itemGENDER").toString()
+        binding.tvIdVisible.text = intent.getIntExtra("itemId", 0).toString()
+        binding.tvNameVisible.text = intent.getStringExtra("itemNAME").toString()
+        binding.tvLastNameVisible.text = intent.getStringExtra("itemLAST_NAME").toString()
+        binding.tvAgeVisible.text = intent.getIntExtra("itemAGE", 0).toString()
+        binding.tvGenderVisible.text = intent.getStringExtra("itemGENDER").toString()
 
     }
 
