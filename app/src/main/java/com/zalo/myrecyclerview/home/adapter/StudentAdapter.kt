@@ -23,10 +23,6 @@ class StudentAdapter(private val list: List<Student>) : RecyclerView.Adapter<Stu
             val intent = Intent(holder.itemView.context, DetailActivity::class.java)
 
             intent.putExtra("itemId", item.id)
-            intent.putExtra("itemNAME", item.name)
-            intent.putExtra("itemLAST_NAME", item.lastName)
-            intent.putExtra("itemAGE", item.age)
-            intent.putExtra("itemGENDER", item.gender)
             holder.itemView.context.startActivity(intent)
         })
     }

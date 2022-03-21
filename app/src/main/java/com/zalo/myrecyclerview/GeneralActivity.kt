@@ -2,7 +2,6 @@ package com.zalo.myrecyclerview
 
 import android.content.DialogInterface
 import android.view.KeyEvent
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.zalo.myrecyclerview.util.MySharedPreferences
