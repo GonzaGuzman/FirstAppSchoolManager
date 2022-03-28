@@ -128,7 +128,7 @@ class DetailActivity : GeneralActivity(), OnItemSelectedListener {
             binding.etAge.visibility = View.VISIBLE
             binding.etAge.isEnabled = true
             binding.etAge.setOnClickListener {
-                if (binding.etName.text.toString().isEmpty()) {
+                if (binding.etAge.text.toString().isEmpty()) {
                     "EL CAMPO NO PUEDE QUEDAR VACIO".showMessage(this)
                 } else {
                     student.age = binding.etAge.text.toString().toInt()

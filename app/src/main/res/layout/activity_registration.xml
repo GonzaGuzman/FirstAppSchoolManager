@@ -1,85 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".registration.RegistrationActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/headerActivityRegistration"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/button_padding"
-        android:text="@string/headerRegistration"
-        android:textSize="@dimen/headerTextSizeRegistration"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="16dp"
+        tools:context=".registration.RegistrationActivity">
 
-    <EditText
-        android:id="@+id/schoolNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/nameSchool"
-        android:inputType="textCapWords"
-        android:maxLines="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerActivityRegistration" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/headerActivityRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/button_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <CheckBox
-        android:id="@+id/primaryCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/primary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/schoolNameEditText" />
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Widget.TipTime.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/headerRegistration"
+                android:textSize="@dimen/headerTextSizeRegistration" />
 
-    <CheckBox
-        android:id="@+id/highSchoolCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/highSchool"
-        app:layout_constraintStart_toEndOf="@+id/primaryCheck"
-        app:layout_constraintTop_toTopOf="@id/primaryCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/btn_margin"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:id="@+id/icSchool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen16"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_school"
+            app:layout_constraintBottom_toBottomOf="@id/schoolName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/schoolName" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/schoolName"
+            android:layout_width="@dimen/match_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen16"
+            android:layout_marginEnd="@dimen/dimen16"
+            android:hint="@string/nameSchool"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/icSchool"
+            app:layout_constraintTop_toBottomOf="@id/headerActivityRegistration">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/schoolNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <ImageView
+            android:id="@+id/icTypeEducation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen16"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_type_education"
+            app:layout_constraintBottom_toBottomOf="@id/typeEducation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/typeEducation" />
+
+        <TextView
+            android:id="@+id/typeEducation"
+            style="@style/Widget.TipTime.TextView"
+            android:layout_width="@dimen/match_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen16"
+            android:text="@string/type_education"
+            app:layout_constraintEnd_toEndOf="@id/schoolName"
+            app:layout_constraintStart_toStartOf="@id/schoolName"
+            app:layout_constraintTop_toBottomOf="@id/schoolName" />
+
+        <RadioGroup
+            android:id="@+id/typeEduOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen16"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@id/typeEducation"
+            app:layout_constraintTop_toBottomOf="@id/typeEducation">
+
+            <RadioButton
+                android:id="@+id/primaryCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/primary" />
+
+            <RadioButton
+                android:id="@+id/highSchoolCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highSchool" />
+
+            <RadioButton
+                android:id="@+id/bothOfThemCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bothOfThem" />
+        </RadioGroup>
 
         <Button
             android:id="@+id/btnContinue"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/match_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen16"
+            android:layout_marginTop="@dimen/dimen50"
+            android:layout_marginEnd="@dimen/dimen16"
             android:text="@string/continueBtn"
             app:layout_constraintBottom_toTopOf="@+id/btnCloseSession"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/highSchoolCheck" />
+            app:layout_constraintTop_toBottomOf="@id/typeEduOptions" />
 
         <Button
             android:id="@+id/btnCloseSession"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/match_content"
             android:layout_height="wrap_content"
             android:text="@string/close_session"
             app:layout_constraintBottom_toTopOf="@+id/btnEnd"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnContinue" />
+            app:layout_constraintEnd_toEndOf="@id/btnContinue"
+            app:layout_constraintStart_toStartOf="@+id/btnContinue" />
 
         <Button
             android:id="@+id/btnEnd"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/match_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="@string/end"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnCloseSession" />
+            app:layout_constraintEnd_toEndOf="@id/btnContinue"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/btnContinue" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

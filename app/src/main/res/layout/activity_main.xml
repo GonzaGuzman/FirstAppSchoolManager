@@ -19,6 +19,7 @@
         android:id="@+id/CheckHomePrimary"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:text="@string/primaryEducation"
         app:layout_constraintEnd_toStartOf="@id/btnAdd"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,10 +29,21 @@
         android:id="@+id/CheckHomeHighSchool"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:text="@string/highSchoolEducation"
         app:layout_constraintEnd_toStartOf="@id/btnAdd"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/CheckHomePrimary"
         app:layout_constraintTop_toBottomOf="@id/CheckHomePrimary" />
+
+    <CheckBox
+        android:id="@+id/CheckHomeBothOfThem"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="@string/bothOfThem"
+        app:layout_constraintEnd_toStartOf="@id/btnAdd"
+        app:layout_constraintStart_toStartOf="@id/CheckHomePrimary"
+        app:layout_constraintTop_toBottomOf="@id/CheckHomeHighSchool" />
 
     <TextView
         android:id="@+id/textViewHome"
@@ -51,7 +63,7 @@
         android:text="@string/studentNameListTitle"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/CheckHomeHighSchool" />
+        app:layout_constraintTop_toBottomOf="@id/CheckHomeBothOfThem" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"

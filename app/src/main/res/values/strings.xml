@@ -32,6 +32,8 @@
     <string name="whish_to_continue">DESEA CONTINUAR?</string>
     <string name="edit_data">Editar datos</string>
     <string name="remove_data">Eliminar datos</string>
+    <string name="bothOfThem">Ambos</string>
+    <string name="type_education">Tipo de Educación:</string>
     <string-array name="options_gender">
         <item>Masculino</item>
         <item>Femenino</item>

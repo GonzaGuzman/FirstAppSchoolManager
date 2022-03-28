@@ -5,13 +5,10 @@ class MySharedPreferences {
         get() = prefs.getString(SCHOOL_NAME, "") ?: ""
         set(value) = prefs.edit().putString(SCHOOL_NAME, value).apply()
 
-    var isPrimary: Boolean
-        get() = prefs.getBoolean(IS_PRIMARY, false)
-        set(value) = prefs.edit().putBoolean(IS_PRIMARY, value).apply()
+    var typeEducation: String
+        get() = prefs.getString(TYPE_EDUCATION, "") ?: ""
+        set(value) = prefs.edit().putString(TYPE_EDUCATION, value).apply()
 
-    var isHighSchool: Boolean
-        get() = prefs.getBoolean(IS_HIGH_SCHOOL, false)
-        set(value) = prefs.edit().putBoolean(IS_HIGH_SCHOOL, value).apply()
 
     fun wipe() {
         prefs.edit().clear().apply()
@@ -20,9 +17,7 @@ class MySharedPreferences {
     companion object {
         val prefs = MyApplication.preferences
         const val SCHOOL_NAME = "schoolName"
-        const val IS_PRIMARY = "isPrimary"
-        const val IS_HIGH_SCHOOL = "isHighSchool"
-
+        const val TYPE_EDUCATION = "typeEducation"
     }
 }
 

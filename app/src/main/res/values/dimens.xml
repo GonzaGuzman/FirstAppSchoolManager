@@ -14,4 +14,9 @@
     <dimen name="margin20">20dp</dimen>
     <dimen name="margin5">5dp</dimen>
     <dimen name="padding30">30dp</dimen>
+    <dimen name="min_text_height">48dp</dimen>
+    <dimen name="dimen16">16dp</dimen>
+    <dimen name="match_content">0dp</dimen>
+    <dimen name="dimen100">100dp</dimen>
+    <dimen name="dimen50">50dp</dimen>
 </resources>

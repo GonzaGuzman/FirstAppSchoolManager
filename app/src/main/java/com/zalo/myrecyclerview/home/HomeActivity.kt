@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zalo.myrecyclerview.GeneralActivity
+import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.addStudent.AddStudent
 import com.zalo.myrecyclerview.databinding.ActivityMainBinding
 import com.zalo.myrecyclerview.home.adapter.StudentAdapter
@@ -41,15 +42,11 @@ class HomeActivity : GeneralActivity() {
     private fun retrieveExtras() {
 
         val schoolName = MySharedPreferences().schoolName
-        if (MySharedPreferences().isPrimary) {
-            binding.CheckHomePrimary.isChecked = true
+        when (MySharedPreferences().typeEducation) {
+            R.id.primaryCheck.toString() -> binding.CheckHomePrimary.isChecked = true
+            R.id.highSchoolCheck.toString() -> binding.CheckHomeHighSchool.isChecked = true
+            R.id.bothOfThemCheck.toString() -> binding.CheckHomeBothOfThem.isChecked = true
         }
-
-        if (MySharedPreferences().isHighSchool) {
-            binding.CheckHomeHighSchool.isChecked = true
-        }
-        binding.CheckHomePrimary.isEnabled = false
-        binding.CheckHomeHighSchool.isEnabled = false
         binding.textViewHome.text = schoolName
     }
 

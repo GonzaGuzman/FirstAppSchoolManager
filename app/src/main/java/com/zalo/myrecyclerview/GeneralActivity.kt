@@ -1,7 +1,10 @@
 package com.zalo.myrecyclerview
 
+import android.content.Context
 import android.content.DialogInterface
 import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.zalo.myrecyclerview.util.MySharedPreferences
@@ -35,5 +38,17 @@ abstract class GeneralActivity : AppCompatActivity() {
             builder.show()
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+
+     fun handleKeyEvent(view: View, keyCode: Int): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+            // Hide the keyboard
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            return true
+        }
+        return false
     }
 }
