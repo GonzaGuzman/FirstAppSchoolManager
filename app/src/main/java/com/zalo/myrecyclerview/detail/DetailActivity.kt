@@ -1,5 +1,6 @@
 package com.zalo.myrecyclerview.detail
 
+import android.content.Intent
 import android.widget.*
 import android.os.Bundle
 import android.view.View
@@ -15,17 +16,26 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
+const val KEY_ID = "idStudent"
 
 class DetailActivity : GeneralActivity(), OnItemSelectedListener {
 
+    private var retriever = 0
     private lateinit var binding: ActivityDetailBinding
     private lateinit var student: Student
     private lateinit var listGender: Array<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if(savedInstanceState != null){
+            retriever = savedInstanceState.getInt(KEY_ID)
+        }
+
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        retriever = intentRetriever(intent)
         initComponent()
+
     }
 
     private fun retrieverExtras() {
@@ -36,9 +46,10 @@ class DetailActivity : GeneralActivity(), OnItemSelectedListener {
         binding.tvGenderVisible.text = student.gender
 
     }
+    private fun intentRetriever(intent: Intent) = intent.getIntExtra("itemId", 0)
 
     private fun initComponent() {
-        dataBase.studentDao().getById(intent.getIntExtra("itemId", 0))
+        dataBase.studentDao().getById(retriever)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -170,8 +181,13 @@ class DetailActivity : GeneralActivity(), OnItemSelectedListener {
         TODO("Not yet implemented")
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt(KEY_ID, retriever)
+        super.onSaveInstanceState(outState)
+    }
 
 }
+
 
 
 

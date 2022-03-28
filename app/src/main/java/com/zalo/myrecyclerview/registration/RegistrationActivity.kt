@@ -23,14 +23,21 @@ class RegistrationActivity : GeneralActivity() {
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initComponent()
-        binding.schoolNameEditText.setOnKeyListener{view,keyCode,_ -> handleKeyEvent(view,keyCode)}
+        binding.schoolNameEditText.setOnKeyListener { view, keyCode, _ ->
+            handleKeyEvent(
+                view,
+                keyCode
+            )
+        }
     }
 
     private fun initComponent() {
 
         if (sharedPreferences.schoolName.isNotEmpty()) {
             binding.schoolNameEditText.isEnabled = false
-            binding.typeEduOptions.isEnabled = false
+            binding.primaryCheck.isEnabled = false
+            binding.highSchoolCheck.isEnabled = false
+            binding.bothOfThemCheck.isEnabled = false
             binding.schoolNameEditText.setText(MySharedPreferences().schoolName)
         }
 
@@ -62,7 +69,9 @@ class RegistrationActivity : GeneralActivity() {
     private fun closeSession() {
         val positiveButtonClickListener = { _: DialogInterface, _: Int ->
             getString(R.string.yes).showMessage(this)
-            binding.typeEduOptions.isEnabled = true
+            binding.primaryCheck.isEnabled = true
+            binding.highSchoolCheck.isEnabled = true
+            binding.bothOfThemCheck.isEnabled = true
             binding.schoolNameEditText.isEnabled = true
             binding.schoolNameEditText.setText("")
             MySharedPreferences().wipe()
