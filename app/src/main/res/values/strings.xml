@@ -34,6 +34,12 @@
     <string name="remove_data">Eliminar datos</string>
     <string name="bothOfThem">Ambos</string>
     <string name="type_education">Tipo de Educación:</string>
+    <string name="id">Id</string>
+    <string name="name">Nombre</string>
+    <string name="lastName">Apellido</string>
+    <string name="age">Edad</string>
+    <string name="gender">Genero</string>
+    <string name="updated_list">Lista Actualizada</string>
     <string-array name="options_gender">
         <item>Masculino</item>
         <item>Femenino</item>

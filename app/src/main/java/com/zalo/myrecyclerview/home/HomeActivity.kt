@@ -23,7 +23,7 @@ class HomeActivity : GeneralActivity() {
     private lateinit var adapter: StudentAdapter
     private var resultLauncher = registerForActivityResult(StartActivityForResult()) {
         if (it.resultCode == RESULT_OK) {
-            "Lista Actualizada".showMessage(this)
+            getString(R.string.updated_list).showMessage(this)
         }
     }
 

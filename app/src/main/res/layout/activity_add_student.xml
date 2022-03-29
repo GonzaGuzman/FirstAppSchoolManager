@@ -45,7 +45,7 @@
         android:layout_height="@dimen/match_constraint"
         android:text="@string/textActivityAdd"
         android:textAlignment="center"
-        android:textSize="@dimen/sizeTitleRadioGrop"
+        android:textSize="@dimen/sizeTitleRadioGroup"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/studentAge" />
 

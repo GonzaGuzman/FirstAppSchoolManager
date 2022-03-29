@@ -9,7 +9,7 @@
     <dimen name="itemTextSize">20sp</dimen>
     <dimen name="itemCardMargin">16dp</dimen>
     <dimen name="width_radioButton">200dp</dimen>
-    <dimen name="sizeTitleRadioGrop">30sp</dimen>
+    <dimen name="sizeTitleRadioGroup">30sp</dimen>
     <dimen name="btn_margin">25dp</dimen>
     <dimen name="margin20">20dp</dimen>
     <dimen name="margin5">5dp</dimen>
