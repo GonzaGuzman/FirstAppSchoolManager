@@ -1,16 +1,15 @@
-package com.zalo.myrecyclerview.detail
+package com.zalo.myrecyclerview
 
-import android.content.Intent
-import android.widget.*
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.AdapterView.*
-import com.zalo.myrecyclerview.GeneralActivity
-import com.zalo.myrecyclerview.R
-import com.zalo.myrecyclerview.databinding.ActivityDetailBinding
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.zalo.myrecyclerview.databinding.FragmentDetailBinding
 import com.zalo.myrecyclerview.home.Student
-import com.zalo.myrecyclerview.util.MyApplication.Companion.dataBase
-import com.zalo.myrecyclerview.util.showMessage
+import com.zalo.myrecyclerview.util.MyApplication
 import com.zalo.myrecyclerview.util.subscribeAndLogErrors
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -18,24 +17,35 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 const val KEY_ID = "idStudent"
 
-class DetailActivity : GeneralActivity(), OnItemSelectedListener {
+class DetailFragment : Fragment() {
 
+    private var idStudent = 0
+    private var _binding: FragmentDetailBinding? = null
+    private val binding get() = _binding!!
     private var retriever = 0
-    private lateinit var binding: ActivityDetailBinding
     private lateinit var student: Student
-    private lateinit var listGender: Array<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        if(savedInstanceState != null){
+        arguments?.let {
+            idStudent = it.getInt(ID)
+        }
+        if (savedInstanceState != null) {
             retriever = savedInstanceState.getInt(KEY_ID)
         }
+    }
 
-        binding = ActivityDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        retriever = intentRetriever(intent)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        retriever = idStudent
         initComponent()
-
     }
 
     private fun retrieverExtras() {
@@ -46,10 +56,9 @@ class DetailActivity : GeneralActivity(), OnItemSelectedListener {
         binding.tvGenderVisible.text = student.gender
 
     }
-    private fun intentRetriever(intent: Intent) = intent.getIntExtra("itemId", 0)
 
     private fun initComponent() {
-        dataBase.studentDao().getById(retriever)
+        MyApplication.dataBase.studentDao().getById(retriever)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -63,12 +72,13 @@ class DetailActivity : GeneralActivity(), OnItemSelectedListener {
         binding.btnRemove.setOnClickListener {
             CompositeDisposable()
                 .add(
-                    dataBase.studentDao().delete(student)
+                    MyApplication.dataBase.studentDao().delete(student)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeAndLogErrors {
-                            "Datos Eliminados".showMessage(this)
-                            finish()
+                            Toast.makeText(requireContext(), "Datos Eliminados", Toast.LENGTH_SHORT)
+                                .show()
+                            findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
                         }
                 )
         }
@@ -76,14 +86,14 @@ class DetailActivity : GeneralActivity(), OnItemSelectedListener {
         binding.btnModify.setOnClickListener {
             CompositeDisposable()
                 .add(
-                    dataBase.studentDao().update(student)
+                    MyApplication.dataBase.studentDao().update(student)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeAndLogErrors {
-                            "Cambios Guardados".showMessage(this)
+                            Toast.makeText(requireContext(),
+                                "Cambios Guardados",
+                                Toast.LENGTH_SHORT).show()
                             binding.btnModify.isEnabled = false
-                            binding.spnGender.isEnabled = false
-                            binding.spnGender.visibility = View.INVISIBLE
                             binding.tvGenderVisible.visibility = View.VISIBLE
 
                         }
@@ -91,7 +101,8 @@ class DetailActivity : GeneralActivity(), OnItemSelectedListener {
         }
 
         binding.tvIdVisible.setOnLongClickListener {
-            "NO ES PODIBLE MODIFICAR ID".showMessage(this)
+            Toast.makeText(requireContext(), "NO ES PODIBLE MODIFICAR ID", Toast.LENGTH_SHORT)
+                .show()
             true
         }
 
@@ -101,7 +112,10 @@ class DetailActivity : GeneralActivity(), OnItemSelectedListener {
             binding.etName.isEnabled = true
             binding.etName.setOnClickListener {
                 if (binding.etName.text.toString().isEmpty()) {
-                    "EL CAMPO NO PUEDE QUEDAR VACIO".showMessage(this)
+                    binding.tvNameVisible.visibility = View.VISIBLE
+                    binding.etName.visibility = View.INVISIBLE
+                    binding.tvNameVisible.visibility = View.VISIBLE
+                    binding.etName.isEnabled = false
                 } else {
                     student.name = binding.etName.text.toString()
                     binding.tvNameVisible.text = binding.etName.text.toString()
@@ -121,7 +135,10 @@ class DetailActivity : GeneralActivity(), OnItemSelectedListener {
             binding.etLastName.isEnabled = true
             binding.etLastName.setOnClickListener {
                 if (binding.etLastName.text.toString().isEmpty()) {
-                    "EL CAMPO NO PUEDE QUEDAR VACIO".showMessage(this)
+                    binding.tvLastNameVisible.visibility = View.VISIBLE
+                    binding.etLastName.visibility = View.INVISIBLE
+                    binding.tvLastNameVisible.visibility = View.VISIBLE
+                    binding.etLastName.isEnabled = false
                 } else {
                     student.lastName = binding.etLastName.text.toString()
                     binding.tvLastNameVisible.text = binding.etLastName.text.toString()
@@ -140,7 +157,10 @@ class DetailActivity : GeneralActivity(), OnItemSelectedListener {
             binding.etAge.isEnabled = true
             binding.etAge.setOnClickListener {
                 if (binding.etAge.text.toString().isEmpty()) {
-                    "EL CAMPO NO PUEDE QUEDAR VACIO".showMessage(this)
+                    binding.tvAgeVisible.visibility = View.VISIBLE
+                    binding.etAge.visibility = View.INVISIBLE
+                    binding.tvAge.visibility = View.VISIBLE
+                    binding.etAge.isEnabled = false
                 } else {
                     student.age = binding.etAge.text.toString().toInt()
                     binding.tvAgeVisible.text = binding.etAge.text.toString()
@@ -154,14 +174,25 @@ class DetailActivity : GeneralActivity(), OnItemSelectedListener {
         }
 
         binding.tvGenderVisible.setOnLongClickListener {
-            listGender = resources.getStringArray(R.array.options_gender)
-            val adapterSpnGender =
-                ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listGender)
-            binding.spnGender.adapter = adapterSpnGender
             binding.tvGenderVisible.visibility = View.INVISIBLE
-            binding.spnGender.visibility = View.VISIBLE
-            binding.spnGender.isEnabled = true
-            binding.spnGender.onItemSelectedListener = this
+            binding.rbMale.visibility = View.VISIBLE
+            binding.rbFemale.visibility = View.VISIBLE
+            binding.rbMale.isEnabled = true
+            binding.rbFemale.isEnabled = true
+            binding.rbGender.setOnClickListener {
+                if (binding.rbGender.checkedRadioButtonId == R.id.rbMale) {
+                    student.gender = binding.rbMale.text.toString()
+                } else {
+                    student.gender = binding.rbFemale.text.toString()
+                }
+
+                binding.tvGenderVisible.text = student.gender
+                binding.rbMale.visibility = View.INVISIBLE
+                binding.rbFemale.visibility = View.INVISIBLE
+                binding.rbMale.isEnabled = false
+                binding.rbFemale.isEnabled = false
+                binding.btnModify.isEnabled = true
+            }
             binding.btnModify.isEnabled = true
             true
 
@@ -170,26 +201,13 @@ class DetailActivity : GeneralActivity(), OnItemSelectedListener {
     }
 
 
-
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        student.gender = listGender[p2]
-        binding.tvGenderVisible.text = listGender[p2]
-
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(KEY_ID, retriever)
         super.onSaveInstanceState(outState)
     }
 
+
+    companion object {
+        const val ID = "studentID"
+    }
 }
-
-
-
-
-
-

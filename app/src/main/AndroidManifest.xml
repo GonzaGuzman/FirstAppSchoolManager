@@ -10,14 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyRecyclerView" >
-        <activity
-            android:name=".detail.DetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".addStudent.AddStudent"
-            android:exported="false" />
-        <activity
-            android:name=".registration.RegistrationActivity"
+
+        <activity android:name=".home.HomeActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.HomeActivity" />
+
     </application>
 
 </manifest>

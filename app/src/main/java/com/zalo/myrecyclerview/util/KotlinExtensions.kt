@@ -1,13 +1,10 @@
 package com.zalo.myrecyclerview.util
 
-import android.content.Context
 import android.widget.Toast
 import com.zalo.myrecyclerview.GeneralActivity
-import com.zalo.myrecyclerview.detail.DetailActivity
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
-import java.security.AccessControlContext
 
 fun Completable.subscribeAndLogErrors(block: () -> Unit): Disposable {
     return this.subscribe(
