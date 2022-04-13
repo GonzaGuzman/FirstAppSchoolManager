@@ -47,5 +47,7 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="save">GUARDADO</string>
+    <string name="save">GUARDAR</string>
+    <string name="edit">EDITAR</string>
+    <string name="remove">ELIMINAR</string>
 </resources>

@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyRecyclerView" >
 
-        <activity android:name=".home.HomeActivity"
+        <activity android:name=".ui.HomeActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,5 @@
-package com.zalo.myrecyclerview
+package com.zalo.myrecyclerview.ui
+
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.databinding.FragmentRegistrationBinding
 import com.zalo.myrecyclerview.util.MySharedPreferences
 
@@ -39,6 +42,7 @@ class RegistrationFragment : Fragment() {
         }
 
         binding.btnCloseSession.setOnClickListener {
+            // showCloseSessionAlert()
             closeSession()
         }
 
@@ -57,8 +61,21 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-    private fun closeSession() {
+    private fun showCloseSessionAlert() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage(getString(R.string.close_session))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.no)) { _, _ ->
 
+            }
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                closeSession()
+            }.show()
+
+    }
+
+
+    private fun closeSession() {
         binding.primaryCheck.isEnabled = true
         binding.highSchoolCheck.isEnabled = true
         binding.bothOfThemCheck.isEnabled = true

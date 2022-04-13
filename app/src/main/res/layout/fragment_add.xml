@@ -1,94 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddFragment">
+    android:id="@+id/layout_add"
+    tools:context=".ui.AddFragment">
 
-    <EditText
-        android:id="@+id/studentName"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="wrap_content"
-        android:hint="@string/enterName"
-        android:inputType="textCapWords"
-        android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <EditText
-        android:id="@+id/studentLastName"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="wrap_content"
-        android:hint="@string/enterLastName"
-        android:inputType="textCapWords"
-        android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/studentName" />
+        <variable
+            name="viewModel"
+            type="com.zalo.myrecyclerview.model.StudentViewModel" />
 
-    <EditText
-        android:id="@+id/studentAge"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="wrap_content"
-        android:hint="@string/enterAge"
-        android:inputType="number"
-        android:maxLength="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/studentLastName" />
+        <variable
+            name="addFragment"
+            type="com.zalo.myrecyclerview.ui.AddFragment" />
 
-    <TextView
-        android:id="@+id/titleRadioGroup"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/match_constraint"
-        android:text="@string/textActivityAdd"
-        android:textAlignment="center"
-        android:textSize="@dimen/sizeTitleRadioGroup"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/studentAge" />
+        android:layout_height="match_parent">
 
-    <RadioGroup
-        android:id="@+id/radioGroupGender"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/match_constraint"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleRadioGroup">
-
-        <RadioButton
-            android:id="@+id/radioButtonMale"
-            android:layout_width="@dimen/width_radioButton"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/studentName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/textRadioButtonMale" />
+            android:hint="@string/enterName"
+            app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <RadioButton
-            android:id="@+id/radioButtonFemale"
-            android:layout_width="@dimen/width_radioButton"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textCapWords"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/studentLastName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/textRadioButtonFemale" />
-    </RadioGroup>
+            android:hint="@string/enterLastName"
+            app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/studentName">
 
-    <Button
-        android:id="@+id/aggregateButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="@string/textButtonValidation"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/cancelButton"
-        app:layout_constraintStart_toStartOf="parent" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputLastNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textCapWords"
+                android:maxLines="1" />
 
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textCancelButton"
-        app:layout_constraintBottom_toBottomOf="@id/aggregateButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/aggregateButton" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/studentAge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/enterAge"
+            app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/studentLastName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputAgeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:maxLength="3" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/titleRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/match_constraint"
+            android:layout_marginTop="@dimen/dimen16"
+            android:text="@string/textActivityAdd"
+            android:textAlignment="center"
+            android:textSize="@dimen/sizeTitleRadioGroup"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/studentAge" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupGender"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/match_constraint"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleRadioGroup">
+
+            <RadioButton
+                android:id="@+id/radioButtonMale"
+                android:layout_width="@dimen/width_radioButton"
+                android:layout_height="wrap_content"
+                android:onClick='@{()-> viewModel.setGender(@string/maleText)}'
+                android:text="@string/textRadioButtonMale" />
+
+            <RadioButton
+                android:id="@+id/radioButtonFemale"
+                android:layout_width="@dimen/width_radioButton"
+                android:layout_height="wrap_content"
+                android:onClick='@{()-> viewModel.setGender(@string/femaleText)}'
+                android:text="@string/textRadioButtonFemale" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/aggregateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:onClick="@{()-> addFragment.addStudent()}"
+            android:text="@string/textButtonValidation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cancelButton"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()-> addFragment.cancel()}"
+            android:text="@string/textCancelButton"
+            app:layout_constraintBottom_toBottomOf="@id/aggregateButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/aggregateButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

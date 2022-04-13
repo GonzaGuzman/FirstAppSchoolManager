@@ -1,4 +1,4 @@
-package com.zalo.myrecyclerview
+package com.zalo.myrecyclerview.ui
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,24 +9,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
+import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.databinding.FragmentAddBinding
 import com.zalo.myrecyclerview.home.Student
-import com.zalo.myrecyclerview.util.MyApplication
-import com.zalo.myrecyclerview.util.subscribeAndLogErrors
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import com.zalo.myrecyclerview.model.StudentViewModel
+
 
 class AddFragment : Fragment() {
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
+
+    private val sharedViewModel: StudentViewModel by activityViewModels()
+
+    private var student = Student(0, "", "", 0, "")
+
+
     private lateinit var inputTextName: EditText
     private lateinit var inputTextLastName: EditText
     private lateinit var inputTextAge: EditText
     private lateinit var actionButton: Button
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,50 +43,39 @@ class AddFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = sharedViewModel
+            addFragment = this@AddFragment
+        }
         initComponent()
     }
 
 
     private fun initComponent() {
-        inputTextName = binding.studentName
-        inputTextLastName = binding.studentLastName
-        inputTextAge = binding.studentAge
+        inputTextName = binding.textInputNameEditText
+        inputTextLastName = binding.textInputLastNameEditText
+        inputTextAge = binding.textInputAgeEditText
         actionButton = binding.aggregateButton
         inputTextName.addTextChangedListener(textWatcher)
         inputTextLastName.addTextChangedListener(textWatcher)
         inputTextAge.addTextChangedListener(textWatcher)
+    }
 
-        binding.cancelButton.setOnClickListener {
-            findNavController().navigate(R.id.action_addFragment_to_homeFragment)
-        }
+    fun addStudent() {
+        student.name = inputTextName.text.toString()
+        student.lastName = inputTextLastName.text.toString()
+        student.age = inputTextAge.text.toString().toInt()
+        student.gender = sharedViewModel.gender.value.toString()
 
-        actionButton.setOnClickListener {
-            val genderDate = when (binding.radioGroupGender.checkedRadioButtonId) {
-                binding.radioButtonFemale.id -> getString(R.string.femaleText)
-                binding.radioButtonMale.id -> getString(R.string.maleText)
-                else -> getString(R.string.noGenederText)
-            }
+        sharedViewModel.setStudent(student)
+        Snackbar.make(binding.root, "Agregado exitosamente", Snackbar.LENGTH_SHORT).show()
+        resetView()
+    }
 
-            val student = Student(
-                0,
-                inputTextName.text.toString(),
-                inputTextLastName.text.toString(),
-                inputTextAge.text.toString().toInt(),
-                genderDate
-            )
-            CompositeDisposable()
-                .add(
-                    MyApplication.dataBase.studentDao().insert(student)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeAndLogErrors {
-                            resetView()
-                            Toast.makeText(context, getString(R.string.save), Toast.LENGTH_SHORT).show()
-                        }
-                )
-
-        }
-
+    fun cancel() {
+        findNavController().navigate(R.id.action_addFragment_to_homeFragment)
 
     }
 
@@ -105,5 +100,11 @@ class AddFragment : Fragment() {
         }
     }
 
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
+
 

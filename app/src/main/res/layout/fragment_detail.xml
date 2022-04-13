@@ -1,260 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DetailFragment">
+    android:id="@+id/layout_detail"
+    tools:context=".ui.DetailFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.zalo.myrecyclerview.model.StudentViewModel" />
+
+        <variable
+            name="detailFragment"
+            type="com.zalo.myrecyclerview.ui.DetailFragment" />
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/sizeTitleRadioGroup">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvId"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin20"
-            android:layout_marginBottom="@dimen/margin20"
-            android:text="@string/id"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="bold|italic"
-            app:layout_constraintBottom_toTopOf="@+id/tvIdVisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:padding="@dimen/dimen16">
 
-        <TextView
-            android:id="@+id/tvIdVisible"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin20"
-            android:textAlignment="center"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="italic"
-            app:layout_constraintBottom_toTopOf="@+id/tvName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvId"
-            tools:text="ID" />
+            <TextView
+                android:id="@+id/tvId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen16"
+                android:layout_marginBottom="@dimen/dimen16"
+                android:text="@string/id"
+                android:textSize="@dimen/itemTextSize"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toTopOf="@+id/tvIdVisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin20"
-            android:text="@string/name"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="bold|italic"
-            app:layout_constraintBottom_toTopOf="@+id/tvNameVisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvIdVisible" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tvIdVisible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen16"
+                android:background="@null"
+                android:hint="@{String.valueOf(viewModel.student.id)}"
+                android:textSize="@dimen/itemTextSize"
+                android:textStyle="italic"
+                app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintBottom_toTopOf="@+id/tvName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvId">
 
-        <TextView
-            android:id="@+id/tvNameVisible"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin20"
-            android:clickable="true"
-            android:focusable="true"
-            android:textAlignment="center"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="italic"
-            app:layout_constraintBottom_toTopOf="@+id/tvLastName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvName"
-            tools:text="nombre" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="false"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    tools:text="ID" />
 
-        <EditText
-            android:id="@+id/etName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin20"
-            android:enabled="false"
-            android:inputType="textCapWords"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="italic"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/tvLastName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvName"
-            tools:text="nombre" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tvLastName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin20"
-            android:text="@string/lastName"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="bold|italic"
-            app:layout_constraintBottom_toTopOf="@+id/tvLastNameVisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNameVisible" />
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen16"
+                android:text="@string/name"
+                android:textSize="@dimen/itemTextSize"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toTopOf="@+id/tvNameVisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvIdVisible" />
 
-        <TextView
-            android:id="@+id/tvLastNameVisible"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin20"
-            android:textAlignment="center"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="italic"
-            app:layout_constraintBottom_toTopOf="@+id/tvAge"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLastName"
-            tools:text="apellido" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tvNameVisible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen16"
+                android:background="@null"
+                android:hint="@{viewModel.student.name}"
+                android:textAlignment="center"
+                android:textSize="@dimen/itemTextSize"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@+id/tvLastName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvName">
 
-        <EditText
-            android:id="@+id/etLastName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin20"
-            android:enabled="false"
-            android:inputType="textCapWords"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="italic"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/tvAge"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLastName"
-            tools:text="nombre" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:afterTextChanged="@{()->detailFragment.updateName()}"
+                    android:enabled="false"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    tools:text="nombre" />
 
-        <TextView
-            android:id="@+id/tvAge"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin20"
-            android:text="@string/age"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="bold|italic"
-            app:layout_constraintBottom_toTopOf="@+id/tvAgeVisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLastNameVisible" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tvAgeVisible"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin20"
-            android:textAlignment="center"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="italic"
-            app:layout_constraintBottom_toTopOf="@+id/tvGender"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAge"
-            tools:text="edad" />
+            <TextView
+                android:id="@+id/tvLastName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen16"
+                android:text="@string/lastName"
+                android:textSize="@dimen/itemTextSize"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toTopOf="@+id/tvLastNameVisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNameVisible" />
 
-        <EditText
-            android:id="@+id/etAge"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin20"
-            android:enabled="false"
-            android:inputType="number"
-            android:maxLength="3"
-            android:textAlignment="center"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="italic"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/tvGender"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAge"
-            tools:text="nombre" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tvLastNameVisible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen16"
+                android:background="@null"
+                android:hint="@{viewModel.student.lastName}"
+                android:textSize="@dimen/itemTextSize"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@+id/tvAge"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLastName">
 
-        <TextView
-            android:id="@+id/tvGender"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin20"
-            android:text="@string/gender"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="bold|italic"
-            app:layout_constraintBottom_toTopOf="@+id/tvGenderVisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAgeVisible" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:afterTextChanged="@{()->detailFragment.updateLastName()}"
+                    android:enabled="false"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    tools:text="apellido" />
 
-        <TextView
-            android:id="@+id/tvGenderVisible"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin20"
-            android:textAlignment="center"
-            android:textSize="@dimen/itemTextSize"
-            android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvGender"
-            tools:text="Genero" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <RadioGroup
-            android:id="@+id/rbGender"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvGender"
-            tools:text="Genero">
+            <TextView
+                android:id="@+id/tvAge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen16"
+                android:text="@string/age"
+                android:textSize="@dimen/itemTextSize"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toTopOf="@+id/tvAgeVisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLastNameVisible" />
 
-            <RadioButton
-                android:id="@+id/rbMale"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tvAgeVisible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen16"
+                android:background="@null"
+                android:hint="@{String.valueOf(viewModel.student.age)}"
+                android:textSize="@dimen/itemTextSize"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@+id/tvGender"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAge">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:afterTextChanged="@{()->detailFragment.updateAge()}"
+                    android:enabled="false"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    tools:text="edad" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvGender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen16"
+                android:text="@string/gender"
+                android:textSize="@dimen/itemTextSize"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toTopOf="@+id/rbGender"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAgeVisible" />
+
+            <RadioGroup
+                android:id="@+id/rbGender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvGender"
+                tools:text="Genero">
+
+                <RadioButton
+                    android:id="@+id/rbMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen16"
+                    android:enabled="false"
+                    android:onClick='@{()->viewModel.setGender("Masculino")}'
+                    android:text="@string/textRadioButtonMale" />
+
+                <RadioButton
+                    android:id="@+id/rbFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen16"
+                    android:enabled="false"
+                    android:onClick='@{()->viewModel.setGender("Femenino")}'
+                    android:text="@string/textRadioButtonFemale" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btnSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen16"
+                android:layout_marginEnd="@dimen/margin5"
                 android:enabled="false"
-                android:text="@string/textRadioButtonMale"
-                android:visibility="invisible"/>
+                android:onClick="@{()->detailFragment.updStudent()}"
+                android:text="@string/save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnEdit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rbGender" />
 
-            <RadioButton
-                android:id="@+id/rbFemale"
+
+            <Button
+                android:id="@+id/btnEdit"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="@string/textRadioButtonFemale"
-                android:visibility="invisible"/>
-        </RadioGroup>
+                android:layout_marginStart="@dimen/margin20"
+                android:onClick="@{()->detailFragment.enabledViews()}"
+                android:text="@string/edit"
+                app:layout_constraintBottom_toBottomOf="@id/btnSave"
+                app:layout_constraintEnd_toStartOf="@id/btnRemove"
+                app:layout_constraintStart_toEndOf="@id/btnSave"
+                app:layout_constraintTop_toTopOf="@id/btnSave" />
 
-        <Button
-            android:id="@+id/btnModify"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin5"
-            android:enabled="false"
-            android:text="@string/edit_data"
-            android:layout_marginTop="@dimen/dimen64"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnRemove"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rbGender" />
-
-        <Button
-            android:id="@+id/btnRemove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin20"
-            android:text="@string/remove_data"
-            app:layout_constraintBottom_toBottomOf="@id/btnModify"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnModify"
-            app:layout_constraintTop_toTopOf="@id/btnModify" />
+            <Button
+                android:id="@+id/btnRemove"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin20"
+                android:onClick="@{()->detailFragment.deleteStudent()}"
+                android:text="@string/remove"
+                app:layout_constraintBottom_toBottomOf="@id/btnSave"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnEdit"
+                app:layout_constraintTop_toTopOf="@id/btnSave" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</layout>

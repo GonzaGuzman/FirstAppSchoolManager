@@ -1,5 +1,6 @@
 package com.zalo.myrecyclerview.util
 
+
 import android.widget.Toast
 import com.zalo.myrecyclerview.GeneralActivity
 import io.reactivex.rxjava3.core.Completable

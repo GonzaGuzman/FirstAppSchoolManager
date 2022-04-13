@@ -4,32 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/registrationFragment">
+
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.zalo.myrecyclerview.RegistrationFragment"
-        android:label="fragment_registration"
+        android:name="com.zalo.myrecyclerview.ui.RegistrationFragment"
+        android:label="Registro"
         tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registrationFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="false" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.zalo.myrecyclerview.AddFragment"
-        android:label="fragment_add"
+        android:name="com.zalo.myrecyclerview.ui.AddFragment"
+        android:label="Agregar nuevo Alumno"
         tools:layout="@layout/fragment_add">
         <action
             android:id="@+id/action_addFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.zalo.myrecyclerview.DetailFragment"
-        android:label="fragment_detail"
+        android:name="com.zalo.myrecyclerview.ui.DetailFragment"
+        android:label="Detalles de Alumno"
         tools:layout="@layout/fragment_detail">
         <action
             android:id="@+id/action_detailFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="studentID"
             android:defaultValue="0"
@@ -37,8 +44,8 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.zalo.myrecyclerview.HomeFragment"
-        android:label="fragment_home"
+        android:name="com.zalo.myrecyclerview.ui.HomeFragment"
+        android:label="Inicio"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_addFragment"

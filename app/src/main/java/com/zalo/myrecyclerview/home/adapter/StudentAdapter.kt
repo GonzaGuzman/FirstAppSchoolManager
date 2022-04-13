@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.zalo.myrecyclerview.HomeFragmentDirections
+
 import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.home.Student
+
+import com.zalo.myrecyclerview.ui.HomeFragmentDirections
 
 class StudentAdapter(private val list: List<Student>) : RecyclerView.Adapter<StudentViewHolder>() {
 

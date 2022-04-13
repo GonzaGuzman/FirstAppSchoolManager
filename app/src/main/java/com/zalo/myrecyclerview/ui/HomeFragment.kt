@@ -1,4 +1,4 @@
-package com.zalo.myrecyclerview
+package com.zalo.myrecyclerview.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.databinding.FragmentHomeBinding
 import com.zalo.myrecyclerview.home.Student
 import com.zalo.myrecyclerview.home.adapter.StudentAdapter
