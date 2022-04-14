@@ -11,6 +11,8 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
+const val zero = 0
+
 class StudentViewModel : ViewModel() {
 
     private val _student = MutableLiveData<Student?>()
@@ -65,7 +67,14 @@ class StudentViewModel : ViewModel() {
     }
 
 
-    fun setStudent(student: Student) {
+    fun setStudent() {
+        val student = Student(
+            zero,
+            _name.value.toString(),
+            _lastName.value.toString(),
+            _age.value?.toInt() ?: 0,
+            _gender.value.toString())
+
         CompositeDisposable()
             .add(
                 MyApplication.dataBase.studentDao().insert(student)
@@ -114,6 +123,15 @@ class StudentViewModel : ViewModel() {
     }
 
     fun reset() {
-        _student.value = null
+        _name.value = ""
+        _lastName.value = ""
+        _age.value = 0
+        _gender.value = ""
     }
+
+   /* init {
+        reset()
+    }
+
+    */
 }

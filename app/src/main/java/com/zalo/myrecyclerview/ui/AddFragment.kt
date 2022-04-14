@@ -1,20 +1,17 @@
 package com.zalo.myrecyclerview.ui
 
+import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.databinding.FragmentAddBinding
-import com.zalo.myrecyclerview.home.Student
 import com.zalo.myrecyclerview.model.StudentViewModel
 
 
@@ -24,15 +21,6 @@ class AddFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val sharedViewModel: StudentViewModel by activityViewModels()
-
-    private var student = Student(0, "", "", 0, "")
-
-
-    private lateinit var inputTextName: EditText
-    private lateinit var inputTextLastName: EditText
-    private lateinit var inputTextAge: EditText
-    private lateinit var actionButton: Button
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,30 +37,79 @@ class AddFragment : Fragment() {
             viewModel = sharedViewModel
             addFragment = this@AddFragment
         }
-        initComponent()
+    }
+
+    fun updateName() {
+        sharedViewModel.setName(binding.textInputName.text.toString())
     }
 
 
-    private fun initComponent() {
-        inputTextName = binding.textInputNameEditText
-        inputTextLastName = binding.textInputLastNameEditText
-        inputTextAge = binding.textInputAgeEditText
-        actionButton = binding.aggregateButton
-        inputTextName.addTextChangedListener(textWatcher)
-        inputTextLastName.addTextChangedListener(textWatcher)
-        inputTextAge.addTextChangedListener(textWatcher)
+    fun updateLastName() {
+        sharedViewModel.setLastName(binding.textInputLastName.text.toString())
+    }
+
+    fun updateAge() {
+        if ((binding.textInputAge.text?.isNotEmpty() ?: "") as Boolean) {
+            sharedViewModel.setAge(binding.textInputAge.text.toString().toInt())
+        }
+    }
+
+    private fun setErrorName(error: Boolean) {
+        if (error) {
+            binding.studentName.isErrorEnabled = true
+            binding.studentName.error = "POR FAVOR INGRESE EL NOMBRE"
+        } else {
+            binding.studentName.isErrorEnabled = false
+        }
+    }
+
+    private fun setErrorLastName(error: Boolean) {
+        if (error) {
+            binding.studentLastName.isErrorEnabled = true
+            binding.studentLastName.error = "POR FAVOR INGRESE EL APELLIDO"
+        } else {
+            binding.studentLastName.isErrorEnabled = false
+        }
+    }
+
+    private fun setErrorAge(error: Boolean) {
+        if (error) {
+            binding.studentAge.isErrorEnabled = true
+            binding.studentAge.error = "POR FAVOR INGRESE LA EDAD"
+        } else {
+            binding.studentAge.isErrorEnabled = false
+        }
     }
 
     fun addStudent() {
-        student.name = inputTextName.text.toString()
-        student.lastName = inputTextLastName.text.toString()
-        student.age = inputTextAge.text.toString().toInt()
-        student.gender = sharedViewModel.gender.value.toString()
 
-        sharedViewModel.setStudent(student)
-        Snackbar.make(binding.root, "Agregado exitosamente", Snackbar.LENGTH_SHORT).show()
-        resetView()
+        if (binding.textInputName.text?.isEmpty() == true) {
+            setErrorName(true)
+        } else
+            setErrorName(false)
+
+        if (binding.textInputLastName.text?.isEmpty() == true) {
+            setErrorLastName(true)
+        } else
+            setErrorLastName(false)
+
+        if (binding.textInputAge.text?.isEmpty() == true) {
+            setErrorAge(true)
+        } else
+            setErrorAge(false)
+
+
+        if ((!binding.textInputName.text.isNullOrEmpty()
+                    && !binding.textInputLastName.text.isNullOrEmpty()
+                    && !binding.textInputAge.text.isNullOrEmpty())
+        ) {
+            sharedViewModel.setStudent()
+            Snackbar.make(binding.root, "Agregado exitosamente", Snackbar.LENGTH_SHORT)
+                .show()
+            resetView()
+        }
     }
+
 
     fun cancel() {
         findNavController().navigate(R.id.action_addFragment_to_homeFragment)
@@ -80,30 +117,20 @@ class AddFragment : Fragment() {
     }
 
     private fun resetView() {
-        inputTextName.text.clear()
-        inputTextLastName.text.clear()
-        inputTextAge.text.clear()
-
+        sharedViewModel.reset()
+        binding.textInputName.text?.clear()
+        binding.textInputLastName.text?.clear()
+        binding.textInputAge.text?.clear()
     }
-
-    private val textWatcher = object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-        }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            actionButton.isEnabled =
-                inputTextName.text.isNotEmpty() && inputTextLastName.text.isNotEmpty() && inputTextAge.text.isNotEmpty()
-        }
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 }
 

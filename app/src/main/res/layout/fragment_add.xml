@@ -26,15 +26,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/enterName"
+            app:errorIconDrawable="@drawable/ic_error"
             app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputNameEditText"
+                android:id="@+id/textInputName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:afterTextChanged="@{()->addFragment.updateName()}"
                 android:inputType="textCapWords"
                 android:maxLines="1" />
 
@@ -45,15 +47,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/enterLastName"
+            app:errorIconDrawable="@drawable/ic_error"
             app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/studentName">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputLastNameEditText"
+                android:id="@+id/textInputLastName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:afterTextChanged="@{()->addFragment.updateLastName()}"
                 android:inputType="textCapWords"
                 android:maxLines="1" />
 
@@ -64,15 +68,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/enterAge"
+            app:errorIconDrawable="@drawable/ic_error"
             app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/studentLastName">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputAgeEditText"
+                android:id="@+id/textInputAge"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:afterTextChanged="@{()->addFragment.updateAge()}"
                 android:inputType="number"
                 android:maxLength="3" />
 
@@ -103,6 +109,7 @@
                 android:id="@+id/radioButtonMale"
                 android:layout_width="@dimen/width_radioButton"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:onClick='@{()-> viewModel.setGender(@string/maleText)}'
                 android:text="@string/textRadioButtonMale" />
 
@@ -118,7 +125,6 @@
             android:id="@+id/aggregateButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:onClick="@{()-> addFragment.addStudent()}"
             android:text="@string/textButtonValidation"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -127,6 +133,7 @@
 
         <Button
             android:id="@+id/cancelButton"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{()-> addFragment.cancel()}"
