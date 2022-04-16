@@ -5,13 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zalo.myrecyclerview.home.Student
+import com.zalo.myrecyclerview.home.adapter.StudentAdapter
 import com.zalo.myrecyclerview.util.MyApplication
 import com.zalo.myrecyclerview.util.subscribeAndLogErrors
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-const val zero = 0
+private const val zero = 0
 
 class StudentViewModel : ViewModel() {
 
@@ -33,6 +34,8 @@ class StudentViewModel : ViewModel() {
     private val _gender = MutableLiveData<String>()
     val gender: LiveData<String> = _gender
 
+    private val _studentsList = MutableLiveData<ArrayList<Student>>()
+    val studentsList: LiveData<ArrayList<Student>> = _studentsList
 
     fun setName(name: String) {
         _name.value = name
@@ -120,6 +123,15 @@ class StudentViewModel : ViewModel() {
                     .subscribeAndLogErrors {
                     }
             )
+    }
+
+    fun getAll(){
+        MyApplication.dataBase.studentDao().getAllStudent()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeAndLogErrors { students ->
+                _studentsList.value?.addAll(students)
+                }
     }
 
     fun reset() {

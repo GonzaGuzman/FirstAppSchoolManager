@@ -1,80 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".ui.HomeFragment">
 
-    <Button
-        android:id="@+id/btnAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/button_padding"
-        android:text="@string/add"
-        app:layout_constraintBottom_toTopOf="@id/recycler"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewHome" />
+    <data>
 
-    <CheckBox
-        android:id="@+id/CheckHomePrimary"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="@string/primaryEducation"
-        app:layout_constraintEnd_toStartOf="@id/btnAdd"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewHome" />
+        <variable
+            name="viewModelSchool"
+            type="com.zalo.myrecyclerview.model.SchoolViewModel" />
 
-    <CheckBox
-        android:id="@+id/CheckHomeHighSchool"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="@string/highSchoolEducation"
-        app:layout_constraintEnd_toStartOf="@id/btnAdd"
-        app:layout_constraintStart_toStartOf="@id/CheckHomePrimary"
-        app:layout_constraintTop_toBottomOf="@id/CheckHomePrimary" />
+        <variable
+            name="homeFragment"
+            type="com.zalo.myrecyclerview.ui.HomeFragment" />
 
-    <CheckBox
-        android:id="@+id/CheckHomeBothOfThem"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="@string/bothOfThem"
-        app:layout_constraintEnd_toStartOf="@id/btnAdd"
-        app:layout_constraintStart_toStartOf="@id/CheckHomePrimary"
-        app:layout_constraintTop_toBottomOf="@id/CheckHomeHighSchool" />
 
-    <TextView
-        android:id="@+id/textViewHome"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_element"
-        android:hint="@string/nameHint"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toStartOf="@id/btnAdd"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </data>
 
-    <TextView
-        android:id="@+id/headerRecyclerView"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/studentNameListTitle"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/CheckHomeBothOfThem" />
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/match_constraint"
-        android:layout_marginTop="@dimen/margin_element"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerRecyclerView" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textViewHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/button_padding"
+            app:layout_constraintEnd_toStartOf="@id/btnAdd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvNameSchool"
+                style="@style/Widget.TipTime.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/headerTextSizeRegistration"
+                tools:text="Nombre escuela" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTypeEducation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                tools:text="Tipo de educacion" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/headerRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen16"
+            android:text="@string/studentNameListTitle"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewHome" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/match_constraint"
+            android:layout_marginTop="@dimen/dimen16"
+            app:layout_constraintBottom_toTopOf="@id/btnAdd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headerRecyclerView" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen16"
+            android:layout_marginBottom="@dimen/dimen16"
+            android:onClick="@{()->homeFragment.goToAdd()}"
+            android:text="@string/add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

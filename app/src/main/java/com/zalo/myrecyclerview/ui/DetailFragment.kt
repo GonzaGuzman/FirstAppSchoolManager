@@ -16,9 +16,9 @@ import com.zalo.myrecyclerview.model.StudentViewModel
 class DetailFragment : Fragment() {
 
     private val sharedViewModel: StudentViewModel by activityViewModels()
-
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
+
     private var idStudent: Int = 0
 
 
