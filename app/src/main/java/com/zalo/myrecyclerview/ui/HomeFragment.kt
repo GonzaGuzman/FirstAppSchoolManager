@@ -20,6 +20,11 @@ import com.zalo.myrecyclerview.util.subscribeAndLogErrors
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
+
+/*
+vista principal
+NOTA: FALTA REFACTORIZAR!!
+ */
 class HomeFragment : Fragment() {
 
 
@@ -60,12 +65,10 @@ class HomeFragment : Fragment() {
 
     }
 
-    /*
-        fun getAllStudent(){
-            sharedViewModel.getAll()
-            adapter = StudentAdapter(sharedViewModel.studentsList.value)
-        }
-    */
+/*
+initComponents(): carga studentList con todos los estudiantes de database y establece  adapter para
+    recyclerView
+ */
     private fun initComponents() {
         MyApplication.dataBase.studentDao().getAllStudent()
             .subscribeOn(Schedulers.io())
@@ -77,6 +80,9 @@ class HomeFragment : Fragment() {
             }
     }
 
+    /*
+    gotoAdd(): navega a addFragment
+     */
     fun goToAdd() {
         findNavController().navigate(R.id.action_homeFragment_to_addFragment)
     }

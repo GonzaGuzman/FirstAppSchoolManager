@@ -14,6 +14,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 private const val zero = 0
 
+/*
+ViewModel con los metodos para crear, eliminar, obtener y modificar estudiantes de database
+ */
 class StudentViewModel : ViewModel() {
 
     private val _student = MutableLiveData<Student?>()
@@ -53,7 +56,11 @@ class StudentViewModel : ViewModel() {
         _gender.value = genderSelected
     }
 
-
+    /*
+    getStudent(): obtiene un estudiante por medio del id y lo asiga a la variable del objeto student, y ademas
+        setea las variables individuales con los atributos del estudiante con el fin que al modificar el estudiante
+        en caso de que el usuario deje algun campo en blanco por defecto mantenga el dato original del estudiante
+    */
     fun getStudent(id: Int) {
         MyApplication.dataBase.studentDao().getById(id)
             .subscribeOn(Schedulers.io())
@@ -69,6 +76,11 @@ class StudentViewModel : ViewModel() {
             })
     }
 
+    /*
+    setStudent(): inserta un nuevo estudiante a la base de datos utilizanto los datos recolectados en las variables
+        _name, _lastName, _age, _gender. por defecto el ID del estudiante es seteado con la constante zero ya su valor es
+        autogenerado por database
+     */
 
     fun setStudent() {
         val student = Student(
@@ -88,6 +100,10 @@ class StudentViewModel : ViewModel() {
             )
 
     }
+
+    /*
+    updateStudent(): Verifica y modifica de ser necesario los campos del estudiante antes de actualizarlos en database
+     */
 
     fun updateStudent() {
         if (_student.value?.name != _name.value) {
@@ -114,6 +130,10 @@ class StudentViewModel : ViewModel() {
 
     }
 
+    /*
+    deleteSetudent(): Elimina estudiante de database
+     */
+
     fun deleteStudent() {
         CompositeDisposable()
             .add(
@@ -125,6 +145,11 @@ class StudentViewModel : ViewModel() {
             )
     }
 
+    /*
+    getAll(): Obtiene todos los estudiantes de database.
+    NOTA: AUN EN PROCESO
+     */
+
     fun getAll(){
         MyApplication.dataBase.studentDao().getAllStudent()
             .subscribeOn(Schedulers.io())
@@ -134,6 +159,9 @@ class StudentViewModel : ViewModel() {
                 }
     }
 
+    /*
+    reset(): resetea las variableas a valores sin valor
+     */
     fun reset() {
         _name.value = ""
         _lastName.value = ""

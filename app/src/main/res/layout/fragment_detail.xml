@@ -214,8 +214,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen16"
+                    android:checked='@{viewModel.student.gender.equals(@string/maleText)}'
                     android:enabled="false"
-                    android:onClick='@{()->viewModel.setGender("Masculino")}'
+                    android:onClick='@{()->viewModel.setGender(@string/maleText)}'
                     android:text="@string/textRadioButtonMale" />
 
                 <RadioButton
@@ -223,8 +224,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen16"
+                    android:checked='@{viewModel.student.gender.equals(@string/femaleText)}'
                     android:enabled="false"
-                    android:onClick='@{()->viewModel.setGender("Femenino")}'
+                    android:onClick='@{()->viewModel.setGender(@string/femaleText)}'
                     android:text="@string/textRadioButtonFemale" />
             </RadioGroup>
 

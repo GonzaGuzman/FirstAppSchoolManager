@@ -14,7 +14,9 @@ import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.databinding.FragmentAddBinding
 import com.zalo.myrecyclerview.model.StudentViewModel
 
-
+/*
+Fragment encargado de la vista de agregar nuevo estudiante
+ */
 class AddFragment : Fragment() {
 
     private var _binding: FragmentAddBinding? = null
@@ -39,14 +41,24 @@ class AddFragment : Fragment() {
         }
     }
 
+    /*
+    updateName(): Setea en ViewModel el nombre del estudiante
+     */
     fun updateName() {
         sharedViewModel.setName(binding.textInputName.text.toString())
     }
 
+    /*
+    updateLastName(): Setea en ViewModel el apellido del estudiante
+     */
 
     fun updateLastName() {
         sharedViewModel.setLastName(binding.textInputLastName.text.toString())
     }
+
+    /*
+    updateAge(): Setea en ViewModel la edad del estudiante
+     */
 
     fun updateAge() {
         if ((binding.textInputAge.text?.isNotEmpty() ?: "") as Boolean) {
@@ -54,10 +66,15 @@ class AddFragment : Fragment() {
         }
     }
 
+    /*
+    setErrorName(), setErrorLastName(), setErrorAge() : metodos que reciben como parametro un booleando, en caso de recibir
+        "true"  envia un mensaje y activa el componente error
+        "false" si el componente error fue activado previamente lo desactiva sino no hace nada
+     */
     private fun setErrorName(error: Boolean) {
         if (error) {
             binding.studentName.isErrorEnabled = true
-            binding.studentName.error = "POR FAVOR INGRESE EL NOMBRE"
+            binding.studentName.error = getString(R.string.please_enter_name)
         } else {
             binding.studentName.isErrorEnabled = false
         }
@@ -66,7 +83,7 @@ class AddFragment : Fragment() {
     private fun setErrorLastName(error: Boolean) {
         if (error) {
             binding.studentLastName.isErrorEnabled = true
-            binding.studentLastName.error = "POR FAVOR INGRESE EL APELLIDO"
+            binding.studentLastName.error = getString(R.string.please_enter_lastname)
         } else {
             binding.studentLastName.isErrorEnabled = false
         }
@@ -75,11 +92,16 @@ class AddFragment : Fragment() {
     private fun setErrorAge(error: Boolean) {
         if (error) {
             binding.studentAge.isErrorEnabled = true
-            binding.studentAge.error = "POR FAVOR INGRESE LA EDAD"
+            binding.studentAge.error = getString(R.string.please_enter_age)
         } else {
             binding.studentAge.isErrorEnabled = false
         }
     }
+
+    /*
+    addStudent(): si alguno de los campos no fue completado envia un mensaje de alerta, caso contrario carga el
+        nuevo estudiante en database
+     */
 
     fun addStudent() {
 
@@ -104,18 +126,24 @@ class AddFragment : Fragment() {
                     && !binding.textInputAge.text.isNullOrEmpty())
         ) {
             sharedViewModel.setStudent()
-            Snackbar.make(binding.root, "Agregado exitosamente", Snackbar.LENGTH_SHORT)
+            Snackbar.make(binding.root, getString(R.string.successfully_added), Snackbar.LENGTH_SHORT)
                 .show()
             resetView()
         }
     }
 
 
+    /*
+    cancel(): vuelve a HomeFragment
+     */
     fun cancel() {
         findNavController().navigate(R.id.action_addFragment_to_homeFragment)
 
     }
 
+    /*
+    resetView(): limpia todos los campos
+     */
     private fun resetView() {
         sharedViewModel.reset()
         binding.textInputName.text?.clear()
@@ -128,6 +156,10 @@ class AddFragment : Fragment() {
         _binding = null
     }
 
+    /*
+    View.hideKeyboard(): funcion que oculta el teclado
+    NOTA: AHUN NO ESTA IMPLEMENTADA!!
+     */
     fun View.hideKeyboard() {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)

@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zalo.myrecyclerview.util.MySharedPreferences
 
+/*
+ViewModel con los metodos para guardar y obtener los datos de las escuelas desde MyShraredPreferences
+ */
 
 class SchoolViewModel : ViewModel() {
 
@@ -43,8 +46,9 @@ class SchoolViewModel : ViewModel() {
         _type.value = ""
     }
 
+    /*
     init {
         reset()
     }
-
+*/
 }

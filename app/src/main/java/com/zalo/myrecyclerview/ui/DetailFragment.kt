@@ -13,6 +13,9 @@ import com.zalo.myrecyclerview.R
 import com.zalo.myrecyclerview.databinding.FragmentDetailBinding
 import com.zalo.myrecyclerview.model.StudentViewModel
 
+/*
+Fragment encargado de mostrar y editar los atributos del estudiante
+ */
 class DetailFragment : Fragment() {
 
     private val sharedViewModel: StudentViewModel by activityViewModels()
@@ -35,11 +38,6 @@ class DetailFragment : Fragment() {
     ): View {
         sharedViewModel.getStudent(idStudent)
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        if (sharedViewModel.student.value?.gender == getString(R.string.maleText)) {
-            binding.rbMale.isChecked = true
-        } else {
-            binding.rbFemale.isChecked = true
-        }
         return binding.root
 
     }
@@ -54,40 +52,67 @@ class DetailFragment : Fragment() {
 
     }
 
+    /*
+    updateName(): Setea en ViewModel el nombre del estudiante
+     */
+
     fun updateName() {
         sharedViewModel.setName(binding.etName.text.toString())
     }
+
+    /*
+    updateLastName(): Setea en ViewModel el apellido del estudiante
+     */
 
     fun updateLastName() {
         sharedViewModel.setLastName(binding.etLastName.text.toString())
     }
 
+    /*
+      updateAge(): Setea en ViewModel la edad del estudiante
+    */
+
     fun updateAge() {
         sharedViewModel.setAge(binding.etAge.text.toString().toInt())
     }
 
+    /*
+    udpStudent(): actualiza los datos del estudiante en database
+                  desactiva los campos para que no puedan volver a ser modificados
+                  envia un mensaje de confirmacion de actualizacion
+     */
     fun updStudent() {
         sharedViewModel.updateStudent()
         disabledViews()
-        Snackbar.make(binding.root, "Alumno modificado", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, getString(R.string.modified_student), Snackbar.LENGTH_SHORT).show()
         sharedViewModel.getStudent(idStudent)
     }
 
+
+    /*
+    deleteStudent(): crea una aleterta para corroborar que el usuario desea eliminar el estudiante,
+        de ser afirmativo elimina el estudiante, caso contrario vuelve a obtener el estudiante(
+        NOTA: Ver porque no funciona dialog.dismiss)
+
+     */
     fun deleteStudent() {
         MaterialAlertDialogBuilder(requireContext())
-            .setMessage("Desea Eliminar Alumno??")
+            .setMessage(getString(R.string.want_to_delete_student))
             .setCancelable(false)
             .setNegativeButton(getString(R.string.no)) { _, _ ->
                 sharedViewModel.getStudent(idStudent)
             }
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 sharedViewModel.deleteStudent()
-                Snackbar.make(binding.root, "Alumno Eliminado", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, getString(R.string.delete_student), Snackbar.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
             }.show()
 
     }
 
+    /*
+    enabledViews(): Activa todas las vistas
+     */
     fun enabledViews() {
         binding.etName.isEnabled = true
         binding.etLastName.isEnabled = true
@@ -98,6 +123,9 @@ class DetailFragment : Fragment() {
         binding.btnEdit.isEnabled = false
     }
 
+    /*
+    disabledViews(): Desactiva todas las vistas
+     */
     fun disabledViews() {
         binding.etName.isEnabled = false
         binding.etLastName.isEnabled = false
