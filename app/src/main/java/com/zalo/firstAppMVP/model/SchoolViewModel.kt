@@ -1,9 +1,9 @@
-package com.zalo.myrecyclerview.model
+package com.zalo.firstAppMVP.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zalo.myrecyclerview.util.MySharedPreferences
+import com.zalo.firstAppMVP.util.MySharedPreferences
 
 /*
 ViewModel con los metodos para guardar y obtener los datos de las escuelas desde MyShraredPreferences

@@ -8,12 +8,12 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.zalo.myrecyclerview.model.StudentViewModel" />
+            name="presenterData"
+            type="com.zalo.firstAppMVP.presenter.DetailPresenter" />
 
         <variable
             name="detailFragment"
-            type="com.zalo.myrecyclerview.ui.DetailFragment" />
+            type="com.zalo.firstAppMVP.ui.DetailFragment" />
 
     </data>
 
@@ -47,7 +47,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen16"
                 android:background="@null"
-                android:hint="@{String.valueOf(viewModel.student.id)}"
                 android:textSize="@dimen/itemTextSize"
                 android:textStyle="italic"
                 app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -86,7 +85,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen16"
                 android:background="@null"
-                android:hint="@{viewModel.student.name}"
                 android:textAlignment="center"
                 android:textSize="@dimen/itemTextSize"
                 android:textStyle="italic"
@@ -99,11 +97,12 @@
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:afterTextChanged="@{()->detailFragment.updateName()}"
                     android:enabled="false"
                     android:inputType="textCapWords"
+                    android:afterTextChanged="@{()->detailFragment.setName()}"
                     android:maxLines="1"
                     tools:text="nombre" />
+
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,7 +125,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen16"
                 android:background="@null"
-                android:hint="@{viewModel.student.lastName}"
                 android:textSize="@dimen/itemTextSize"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toTopOf="@+id/tvAge"
@@ -138,11 +136,13 @@
                     android:id="@+id/etLastName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:afterTextChanged="@{()->detailFragment.updateLastName()}"
                     android:enabled="false"
                     android:inputType="textCapWords"
                     android:maxLines="1"
+                    android:afterTextChanged="@{()->detailFragment.setLastName()}"
                     tools:text="apellido" />
+
+
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,7 +165,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen16"
                 android:background="@null"
-                android:hint="@{String.valueOf(viewModel.student.age)}"
                 android:textSize="@dimen/itemTextSize"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toTopOf="@+id/tvGender"
@@ -177,11 +176,12 @@
                     android:id="@+id/etAge"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:afterTextChanged="@{()->detailFragment.updateAge()}"
                     android:enabled="false"
                     android:inputType="number"
                     android:maxLength="3"
+                    android:afterTextChanged="@{()->detailFragment.setAge()}"
                     tools:text="edad" />
+
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -214,20 +214,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen16"
-                    android:checked='@{viewModel.student.gender.equals(@string/maleText)}'
                     android:enabled="false"
-                    android:onClick='@{()->viewModel.setGender(@string/maleText)}'
-                    android:text="@string/textRadioButtonMale" />
+                    android:text="@string/textRadioButtonMale"
+                    android:onClick='@{()->detailFragment.setGender(@string/maleText)}'
+                    />
+
 
                 <RadioButton
                     android:id="@+id/rbFemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen16"
-                    android:checked='@{viewModel.student.gender.equals(@string/femaleText)}'
                     android:enabled="false"
-                    android:onClick='@{()->viewModel.setGender(@string/femaleText)}'
-                    android:text="@string/textRadioButtonFemale" />
+                    android:text="@string/textRadioButtonFemale"
+                    android:onClick='@{()->detailFragment.setGender(@string/femaleText)}'                    />
+
             </RadioGroup>
 
             <Button
@@ -237,13 +238,12 @@
                 android:layout_marginTop="@dimen/dimen16"
                 android:layout_marginEnd="@dimen/margin5"
                 android:enabled="false"
-                android:onClick="@{()->detailFragment.updStudent()}"
                 android:text="@string/save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btnEdit"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rbGender" />
-
+                app:layout_constraintTop_toBottomOf="@id/rbGender"
+                android:onClick="@{()->detailFragment.save()}"/>
 
             <Button
                 android:id="@+id/btnEdit"
@@ -251,12 +251,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin20"
-                android:onClick="@{()->detailFragment.enabledViews()}"
                 android:text="@string/edit"
                 app:layout_constraintBottom_toBottomOf="@id/btnSave"
                 app:layout_constraintEnd_toStartOf="@id/btnRemove"
                 app:layout_constraintStart_toEndOf="@id/btnSave"
-                app:layout_constraintTop_toTopOf="@id/btnSave" />
+                app:layout_constraintTop_toTopOf="@id/btnSave"
+                android:onClick="@{()->detailFragment.enabledViews()}"
+                />
+
 
             <Button
                 android:id="@+id/btnRemove"
@@ -264,12 +266,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin20"
-                android:onClick="@{()->detailFragment.deleteStudent()}"
                 android:text="@string/remove"
                 app:layout_constraintBottom_toBottomOf="@id/btnSave"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btnEdit"
-                app:layout_constraintTop_toTopOf="@id/btnSave" />
+                app:layout_constraintTop_toTopOf="@id/btnSave"
+                android:onClick="@{()->detailFragment.delete()}"/>
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.zalo.myrecyclerview
+package com.zalo.firstAppMVP
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,4 +1,4 @@
-package com.zalo.myrecyclerview
+package com.zalo.firstAppMVP
 
 import org.junit.Test
 

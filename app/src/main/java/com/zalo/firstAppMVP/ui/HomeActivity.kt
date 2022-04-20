@@ -1,4 +1,4 @@
-package com.zalo.myrecyclerview.ui
+package com.zalo.firstAppMVP.ui
 
 
 import android.os.Bundle
@@ -6,9 +6,9 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.zalo.myrecyclerview.GeneralActivity
-import com.zalo.myrecyclerview.R
-import com.zalo.myrecyclerview.databinding.ActivityMainBinding
+import com.zalo.firstAppMVP.GeneralActivity
+import com.zalo.firstAppMVP.R
+import com.zalo.firstAppMVP.databinding.ActivityMainBinding
 
 class HomeActivity : GeneralActivity() {
 

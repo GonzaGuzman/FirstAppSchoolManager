@@ -1,4 +1,4 @@
-package com.zalo.myrecyclerview.ui
+package com.zalo.firstAppMVP.ui
 
 
 import android.os.Bundle
@@ -10,10 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.zalo.myrecyclerview.R
-import com.zalo.myrecyclerview.databinding.FragmentRegistrationBinding
-import com.zalo.myrecyclerview.model.SchoolViewModel
-import com.zalo.myrecyclerview.util.MySharedPreferences
+import com.zalo.firstAppMVP.R
+import com.zalo.firstAppMVP.databinding.FragmentRegistrationBinding
+import com.zalo.firstAppMVP.model.SchoolViewModel
+import com.zalo.firstAppMVP.util.MySharedPreferences
 
 class RegistrationFragment : Fragment() {
 

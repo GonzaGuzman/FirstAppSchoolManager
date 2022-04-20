@@ -8,11 +8,11 @@
 
         <variable
             name="viewModelSchool"
-            type="com.zalo.myrecyclerview.model.SchoolViewModel" />
+            type="com.zalo.firstAppMVP.model.SchoolViewModel" />
 
         <variable
             name="registrationFragmet"
-            type="com.zalo.myrecyclerview.ui.RegistrationFragment" />
+            type="com.zalo.firstAppMVP.ui.RegistrationFragment" />
     </data>
 
     <ScrollView

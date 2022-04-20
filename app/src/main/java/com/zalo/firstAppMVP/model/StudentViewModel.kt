@@ -1,13 +1,12 @@
-package com.zalo.myrecyclerview.model
+package com.zalo.firstAppMVP.model
 
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zalo.myrecyclerview.home.Student
-import com.zalo.myrecyclerview.home.adapter.StudentAdapter
-import com.zalo.myrecyclerview.util.MyApplication
-import com.zalo.myrecyclerview.util.subscribeAndLogErrors
+import com.zalo.firstAppMVP.home.Student
+import com.zalo.firstAppMVP.util.MyApplication
+import com.zalo.firstAppMVP.util.subscribeAndLogErrors
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers

@@ -1,4 +1,4 @@
-package com.zalo.myrecyclerview.ui
+package com.zalo.firstAppMVP.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -10,9 +10,9 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.zalo.myrecyclerview.R
-import com.zalo.myrecyclerview.databinding.FragmentAddBinding
-import com.zalo.myrecyclerview.model.StudentViewModel
+import com.zalo.firstAppMVP.R
+import com.zalo.firstAppMVP.databinding.FragmentAddBinding
+import com.zalo.firstAppMVP.model.StudentViewModel
 
 /*
 Fragment encargado de la vista de agregar nuevo estudiante

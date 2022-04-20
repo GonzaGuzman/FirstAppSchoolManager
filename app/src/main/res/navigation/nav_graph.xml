@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.zalo.myrecyclerview.ui.RegistrationFragment"
+        android:name="com.zalo.firstAppMVP.ui.RegistrationFragment"
         android:label="Registro"
         tools:layout="@layout/fragment_registration">
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.zalo.myrecyclerview.ui.AddFragment"
+        android:name="com.zalo.firstAppMVP.ui.AddFragment"
         android:label="Agregar nuevo Alumno"
         tools:layout="@layout/fragment_add">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.zalo.myrecyclerview.ui.DetailFragment"
+        android:name="com.zalo.firstAppMVP.ui.DetailFragment"
         android:label="Detalles de Alumno"
         tools:layout="@layout/fragment_detail">
         <action
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.zalo.myrecyclerview.ui.HomeFragment"
+        android:name="com.zalo.firstAppMVP.ui.HomeFragment"
         android:label="Inicio"
         tools:layout="@layout/fragment_home">
         <action

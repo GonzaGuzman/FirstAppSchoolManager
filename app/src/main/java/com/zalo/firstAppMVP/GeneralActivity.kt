@@ -1,4 +1,4 @@
-package com.zalo.myrecyclerview
+package com.zalo.firstAppMVP
 
 import android.content.Context
 import android.content.DialogInterface
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.zalo.myrecyclerview.util.MySharedPreferences
-import com.zalo.myrecyclerview.util.showMessage
+import com.zalo.firstAppMVP.util.MySharedPreferences
+import com.zalo.firstAppMVP.util.showMessage
 
 abstract class GeneralActivity : AppCompatActivity() {
 

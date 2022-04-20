@@ -1,4 +1,4 @@
-package com.zalo.myrecyclerview.home
+package com.zalo.firstAppMVP.home
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

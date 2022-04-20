@@ -1,9 +1,9 @@
-package com.zalo.myrecyclerview.util
+package com.zalo.firstAppMVP.util
 
 import android.app.Application
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.zalo.myrecyclerview.data.StudentDataBase
+import com.zalo.firstAppMVP.data.StudentDataBase
 
 class MyApplication : Application() {
 

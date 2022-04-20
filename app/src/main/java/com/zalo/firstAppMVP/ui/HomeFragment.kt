@@ -1,4 +1,4 @@
-package com.zalo.myrecyclerview.ui
+package com.zalo.firstAppMVP.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,14 +9,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.zalo.myrecyclerview.R
-import com.zalo.myrecyclerview.databinding.FragmentHomeBinding
-import com.zalo.myrecyclerview.home.Student
-import com.zalo.myrecyclerview.home.adapter.StudentAdapter
-import com.zalo.myrecyclerview.model.SchoolViewModel
-import com.zalo.myrecyclerview.util.MyApplication
-import com.zalo.myrecyclerview.util.MySharedPreferences
-import com.zalo.myrecyclerview.util.subscribeAndLogErrors
+import com.zalo.firstAppMVP.R
+import com.zalo.firstAppMVP.databinding.FragmentHomeBinding
+import com.zalo.firstAppMVP.home.Student
+import com.zalo.firstAppMVP.home.adapter.StudentAdapter
+import com.zalo.firstAppMVP.model.SchoolViewModel
+import com.zalo.firstAppMVP.util.MyApplication
+import com.zalo.firstAppMVP.util.MySharedPreferences
+import com.zalo.firstAppMVP.util.subscribeAndLogErrors
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 

@@ -1,9 +1,9 @@
-package com.zalo.myrecyclerview.home.adapter
+package com.zalo.firstAppMVP.home.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.zalo.myrecyclerview.databinding.ItemBinding
-import com.zalo.myrecyclerview.home.Student
+import com.zalo.firstAppMVP.databinding.ItemBinding
+import com.zalo.firstAppMVP.home.Student
 
 class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

@@ -1,8 +1,8 @@
-package com.zalo.myrecyclerview.data
+package com.zalo.firstAppMVP.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.zalo.myrecyclerview.home.Student
+import com.zalo.firstAppMVP.home.Student
 
 @Database(
     entities = [Student::class],

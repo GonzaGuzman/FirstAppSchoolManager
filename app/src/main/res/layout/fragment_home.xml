@@ -8,11 +8,11 @@
 
         <variable
             name="viewModelSchool"
-            type="com.zalo.myrecyclerview.model.SchoolViewModel" />
+            type="com.zalo.firstAppMVP.model.SchoolViewModel" />
 
         <variable
             name="homeFragment"
-            type="com.zalo.myrecyclerview.ui.HomeFragment" />
+            type="com.zalo.firstAppMVP.ui.HomeFragment" />
 
 
     </data>

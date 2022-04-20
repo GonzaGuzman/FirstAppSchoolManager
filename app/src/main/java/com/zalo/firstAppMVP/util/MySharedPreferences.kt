@@ -1,4 +1,4 @@
-package com.zalo.myrecyclerview.util
+package com.zalo.firstAppMVP.util
 
 class MySharedPreferences {
     var schoolName: String

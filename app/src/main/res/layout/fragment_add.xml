@@ -9,11 +9,11 @@
 
         <variable
             name="viewModel"
-            type="com.zalo.myrecyclerview.model.StudentViewModel" />
+            type="com.zalo.firstAppMVP.model.StudentViewModel" />
 
         <variable
             name="addFragment"
-            type="com.zalo.myrecyclerview.ui.AddFragment" />
+            type="com.zalo.firstAppMVP.ui.AddFragment" />
 
     </data>
 

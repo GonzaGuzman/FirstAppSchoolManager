@@ -1,8 +1,8 @@
-package com.zalo.myrecyclerview.util
+package com.zalo.firstAppMVP.util
 
 
 import android.widget.Toast
-import com.zalo.myrecyclerview.GeneralActivity
+import com.zalo.firstAppMVP.GeneralActivity
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
