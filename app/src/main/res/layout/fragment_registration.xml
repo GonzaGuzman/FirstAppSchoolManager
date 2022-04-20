@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.RegistrationFragment">
+
+    <data>
+
+        <variable
+            name="viewModelSchool"
+            type="com.zalo.myrecyclerview.model.SchoolViewModel" />
+
+        <variable
+            name="registrationFragmet"
+            type="com.zalo.myrecyclerview.ui.RegistrationFragment" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/headerActivityRegistration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/button_padding"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/Widget.TipTime.TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/headerRegistration"
+                    android:textSize="@dimen/headerTextSizeRegistration" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/icSchool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen16"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_school"
+                app:layout_constraintBottom_toBottomOf="@id/schoolName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/schoolName" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/schoolName"
+                android:layout_width="@dimen/match_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen16"
+                android:layout_marginEnd="@dimen/dimen16"
+                android:hint="@string/nameSchool"
+                app:errorIconDrawable="@drawable/ic_error"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/icSchool"
+                app:layout_constraintTop_toBottomOf="@id/headerActivityRegistration">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/schoolNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:afterTextChanged="@{()->registrationFragmet.updateName()}"
+                    android:inputType="textCapWords" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <ImageView
+                android:id="@+id/icTypeEducation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen16"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_type_education"
+                app:layout_constraintBottom_toBottomOf="@id/typeEducation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/typeEducation" />
+
+            <TextView
+                android:id="@+id/typeEducation"
+                style="@style/Widget.TipTime.TextView"
+                android:layout_width="@dimen/match_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen16"
+                android:text="@string/type_education"
+                app:layout_constraintEnd_toEndOf="@id/schoolName"
+                app:layout_constraintStart_toStartOf="@id/schoolName"
+                app:layout_constraintTop_toBottomOf="@id/schoolName" />
+
+            <RadioGroup
+                android:id="@+id/typeEduOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen16"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/typeEducation"
+                app:layout_constraintTop_toBottomOf="@id/typeEducation">
+
+                <RadioButton
+                    android:id="@+id/primaryCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:onClick='@{()->viewModelSchool.setTypeEducation(@string/primaryEducation)}'
+                    android:text="@string/primary" />
+
+                <RadioButton
+                    android:id="@+id/highSchoolCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick='@{()->viewModelSchool.setTypeEducation(@string/highSchoolEducation)}'
+                    android:text="@string/highSchool" />
+
+                <RadioButton
+                    android:id="@+id/bothOfThemCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick='@{()->viewModelSchool.setTypeEducation(@string/bothOfThem)}'
+                    android:text="@string/bothOfThem" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btnContinue"
+                android:layout_width="@dimen/match_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen16"
+                android:layout_marginTop="@dimen/dimen50"
+                android:layout_marginEnd="@dimen/dimen16"
+                android:onClick="@{()->registrationFragmet.continueNextView()}"
+                android:text="@string/continueBtn"
+                app:layout_constraintBottom_toTopOf="@+id/btnCloseSession"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/typeEduOptions" />
+
+            <Button
+                android:id="@+id/btnCloseSession"
+                android:layout_width="@dimen/match_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->registrationFragmet.closeSession()}"
+                android:text="@string/close_session"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/btnContinue"
+                app:layout_constraintStart_toStartOf="@+id/btnContinue" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+</layout>

@@ -1,4 +1,6 @@
 <resources>
+
+
     <string name="app_name">R.U.E</string>
     <string name="add">Agregar\n Alumno</string>
     <string name="nameHint">Nombre</string>
@@ -28,4 +30,30 @@
     <string name="no">NO</string>
     <string name="warningText">Alerta</string>
     <string name="closeApp">DESEA SALIR?</string>
+    <string name="close_session">CERRAR SESION</string>
+    <string name="whish_to_continue">DESEA CONTINUAR?</string>
+    <string name="edit_data">Editar datos</string>
+    <string name="remove_data">Eliminar datos</string>
+    <string name="bothOfThem">EDUCACIÓN PRIMARIA Y SECUNDARIA</string>
+    <string name="type_education">Tipo de Educación:</string>
+    <string name="id">Id</string>
+    <string name="name">Nombre</string>
+    <string name="lastName">Apellido</string>
+    <string name="age">Edad</string>
+    <string name="gender">Genero</string>
+    <string name="updated_list">Lista Actualizada</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="save">GUARDAR</string>
+    <string name="edit">EDITAR</string>
+    <string name="remove">ELIMINAR</string>
+    <string name="please_enter_name">POR FAVOR INGRESE EL NOMBRE</string>
+    <string name="please_enter_lastname">POR FAVOR INGRESE EL APELLIDO</string>
+    <string name="please_enter_age">POR FAVOR INGRESE LA EDAD</string>
+    <string name="successfully_added">Agregado exitosamente</string>
+    <string name="modified_student">Alumno modificado</string>
+    <string name="want_to_delete_student">Desea Eliminar Alumno??</string>
+    <string name="delete_student">Alumno Eliminado</string>
+    <string name="closed_session">SESION CERRADA</string>
+    <!-- Nota: Preguntar como organizar los string si por views o por palabras -->
 </resources>

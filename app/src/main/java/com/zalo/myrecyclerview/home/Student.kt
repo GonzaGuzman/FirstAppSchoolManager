@@ -1,11 +1,15 @@
 package com.zalo.myrecyclerview.home
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+
+@Entity(tableName = "student_entity")
 data class Student(
-    val name: String,
-    val lastName: String,
-    val age: Int,
-    val gender: String,
-) {
-    override fun toString() =
-        " NOMBRE: $name \n APELLIDO: $lastName \n EDAD: $age \n GENERO: $gender"
-}
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
+    var name: String,
+    var lastName: String,
+    var age: Int,
+    var gender: String,
+)
