@@ -10,6 +10,6 @@ interface DetailView {
     fun edit()
     fun save()
     fun delete()
-
+    fun navigateTo()
 
 }

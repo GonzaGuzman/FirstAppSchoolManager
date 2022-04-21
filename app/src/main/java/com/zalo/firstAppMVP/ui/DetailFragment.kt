@@ -128,10 +128,13 @@ class DetailFragment : Fragment(), DetailView {
                 .setPositiveButton(getString(R.string.yes)) { _, _ ->
                     presenter.deleteStudent()
                     Snackbar.make(binding.root, getString(R.string.delete_student), Snackbar.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
                 }.show()
 
         }
+
+    override fun navigateTo() {
+        findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
+    }
 
     companion object {
         const val ID = "studentID"

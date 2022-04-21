@@ -72,6 +72,7 @@ class DetailPresenter(private val view: DetailView, private val dataBaseResult: 
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeAndLogErrors {
+                        view.navigateTo()
                     }
             )
     }
