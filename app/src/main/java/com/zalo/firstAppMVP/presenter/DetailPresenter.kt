@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.zalo.firstAppMVP.data.StudentDataBase
 import com.zalo.firstAppMVP.home.Student
+import com.zalo.firstAppMVP.repository.StudentRepository
 import com.zalo.firstAppMVP.util.subscribeAndLogErrors
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
@@ -12,7 +13,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class DetailPresenter(private val view: DetailView, private val dataBaseResult: StudentDataBase) {
+class DetailPresenter(private val view: DetailView, private val studentRepository: StudentRepository) {
 
     private val _student = MutableLiveData<Student?>()
     val student: LiveData<Student?> = _student
@@ -41,9 +42,10 @@ class DetailPresenter(private val view: DetailView, private val dataBaseResult: 
         }
     }
 
+
     fun updateStudent() {
         _student.value?.let {
-            dataBaseResult.studentDao().update(it)
+            studentRepository.update(it)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeAndLogErrors {
@@ -60,7 +62,7 @@ class DetailPresenter(private val view: DetailView, private val dataBaseResult: 
 
 
     fun getStudent(id: Int) {
-        dataBaseResult.studentDao().getById(id)
+            studentRepository.getById(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -74,7 +76,7 @@ class DetailPresenter(private val view: DetailView, private val dataBaseResult: 
 
     fun deleteStudent() {
         _student.value?.let {
-            dataBaseResult.studentDao().delete(it)
+            studentRepository.delete(it)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeAndLogErrors {

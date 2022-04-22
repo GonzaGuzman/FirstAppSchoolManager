@@ -16,6 +16,7 @@ import com.zalo.firstAppMVP.databinding.FragmentDetailBinding
 import com.zalo.firstAppMVP.home.Student
 import com.zalo.firstAppMVP.presenter.DetailPresenter
 import com.zalo.firstAppMVP.presenter.DetailView
+import com.zalo.firstAppMVP.repository.StudentRepository
 import com.zalo.firstAppMVP.util.MyApplication
 
 /*
@@ -29,6 +30,7 @@ class DetailFragment : Fragment(), DetailView {
 
     private lateinit var presenter: DetailPresenter
     private var dBStudent = MyApplication.dataBase
+    private var studentRepository = StudentRepository(dBStudent)
 
     private var idStudent: Int = 0
     private var dialog: AlertDialog? = null
@@ -44,7 +46,7 @@ class DetailFragment : Fragment(), DetailView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        presenter = DetailPresenter(this, dBStudent)
+        presenter = DetailPresenter(this,studentRepository)
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
         presenter.getStudent(idStudent)
         return binding.root
