@@ -4,7 +4,7 @@ import com.zalo.firstAppMVP.home.Student
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
-interface repo {
+interface Repo {
 
     fun getAllStudent(): Single<List<Student>>
 

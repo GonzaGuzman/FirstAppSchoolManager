@@ -5,7 +5,7 @@ import com.zalo.firstAppMVP.home.Student
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
-class StudentRepository(private val dataBaseStudent: StudentDataBase) : repo {
+class StudentRepository(private val dataBaseStudent: StudentDataBase) : Repo {
     private val allStudent: Single<List<Student>> = dataBaseStudent.studentDao().getAllStudent()
 
     override fun getAllStudent() = allStudent

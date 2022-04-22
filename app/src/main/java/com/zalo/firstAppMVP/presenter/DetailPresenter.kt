@@ -13,7 +13,10 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class DetailPresenter(private val view: DetailView, private val studentRepository: StudentRepository) {
+class DetailPresenter(
+    private val view: DetailView,
+    private val studentRepository: StudentRepository,
+) {
 
     private val _student = MutableLiveData<Student?>()
     val student: LiveData<Student?> = _student
@@ -62,7 +65,7 @@ class DetailPresenter(private val view: DetailView, private val studentRepositor
 
 
     fun getStudent(id: Int) {
-            studentRepository.getById(id)
+        studentRepository.getById(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
