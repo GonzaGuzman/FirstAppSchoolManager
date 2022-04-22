@@ -4,7 +4,7 @@ import com.zalo.firstAppMVP.home.Student
 
 interface DetailView {
 
-    fun initView(student : Student)
+    fun initView(student: Student)
     fun enabledViews()
     fun disabledViews()
     fun edit()
