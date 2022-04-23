@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.zalo.firstAppMVP.ui.DetailFragment"
+        android:name="com.zalo.firstAppMVP.detail.detailFragment.DetailFragment"
         android:label="Detalles de Alumno"
         tools:layout="@layout/fragment_detail">
         <action

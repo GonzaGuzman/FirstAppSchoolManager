@@ -1,22 +1,20 @@
-package com.zalo.firstAppMVP.ui
+package com.zalo.firstAppMVP.detail.detailFragment
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentDetailBinding
 import com.zalo.firstAppMVP.home.Student
-import com.zalo.firstAppMVP.presenter.DetailPresenter
-import com.zalo.firstAppMVP.presenter.DetailView
-import com.zalo.firstAppMVP.repository.StudentRepository
+import com.zalo.firstAppMVP.detail.detailPresenter.DetailPresenter
+import com.zalo.firstAppMVP.detail.detailPresenter.DetailView
+import com.zalo.firstAppMVP.detail.detailRepository.DetailRepository
 import com.zalo.firstAppMVP.util.MyApplication
 
 /*
@@ -30,7 +28,7 @@ class DetailFragment : Fragment(), DetailView {
 
     private lateinit var presenter: DetailPresenter
     private var dBStudent = MyApplication.dataBase
-    private var studentRepository = StudentRepository(dBStudent)
+    private var studentRepository = DetailRepository(dBStudent)
 
     private var idStudent: Int = 0
     private var dialog: AlertDialog? = null
@@ -46,9 +44,9 @@ class DetailFragment : Fragment(), DetailView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        presenter = DetailPresenter(this,studentRepository)
+        presenter = DetailPresenter(this, studentRepository, resources)
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        presenter.getStudent(idStudent)
+        presenter.getStudentById(idStudent)
         return binding.root
 
     }
@@ -56,6 +54,7 @@ class DetailFragment : Fragment(), DetailView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
+            presenterActions = presenter
             detailFragment = this@DetailFragment
         }
 
@@ -66,28 +65,10 @@ class DetailFragment : Fragment(), DetailView {
         binding.tvNameVisible.hint = student.name
         binding.tvLastNameVisible.hint = student.lastName
         binding.tvAgeVisible.hint = student.age.toString()
-        if (student.gender.equals(getString(R.string.maleText)))
+        if (student.gender == getString(R.string.maleText))
             binding.rbMale.isChecked = true
         else
             binding.rbFemale.isChecked = true
-    }
-
-    fun setName() {
-        presenter.setName(binding.etName.text.toString())
-
-    }
-
-    fun setLastName() {
-        presenter.setLastName(binding.etLastName.text.toString())
-    }
-
-    fun setAge() {
-        presenter.setAge(binding.etAge.text.toString().toInt())
-    }
-
-    fun setGender(gender:String) {
-       presenter.setGender(gender)
-        view?.hideKeyboard()
     }
 
     override fun enabledViews() {
@@ -111,31 +92,47 @@ class DetailFragment : Fragment(), DetailView {
 
     }
 
-    override fun edit() {
-         enabledViews()
-    }
-
-    override fun save() {
-        presenter.updateStudent()
-        Snackbar.make(binding.root, getString(R.string.modified_student), Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun delete() {
-            MaterialAlertDialogBuilder(requireContext())
-                .setMessage(getString(R.string.want_to_delete_student))
-                .setCancelable(false)
-                .setNegativeButton(getString(R.string.no)) { _, _ ->
-                    dialog?.dismiss()
-                }
-                .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                    presenter.deleteStudent()
-                    Snackbar.make(binding.root, getString(R.string.delete_student), Snackbar.LENGTH_SHORT).show()
-                }.show()
-
-        }
 
     override fun navigateTo() {
         findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
+    }
+
+    override fun showAlertDeleteDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage(getString(R.string.want_to_delete_student))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.no)) { _, _ ->
+                presenter.onNegativeButtonClicked()
+            }
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                presenter.onPositiveButtonClicked()
+            }.show()
+
+    }
+
+    override fun dialogDismiss() {
+        dialog?.dismiss()
+    }
+
+    override fun getName() {
+        presenter.setName(binding.etName.text.toString())
+    }
+
+    override fun getLastName() {
+        presenter.setLastName(binding.etLastName.text.toString())
+    }
+
+    override fun getAge() {
+        presenter.setAge(binding.etAge.text.toString().toInt())
+    }
+
+
+    override fun showSuccessSnackBar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun showErrorSnackBar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
     companion object {
@@ -145,11 +142,6 @@ class DetailFragment : Fragment(), DetailView {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    fun View.hideKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 }
 
@@ -207,6 +199,6 @@ class DetailFragment : Fragment(), DetailView {
 
      */
 
-    /*
-    enabledViews(): Activa todas las vistas
-     */
+/*
+enabledViews(): Activa todas las vistas
+ */

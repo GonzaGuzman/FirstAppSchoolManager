@@ -118,18 +118,11 @@ class StudentViewModel : ViewModel() {
             _student.value?.gender = _gender.value.toString()
         }
 
-        _student.value?.let {
-            MyApplication.dataBase.studentDao().update(it)
+            MyApplication.dataBase.studentDao().update(_student.value!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeAndLogErrors {
                 }
-        }?.let {
-            CompositeDisposable()
-                .add(
-                    it
-                )
-        }
 
     }
 
