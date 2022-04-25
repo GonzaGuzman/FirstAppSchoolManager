@@ -22,10 +22,6 @@ class DetailRepository(private val dataBaseStudent: StudentDataBase) {
         return dataBaseStudent.studentDao().update(student)
     }
 
-    fun insert(student: Student): Completable {
-        return dataBaseStudent.studentDao().insert(student)
-    }
-
     fun delete(student: Student): Single<Unit> {
         return dataBaseStudent.studentDao().delete(student)
     }

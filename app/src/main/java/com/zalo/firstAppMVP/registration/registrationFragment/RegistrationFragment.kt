@@ -1,35 +1,38 @@
 package com.zalo.firstAppMVP.registration.registrationFragment
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentRegistrationBinding
-import com.zalo.firstAppMVP.model.SchoolViewModel
-import com.zalo.firstAppMVP.util.MySharedPreferences
+import com.zalo.firstAppMVP.registration.registrationPresenter.RegistrationPresenter
+import com.zalo.firstAppMVP.registration.registrationPresenter.RegistrationsView
+import com.zalo.firstAppMVP.registration.registrationRepository.RegistrationRepository
 
-class RegistrationFragment : Fragment() {
+class RegistrationFragment : Fragment(), RegistrationsView {
 
 
-    private val sharedViewModelSchool: SchoolViewModel by activityViewModels()
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
+    private var dialog: AlertDialog? = null
+    private lateinit var registrationPresenter: RegistrationPresenter
+    private var registrationRepository = RegistrationRepository()
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        registrationPresenter = RegistrationPresenter(this, registrationRepository, resources)
         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
-        sharedViewModelSchool.setTypeEducation(getString(R.string.primaryEducation))
-        initComponent()
+        registrationPresenter.initView()
         return binding.root
     }
 
@@ -39,42 +42,43 @@ class RegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
-            viewModelSchool = sharedViewModelSchool
+            presenterRegistrationActions = registrationPresenter
             registrationFragmet = this@RegistrationFragment
         }
 
     }
 
-    /*
-    initComponent(): comprueba si ya hay datos cargados en MySharedPreferences de ser asi los carga en la views
-        y luego las desactiva para que no puedan ser modificadas
-        caso contrario las deja activadas para la edicion
-     */
-
-    private fun initComponent() {
-        if (MySharedPreferences().schoolName.isNotEmpty() && MySharedPreferences().typeEducation.isNotEmpty()) {
-            binding.schoolNameEditText.setText(MySharedPreferences().schoolName)
-            when (MySharedPreferences().typeEducation) {
-                getString(R.string.primaryEducation) -> {
-                    binding.primaryCheck.isChecked = true
-                }
-                getString(R.string.highSchoolEducation) -> {
-                    binding.highSchoolCheck.isChecked = true
-                }
-                else -> {
-                    binding.bothOfThemCheck.isChecked = true
-                }
+    override fun initComponent(nameSchool: String, typeEducation: String) {
+        binding.schoolNameEditText.setText(nameSchool)
+        when (typeEducation) {
+            getString(R.string.primaryEducation) -> {
+                binding.primaryCheck.isChecked = true
             }
-            viewDisabled()
+            getString(R.string.highSchoolEducation) -> {
+                binding.highSchoolCheck.isChecked = true
+            }
+            else -> {
+                binding.bothOfThemCheck.isChecked = true
+            }
         }
     }
 
-    /*
-       setErrorName(): metodos que reciben como parametro un booleando, en caso de recibir
-           "true"  envia un mensaje y activa el componente error
-           "false" si el componente error fue activado previamente lo desactiva sino no hace nada
-        */
-    private fun setErrorName(error: Boolean) {
+    override fun viewDisabled() {
+        binding.schoolNameEditText.isEnabled = false
+        binding.primaryCheck.isEnabled = false
+        binding.highSchoolCheck.isEnabled = false
+        binding.bothOfThemCheck.isEnabled = false
+    }
+
+    override fun viewEnabled() {
+        binding.schoolNameEditText.text?.clear()
+        binding.schoolNameEditText.isEnabled = true
+        binding.primaryCheck.isEnabled = true
+        binding.highSchoolCheck.isEnabled = true
+        binding.bothOfThemCheck.isEnabled = true
+    }
+
+    override fun setErrorName(error: Boolean) {
         if (error) {
             binding.schoolName.isErrorEnabled = true
             binding.schoolName.error = getString(R.string.please_enter_name)
@@ -83,76 +87,44 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-    /*
-    updateName(): Setea en ViewModel el nombre de la escuela
-     */
+    override fun getSchoolName() =
+        registrationPresenter.setSchoolName(binding.schoolNameEditText.text.toString())
 
-    fun updateName() {
-        sharedViewModelSchool.setSchoolName(binding.schoolNameEditText.text.toString())
+    override fun getTypeEducation(): String {
+        return when (binding.typeEduOptions.checkedRadioButtonId) {
+            binding.primaryCheck.id -> getString(R.string.primaryEducation)
+            binding.highSchoolCheck.id -> getString(R.string.highSchoolEducation)
+            else -> getString(R.string.bothOfThem)
+        }
     }
 
-    /*
-    continueNextView(): comprueba que el campo nameEditText no este vacio de ser asi envia un mensaje de alerta
-                        de otro modo setea los datos en MySharedPreferences y navega a HomeFragment
-     */
-    fun continueNextView() {
-        if (!(binding.schoolNameEditText.text.isNullOrEmpty())) {
-            if (MySharedPreferences().schoolName.isEmpty() && MySharedPreferences().typeEducation.isEmpty()) {
-                sharedViewModelSchool.saveSchool()
-            }
-            findNavController().navigate(R.id.action_registrationFragment_to_homeFragment)
-        } else
-            setErrorName(true)
+    override fun navigateTo() {
+        findNavController().navigate(R.id.action_registrationFragment_to_homeFragment)
     }
 
-    /*
-   closeSession(): crea una aleterta para corroborar que el usuario desea cerrar sesion,
-       de ser afirmativo cierra la sesion y habilita las vistas y elimina los datos de MySharedPreferences
-       , caso contrario deja las vistas desactivadas
-       (NOTA VER PORQUE NO FUNCIONA dialog.dismiss)
-
-    */
-
-    fun closeSession() {
+    override fun showAlertCloseSession() {
         MaterialAlertDialogBuilder(requireContext())
             .setMessage(getString(R.string.close_session))
             .setCancelable(false)
             .setNegativeButton(getString(R.string.no)) { _, _ ->
-                viewDisabled()
+                registrationPresenter.onNegativeButtonClicked()
             }
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                viewEnabled()
-                binding.schoolNameEditText.text?.clear()
-                MySharedPreferences().wipe()
-                Snackbar.make(binding.root, getString(R.string.closed_session), Snackbar.LENGTH_SHORT).show()
+                registrationPresenter.onPositiveButtonClicked()
             }.show()
-
     }
 
-
-    /*
-    viewDisabled(): desactiva todas las views
-     */
-    private fun viewDisabled() {
-        binding.schoolNameEditText.isEnabled = false
-        binding.primaryCheck.isEnabled = false
-        binding.highSchoolCheck.isEnabled = false
-        binding.bothOfThemCheck.isEnabled = false
+    override fun dialogDismiss() {
+        dialog?.dismiss()
     }
 
-    /*
-    viewEnabled(): activa todas las views
-     */
-    private fun viewEnabled() {
-        binding.schoolNameEditText.isEnabled = true
-        binding.primaryCheck.isEnabled = true
-        binding.highSchoolCheck.isEnabled = true
-        binding.bothOfThemCheck.isEnabled = true
+    override fun showSuccessSnackBar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }
+
