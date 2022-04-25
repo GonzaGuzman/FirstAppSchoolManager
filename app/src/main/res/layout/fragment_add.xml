@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_add"
-    tools:context=".ui.AddFragment">
+    tools:context=".add.addFragment.AddFragment">
 
     <data>
 
         <variable
-            name="viewModel"
-            type="com.zalo.firstAppMVP.model.StudentViewModel" />
+            name="presenterAddActions"
+            type="com.zalo.firstAppMVP.add.addPresenter.AddPresenter" />
 
         <variable
             name="addFragment"
-            type="com.zalo.firstAppMVP.ui.AddFragment" />
+            type="com.zalo.firstAppMVP.add.addFragment.AddFragment" />
 
     </data>
 
@@ -36,7 +36,8 @@
                 android:id="@+id/textInputName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:afterTextChanged="@{()->addFragment.updateName()}"
+                android:afterTextChanged="@{()->addFragment.setName()}"
+                android:focusable="auto"
                 android:inputType="textCapWords"
                 android:maxLines="1" />
 
@@ -57,7 +58,7 @@
                 android:id="@+id/textInputLastName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:afterTextChanged="@{()->addFragment.updateLastName()}"
+                android:afterTextChanged="@{()->addFragment.setLastName()}"
                 android:inputType="textCapWords"
                 android:maxLines="1" />
 
@@ -78,7 +79,7 @@
                 android:id="@+id/textInputAge"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:afterTextChanged="@{()->addFragment.updateAge()}"
+                android:afterTextChanged="@{()->addFragment.setAge()}"
                 android:inputType="number"
                 android:maxLength="3" />
 
@@ -110,14 +111,12 @@
                 android:layout_width="@dimen/width_radioButton"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:onClick='@{()-> viewModel.setGender(@string/maleText)}'
                 android:text="@string/textRadioButtonMale" />
 
             <RadioButton
                 android:id="@+id/radioButtonFemale"
                 android:layout_width="@dimen/width_radioButton"
                 android:layout_height="wrap_content"
-                android:onClick='@{()-> viewModel.setGender(@string/femaleText)}'
                 android:text="@string/textRadioButtonFemale" />
         </RadioGroup>
 
@@ -125,7 +124,7 @@
             android:id="@+id/aggregateButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()-> addFragment.addStudent()}"
+            android:onClick="@{()-> presenterAddActions.buttonAddClicked()}"
             android:text="@string/textButtonValidation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/cancelButton"
@@ -136,7 +135,7 @@
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()-> addFragment.cancel()}"
+            android:onClick="@{()-> presenterAddActions.buttonCancelClicked()}"
             android:text="@string/textCancelButton"
             app:layout_constraintBottom_toBottomOf="@id/aggregateButton"
             app:layout_constraintEnd_toEndOf="parent"

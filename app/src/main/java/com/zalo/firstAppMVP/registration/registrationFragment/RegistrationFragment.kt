@@ -1,4 +1,4 @@
-package com.zalo.firstAppMVP.ui
+package com.zalo.firstAppMVP.registration.registrationFragment
 
 
 import android.os.Bundle

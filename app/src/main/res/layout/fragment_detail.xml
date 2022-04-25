@@ -8,7 +8,7 @@
     <data>
 
         <variable
-            name="presenterActions"
+            name="presenterDetailActions"
             type="com.zalo.firstAppMVP.detail.detailPresenter.DetailPresenter" />
 
         <variable
@@ -97,7 +97,7 @@
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:afterTextChanged="@{()->detailFragment.getName()}"
+                    android:afterTextChanged="@{()->detailFragment.getUpdateName()}"
                     android:enabled="false"
                     android:inputType="textCapWords"
                     android:maxLines="1"
@@ -136,7 +136,7 @@
                     android:id="@+id/etLastName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:afterTextChanged="@{()->detailFragment.getLastName()}"
+                    android:afterTextChanged="@{()->detailFragment.getUpdateLastName()}"
                     android:enabled="false"
                     android:inputType="textCapWords"
                     android:maxLines="1"
@@ -175,7 +175,7 @@
                     android:id="@+id/etAge"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:afterTextChanged="@{()->detailFragment.getAge()}"
+                    android:afterTextChanged="@{()->detailFragment.getUpdateAge()}"
                     android:enabled="false"
                     android:inputType="number"
                     android:maxLength="3"
@@ -214,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen16"
                     android:enabled="false"
-                    android:onClick='@{()->presenterActions.setGender(@string/maleText)}'
+                    android:onClick='@{()->presenterDetailActions.setGender(@string/maleText)}'
                     android:text="@string/textRadioButtonMale" />
 
 
@@ -224,7 +224,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen16"
                     android:enabled="false"
-                    android:onClick='@{()->presenterActions.setGender(@string/femaleText)}'
+                    android:onClick='@{()->presenterDetailActions.setGender(@string/femaleText)}'
                     android:text="@string/textRadioButtonFemale" />
 
             </RadioGroup>
@@ -236,7 +236,7 @@
                 android:layout_marginTop="@dimen/dimen16"
                 android:layout_marginEnd="@dimen/margin5"
                 android:enabled="false"
-                android:onClick="@{()->presenterActions.buttonSaveClicked()}"
+                android:onClick="@{()->presenterDetailActions.buttonSaveClicked()}"
                 android:text="@string/save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btnEdit"
@@ -250,7 +250,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin20"
-                android:onClick="@{()->presenterActions.buttonEditClicked()}"
+                android:onClick="@{()->presenterDetailActions.buttonEditClicked()}"
                 android:text="@string/edit"
                 app:layout_constraintBottom_toBottomOf="@id/btnSave"
                 app:layout_constraintEnd_toStartOf="@id/btnRemove"
@@ -264,7 +264,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin20"
-                android:onClick="@{()->presenterActions.buttonRemoveClicked()}"
+                android:onClick="@{()->presenterDetailActions.buttonRemoveClicked()}"
                 android:text="@string/remove"
                 app:layout_constraintBottom_toBottomOf="@id/btnSave"
                 app:layout_constraintEnd_toEndOf="parent"

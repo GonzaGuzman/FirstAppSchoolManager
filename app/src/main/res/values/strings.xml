@@ -57,6 +57,7 @@
     <string name="closed_session">SESION CERRADA</string>
     <string name="error_message">ALGO SALIO MAL %1$s</string>
     <string name="success_message">ACTUALIZACION EXITOSA</string>
+    <string name="please_complete_all_fields">POR FAVOR COMPLETA TODOS LOS CAMPOS</string>
 
     <!-- Nota: Preguntar como organizar los string si por views o por palabras -->
 </resources>

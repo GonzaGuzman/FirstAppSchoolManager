@@ -11,7 +11,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentDetailBinding
-import com.zalo.firstAppMVP.home.Student
+import com.zalo.firstAppMVP.homeActivity.Student
 import com.zalo.firstAppMVP.detail.detailPresenter.DetailPresenter
 import com.zalo.firstAppMVP.detail.detailPresenter.DetailView
 import com.zalo.firstAppMVP.detail.detailRepository.DetailRepository
@@ -26,9 +26,9 @@ class DetailFragment : Fragment(), DetailView {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var presenter: DetailPresenter
+    private lateinit var detailPresenter: DetailPresenter
     private var dBStudent = MyApplication.dataBase
-    private var studentRepository = DetailRepository(dBStudent)
+    private var detailRepository = DetailRepository(dBStudent)
 
     private var idStudent: Int = 0
     private var dialog: AlertDialog? = null
@@ -44,9 +44,9 @@ class DetailFragment : Fragment(), DetailView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        presenter = DetailPresenter(this, studentRepository, resources)
+        detailPresenter = DetailPresenter(this, detailRepository, resources)
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        presenter.getStudentById(idStudent)
+        detailPresenter.getStudentById(idStudent)
         return binding.root
 
     }
@@ -54,7 +54,7 @@ class DetailFragment : Fragment(), DetailView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
-            presenterActions = presenter
+            presenterDetailActions = detailPresenter
             detailFragment = this@DetailFragment
         }
 
@@ -102,10 +102,10 @@ class DetailFragment : Fragment(), DetailView {
             .setMessage(getString(R.string.want_to_delete_student))
             .setCancelable(false)
             .setNegativeButton(getString(R.string.no)) { _, _ ->
-                presenter.onNegativeButtonClicked()
+                detailPresenter.onNegativeButtonClicked()
             }
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                presenter.onPositiveButtonClicked()
+                detailPresenter.onPositiveButtonClicked()
             }.show()
 
     }
@@ -114,16 +114,16 @@ class DetailFragment : Fragment(), DetailView {
         dialog?.dismiss()
     }
 
-    override fun getName() {
-        presenter.setName(binding.etName.text.toString())
+    override fun getUpdateName() {
+        detailPresenter.setName(binding.etName.text.toString())
     }
 
-    override fun getLastName() {
-        presenter.setLastName(binding.etLastName.text.toString())
+    override fun getUpdateLastName() {
+        detailPresenter.setLastName(binding.etLastName.text.toString())
     }
 
-    override fun getAge() {
-        presenter.setAge(binding.etAge.text.toString().toInt())
+    override fun getUpdateAge() {
+        detailPresenter.setAge(binding.etAge.text.toString().toInt())
     }
 
 

@@ -1,42 +1,37 @@
-package com.zalo.firstAppMVP.ui
+package com.zalo.firstAppMVP.add.addFragment
 
-import android.content.Context
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
+import com.zalo.firstAppMVP.add.addPresenter.AddPresenter
+import com.zalo.firstAppMVP.add.addPresenter.AddView
+import com.zalo.firstAppMVP.add.addRepository.AddRepository
 import com.zalo.firstAppMVP.databinding.FragmentAddBinding
-import com.zalo.firstAppMVP.model.StudentViewModel
-import com.zalo.firstAppMVP.presenter.AddPresenter
-import com.zalo.firstAppMVP.detail.detailRepository.DetailRepository
 import com.zalo.firstAppMVP.util.MyApplication
 
 /*
 Fragment encargado de la vista de agregar nuevo estudiante
  */
-class AddFragment : Fragment() {
+class AddFragment : Fragment(), AddView {
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var presenter: AddPresenter
+    private lateinit var addPresenter: AddPresenter
     private var dBStudent = MyApplication.dataBase
-    private var studentRepository = DetailRepository(dBStudent)
+    private var addRepository = AddRepository(dBStudent)
 
-
-    private val sharedViewModel: StudentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-       // presenter = AddPresenter(this,studentRepository)
+        addPresenter = AddPresenter(this, addRepository, resources)
         _binding = FragmentAddBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -45,58 +40,99 @@ class AddFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
-            viewModel = sharedViewModel
+            presenterAddActions = addPresenter
             addFragment = this@AddFragment
         }
-    }
 
-/*
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-    override fun updateName() {
-        TODO("Not yet implemented")
-    }
-
-    override fun updateLastName() {
-        TODO("Not yet implemented")
-    }
-
-    override fun updateAge() {
-        TODO("Not yet implemented")
-    }
-
-    override fun addStudent() {
-        TODO("Not yet implemented")
-    }
-
 
     override fun setErrorName(error: Boolean) {
-        TODO("Not yet implemented")
+        if (error) {
+            binding.studentName.isErrorEnabled = true
+            binding.studentName.error = getString(R.string.please_enter_name)
+        } else {
+            binding.studentName.isErrorEnabled = false
+        }
     }
 
     override fun setErrorLastName(error: Boolean) {
-        TODO("Not yet implemented")
+        if (error) {
+            binding.studentLastName.isErrorEnabled = true
+            binding.studentLastName.error = getString(R.string.please_enter_lastname)
+        } else {
+            binding.studentLastName.isErrorEnabled = false
+        }
     }
 
     override fun setErrorAge(error: Boolean) {
-        TODO("Not yet implemented")
+        if (error) {
+            binding.studentAge.isErrorEnabled = true
+            binding.studentAge.error = getString(R.string.please_enter_age)
+        } else {
+            binding.studentAge.isErrorEnabled = false
+        }
     }
 
-    override fun cancel() {
+    override fun setName() = addPresenter.setName(binding.textInputName.text.toString())
+
+    override fun setLastName() = addPresenter.setLastName(binding.textInputLastName.text.toString())
+
+
+    override fun setAge() {
+        if ((binding.textInputAge.text?.isNotEmpty() ?: "") as Boolean) {
+            addPresenter.setAge(binding.textInputAge.text.toString().toInt())
+            /* if (!binding.textInputAge.didTouchFocusSelect()) {
+                 binding.textInputAge.hideKeyboard()
+             }*/
+        }
+    }
+
+    override fun getGender(): String {
+        return if (binding.radioButtonMale.isChecked) {
+            getString(R.string.maleText)
+        } else
+            getString(R.string.femaleText)
+    }
+
+    override fun navigateTo() {
 
         findNavController().navigate(R.id.action_addFragment_to_homeFragment)
     }
 
+    override fun showSuccessSnackBar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun validationForAdd(): Boolean {
+        return ((!binding.textInputName.text.isNullOrEmpty()
+                && !binding.textInputLastName.text.isNullOrEmpty()
+                && !binding.textInputAge.text.isNullOrEmpty())
+                )
+    }
+
+    override fun showErrorSnackBar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+    }
+
     override fun resetView() {
-        presenter.reset()
+        addPresenter.reset()
         binding.textInputName.text?.clear()
         binding.textInputLastName.text?.clear()
         binding.textInputAge.text?.clear()
     }
-*/
+
+    /*fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
+    }*/
+
+}
+/*
 
 fun updateName() {
     sharedViewModel.setName(binding.textInputName.text.toString())
@@ -204,10 +240,11 @@ View.hideKeyboard(): funcion que oculta el teclado
 NOTA: AHUN NO ESTA IMPLEMENTADA!!
 
  */
+
+ */
+/*
 fun View.hideKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
 }
-}
-
-
+*/

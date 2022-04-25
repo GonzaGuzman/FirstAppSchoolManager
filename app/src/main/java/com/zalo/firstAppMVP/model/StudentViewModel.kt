@@ -4,7 +4,7 @@ package com.zalo.firstAppMVP.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zalo.firstAppMVP.home.Student
+import com.zalo.firstAppMVP.homeActivity.Student
 import com.zalo.firstAppMVP.util.MyApplication
 import com.zalo.firstAppMVP.util.subscribeAndLogErrors
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

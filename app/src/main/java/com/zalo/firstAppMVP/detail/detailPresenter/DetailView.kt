@@ -1,6 +1,6 @@
 package com.zalo.firstAppMVP.detail.detailPresenter
 
-import com.zalo.firstAppMVP.home.Student
+import com.zalo.firstAppMVP.homeActivity.Student
 
 interface DetailView {
 
@@ -12,7 +12,7 @@ interface DetailView {
     fun showErrorSnackBar(message: String)
     fun showSuccessSnackBar(message : String)
     fun dialogDismiss()
-    fun getName()
-    fun getLastName()
-    fun getAge()
+    fun getUpdateName()
+    fun getUpdateLastName()
+    fun getUpdateAge()
 }

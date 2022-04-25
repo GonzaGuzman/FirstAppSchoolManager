@@ -1,7 +1,7 @@
 package com.zalo.firstAppMVP.detail.detailRepository
 
 import com.zalo.firstAppMVP.data.StudentDataBase
-import com.zalo.firstAppMVP.home.Student
+import com.zalo.firstAppMVP.homeActivity.Student
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
