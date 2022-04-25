@@ -1,10 +1,9 @@
-package com.zalo.firstAppMVP.util
+package com.zalo.firstAppMVP.util.myAplicationClass
 
 import android.app.Application
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.zalo.firstAppMVP.data.StudentDataBase
-import dagger.hilt.android.HiltAndroidApp
+import com.zalo.firstAppMVP.util.data.StudentDataBase
 
 class MyApplication : Application() {
 

@@ -11,11 +11,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentDetailBinding
-import com.zalo.firstAppMVP.homeActivity.Student
+import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import com.zalo.firstAppMVP.detail.detailPresenter.DetailPresenter
 import com.zalo.firstAppMVP.detail.detailPresenter.DetailView
 import com.zalo.firstAppMVP.detail.detailRepository.DetailRepository
-import com.zalo.firstAppMVP.util.MyApplication
+import com.zalo.firstAppMVP.util.myAplicationClass.MyApplication
 
 /*
 Fragment encargado de mostrar y editar los atributos del estudiante
@@ -145,60 +145,3 @@ class DetailFragment : Fragment(), DetailView {
     }
 }
 
-
-/*
-    /*
-    updateLastName(): Setea en ViewModel el apellido del estudiante
-     */
-
-    fun updateLastName() {
-        sharedViewModel.setLastName(binding.etLastName.text.toString())
-    }
-
-    /*
-      updateAge(): Setea en ViewModel la edad del estudiante
-    */
-
-    fun updateAge() {
-        sharedViewModel.setAge(binding.etAge.text.toString().toInt())
-    }
-
-    /*
-    udpStudent(): actualiza los datos del estudiante en database
-                  desactiva los campos para que no puedan volver a ser modificados
-                  envia un mensaje de confirmacion de actualizacion
-     */
-    fun updStudent() {
-        sharedViewModel.updateStudent()
-        disabledViews()
-        Snackbar.make(binding.root, getString(R.string.modified_student), Snackbar.LENGTH_SHORT).show()
-        sharedViewModel.getStudent(idStudent)
-    }
-
-
-    /*
-    deleteStudent(): crea una aleterta para corroborar que el usuario desea eliminar el estudiante,
-        de ser afirmativo elimina el estudiante, caso contrario vuelve a obtener el estudiante(
-        NOTA: Ver porque no funciona dialog.dismiss)
-
-     */
-    fun deleteStudent() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setMessage(getString(R.string.want_to_delete_student))
-            .setCancelable(false)
-            .setNegativeButton(getString(R.string.no)) { _, _ ->
-                sharedViewModel.getStudent(idStudent)
-            }
-            .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                sharedViewModel.deleteStudent()
-                Snackbar.make(binding.root, getString(R.string.delete_student), Snackbar.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
-            }.show()
-
-    }
-
-     */
-
-/*
-enabledViews(): Activa todas las vistas
- */

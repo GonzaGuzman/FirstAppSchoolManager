@@ -4,7 +4,7 @@ import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.zalo.firstAppMVP.R
-import com.zalo.firstAppMVP.homeActivity.Student
+import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import com.zalo.firstAppMVP.detail.detailRepository.DetailRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable

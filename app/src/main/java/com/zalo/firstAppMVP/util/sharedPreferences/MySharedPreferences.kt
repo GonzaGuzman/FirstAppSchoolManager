@@ -1,4 +1,6 @@
-package com.zalo.firstAppMVP.util
+package com.zalo.firstAppMVP.util.sharedPreferences
+
+import com.zalo.firstAppMVP.util.myAplicationClass.MyApplication
 
 class MySharedPreferences {
     var schoolName: String

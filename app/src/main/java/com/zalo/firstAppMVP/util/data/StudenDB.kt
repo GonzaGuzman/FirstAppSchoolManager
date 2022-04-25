@@ -1,8 +1,8 @@
-package com.zalo.firstAppMVP.data
+package com.zalo.firstAppMVP.util.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.zalo.firstAppMVP.homeActivity.Student
+import com.zalo.firstAppMVP.util.dataClassStudent.Student
 
 @Database(
     entities = [Student::class],

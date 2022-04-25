@@ -1,4 +1,4 @@
-package com.zalo.firstAppMVP.homeActivity.adapter
+package com.zalo.firstAppMVP.util.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.home.homeFragment.HomeFragmentDirections
-import com.zalo.firstAppMVP.homeActivity.Student
+import com.zalo.firstAppMVP.util.dataClassStudent.Student
 
 
 

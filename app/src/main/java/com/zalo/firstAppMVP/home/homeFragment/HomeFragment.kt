@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentHomeBinding
-import com.zalo.firstAppMVP.homeActivity.Student
-import com.zalo.firstAppMVP.homeActivity.adapter.StudentAdapter
+import com.zalo.firstAppMVP.util.dataClassStudent.Student
+import com.zalo.firstAppMVP.util.adapter.StudentAdapter
 import com.zalo.firstAppMVP.model.SchoolViewModel
-import com.zalo.firstAppMVP.util.MyApplication
-import com.zalo.firstAppMVP.util.MySharedPreferences
-import com.zalo.firstAppMVP.util.subscribeAndLogErrors
+import com.zalo.firstAppMVP.util.myAplicationClass.MyApplication
+import com.zalo.firstAppMVP.util.sharedPreferences.MySharedPreferences
+import com.zalo.firstAppMVP.util.extensions.subscribeAndLogErrors
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 

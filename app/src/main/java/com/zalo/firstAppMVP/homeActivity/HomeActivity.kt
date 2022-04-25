@@ -1,4 +1,4 @@
-package com.zalo.firstAppMVP.homeActivity.activity
+package com.zalo.firstAppMVP.homeActivity
 
 
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.zalo.firstAppMVP.GeneralActivity
+import com.zalo.firstAppMVP.generalActivity.GeneralActivity
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.ActivityMainBinding
 

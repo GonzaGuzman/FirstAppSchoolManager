@@ -1,6 +1,6 @@
 package com.zalo.firstAppMVP.detail.detailPresenter
 
-import com.zalo.firstAppMVP.homeActivity.Student
+import com.zalo.firstAppMVP.util.dataClassStudent.Student
 
 interface DetailView {
 

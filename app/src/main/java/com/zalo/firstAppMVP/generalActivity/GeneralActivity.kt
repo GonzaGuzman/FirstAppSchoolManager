@@ -1,4 +1,4 @@
-package com.zalo.firstAppMVP
+package com.zalo.firstAppMVP.generalActivity
 
 import android.content.Context
 import android.content.DialogInterface
@@ -7,8 +7,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.zalo.firstAppMVP.util.MySharedPreferences
-import com.zalo.firstAppMVP.util.showMessage
+import com.zalo.firstAppMVP.R
+import com.zalo.firstAppMVP.util.sharedPreferences.MySharedPreferences
+import com.zalo.firstAppMVP.util.extensions.showMessage
 
 abstract class GeneralActivity : AppCompatActivity() {
 

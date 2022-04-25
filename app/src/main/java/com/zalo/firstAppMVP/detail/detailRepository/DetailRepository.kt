@@ -1,7 +1,7 @@
 package com.zalo.firstAppMVP.detail.detailRepository
 
-import com.zalo.firstAppMVP.data.StudentDataBase
-import com.zalo.firstAppMVP.homeActivity.Student
+import com.zalo.firstAppMVP.util.data.StudentDataBase
+import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
@@ -20,10 +20,6 @@ class DetailRepository(private val dataBaseStudent: StudentDataBase) {
 
     fun update(student: Student): Completable {
         return dataBaseStudent.studentDao().update(student)
-    }
-
-    fun insert(student: Student): Completable {
-        return dataBaseStudent.studentDao().insert(student)
     }
 
     fun delete(student: Student): Single<Unit> {
