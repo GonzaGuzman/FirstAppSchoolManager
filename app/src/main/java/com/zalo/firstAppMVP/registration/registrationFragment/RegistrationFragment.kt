@@ -21,6 +21,7 @@ class RegistrationFragment : Fragment(), RegistrationsView {
 
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
+
     private var dialog: AlertDialog? = null
     private lateinit var registrationPresenter: RegistrationPresenter
     private var registrationRepository = RegistrationRepository()

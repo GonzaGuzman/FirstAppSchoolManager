@@ -41,8 +41,8 @@ class SchoolViewModel : ViewModel() {
         MySharedPreferences().wipe()
     }
 
-    fun reset(){
-        _schoolName.value =""
+    fun reset() {
+        _schoolName.value = ""
         _type.value = ""
     }
 

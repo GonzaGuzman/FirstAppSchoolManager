@@ -8,11 +8,6 @@ import io.reactivex.rxjava3.core.Single
 
 class DetailRepository(private val dataBaseStudent: StudentDataBase) {
 
-/*
-    private val allStudent: Single<List<Student>> = dataBaseStudent.studentDao().getAllStudent()
-
-    fun getAllStudent() = allStudent
-*/
 
     fun getById(id: Int): Single<Student> {
         return dataBaseStudent.studentDao().getById(id)

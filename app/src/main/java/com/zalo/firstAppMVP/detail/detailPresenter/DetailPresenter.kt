@@ -13,7 +13,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class DetailPresenter(
     private val view: DetailView,
     private val detailRepository: DetailRepository,
-    private val resources: Resources
+    private val resources: Resources,
 ) : DetailActions {
 
     private val compositeDisposable = CompositeDisposable()
@@ -68,10 +68,10 @@ class DetailPresenter(
                 detailRepository.update(it)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe ({
+                    .subscribe({
                         view.showSuccessSnackBar(resources.getString(R.string.success_message))
                         view.disabledViews()
-                        _student.value?.let{updatedStudent -> view.initView(updatedStudent)}
+                        _student.value?.let { updatedStudent -> view.initView(updatedStudent) }
                     }, { error ->
                         view.showErrorSnackBar(String.format(resources.getString(R.string.error_message),
                             error.message))
@@ -108,7 +108,7 @@ class DetailPresenter(
         view.enabledViews()
     }
 
-   override fun buttonRemoveClicked() {
+    override fun buttonRemoveClicked() {
         view.showAlertDeleteDialog()
     }
 
