@@ -13,20 +13,19 @@ import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentHomeBinding
 import com.zalo.firstAppMVP.home.homePresenter.HomePresenter
 import com.zalo.firstAppMVP.home.homePresenter.HomeView
+import com.zalo.firstAppMVP.home.homeDataSource.HomeDataSource
 import com.zalo.firstAppMVP.home.homeRepository.HomeRepository
 import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import com.zalo.firstAppMVP.util.adapter.StudentAdapter
 import com.zalo.firstAppMVP.util.myAplicationClass.MyApplication
 
-/*
-vista principal
-NOTA: FALTA REFACTORIZAR!!
- */
+
 class HomeFragment : Fragment(), HomeView {
 
     private lateinit var homePresenter: HomePresenter
     private var dBStudent = MyApplication.dataBase
     private var homeRepository = HomeRepository(dBStudent)
+    private var homeDataSource = HomeDataSource(homeRepository)
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -38,7 +37,7 @@ class HomeFragment : Fragment(), HomeView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        homePresenter = HomePresenter(this, homeRepository, resources)
+        homePresenter = HomePresenter(this, homeDataSource, resources)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         homePresenter.initSchoolDate()
         homePresenter.initComponent()

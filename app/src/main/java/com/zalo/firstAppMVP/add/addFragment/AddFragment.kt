@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
+import com.zalo.firstAppMVP.add.addDataSource.AddDataSource
 import com.zalo.firstAppMVP.add.addPresenter.AddPresenter
 import com.zalo.firstAppMVP.add.addPresenter.AddView
 import com.zalo.firstAppMVP.add.addRepository.AddRepository
@@ -25,13 +26,14 @@ class AddFragment : Fragment(), AddView {
     private lateinit var addPresenter: AddPresenter
     private var dBStudent = MyApplication.dataBase
     private var addRepository = AddRepository(dBStudent)
+    private var addDataSource = AddDataSource(addRepository)
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        addPresenter = AddPresenter(this, addRepository, resources)
+        addPresenter = AddPresenter(this, addDataSource, resources)
         _binding = FragmentAddBinding.inflate(inflater, container, false)
         return binding.root
     }

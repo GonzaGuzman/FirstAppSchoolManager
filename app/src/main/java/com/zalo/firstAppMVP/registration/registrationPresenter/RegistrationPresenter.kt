@@ -11,23 +11,24 @@ class RegistrationPresenter(
 ) : RegistrationActions {
 
     fun initView() {
-        if (registrationRepository.schoolName.isNotEmpty() && registrationRepository.typeEducation.isNotEmpty()) {
-            view.initComponent(registrationRepository.schoolName,
-                registrationRepository.typeEducation)
+        if (registrationRepository.getRepositorySchoolName().isNotEmpty() && registrationRepository.getRepositorySchoolTypeEducation().isNotEmpty()) {
+            view.initComponent(registrationRepository.getRepositorySchoolName(),
+                registrationRepository.getRepositorySchoolTypeEducation())
             view.viewDisabled()
         }
     }
 
     fun setSchoolName(nameSchool: String) {
-        registrationRepository.schoolName = nameSchool
+        registrationRepository.setRepositorySchoolName(nameSchool)
     }
 
     private fun setTypeEducation() {
-        registrationRepository.typeEducation = view.getTypeEducation()
+        val currentTypeEducation = view.getTypeEducation()
+        registrationRepository.setRepositorySchoolTypeEducation(currentTypeEducation)
     }
 
     override fun buttonContinueClicked() {
-        if (registrationRepository.schoolName.isEmpty()) {
+        if (registrationRepository.getRepositorySchoolName().isEmpty()) {
             view.setErrorName(true)
         } else {
             view.setErrorName(false)
@@ -46,7 +47,7 @@ class RegistrationPresenter(
 
     fun onPositiveButtonClicked() {
         view.viewEnabled()
-        registrationRepository.wipe()
+        registrationRepository.wipeRepository()
         view.showSuccessSnackBar(resources.getString(R.string.closed_session))
     }
 

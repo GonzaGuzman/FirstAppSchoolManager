@@ -11,6 +11,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentDetailBinding
+import com.zalo.firstAppMVP.detail.detailDataSource.DetailDataSource
 import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import com.zalo.firstAppMVP.detail.detailPresenter.DetailPresenter
 import com.zalo.firstAppMVP.detail.detailPresenter.DetailView
@@ -29,6 +30,7 @@ class DetailFragment : Fragment(), DetailView {
     private lateinit var detailPresenter: DetailPresenter
     private var dBStudent = MyApplication.dataBase
     private var detailRepository = DetailRepository(dBStudent)
+    private var detailDataSource = DetailDataSource(detailRepository)
 
     private var idStudent: Int = 0
     private var dialog: AlertDialog? = null
@@ -44,7 +46,7 @@ class DetailFragment : Fragment(), DetailView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        detailPresenter = DetailPresenter(this, detailRepository, resources)
+        detailPresenter = DetailPresenter(this, detailDataSource, resources)
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
         detailPresenter.getStudentById(idStudent)
         return binding.root

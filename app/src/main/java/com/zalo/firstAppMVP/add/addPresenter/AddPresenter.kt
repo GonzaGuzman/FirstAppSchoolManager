@@ -5,17 +5,16 @@ import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.zalo.firstAppMVP.R
-import com.zalo.firstAppMVP.add.addRepository.AddRepository
+import com.zalo.firstAppMVP.add.addDataSource.AddDataSource
 import com.zalo.firstAppMVP.util.dataClassStudent.Student
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
+
 
 const val zero = 0
 
 class AddPresenter(
     private val view: AddView,
-    private val addRepository: AddRepository,
+    private val addDataSource: AddDataSource,
     private val resources: Resources,
 ) : AddActions {
 
@@ -61,16 +60,16 @@ class AddPresenter(
             _student.value?.let {
                 setGender()
                 compositeDisposable.add(
-                    addRepository.insert(it)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
+                    addDataSource.insertNewStudent(
+                        it,
+                        {
                             view.showSuccessSnackBar(resources.getString(R.string.successfully_added))
                             view.resetView()
                         }, { error ->
                             view.showErrorSnackBar(String.format(resources.getString(R.string.error_message),
                                 error.message))
-                        })
+                        }
+                    )
                 )
             }
         } else

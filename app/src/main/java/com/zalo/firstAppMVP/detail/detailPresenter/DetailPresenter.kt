@@ -4,15 +4,13 @@ import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.zalo.firstAppMVP.R
+import com.zalo.firstAppMVP.detail.detailDataSource.DetailDataSource
 import com.zalo.firstAppMVP.util.dataClassStudent.Student
-import com.zalo.firstAppMVP.detail.detailRepository.DetailRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class DetailPresenter(
     private val view: DetailView,
-    private val detailRepository: DetailRepository,
+    private val detailDataSource: DetailDataSource,
     private val resources: Resources,
 ) : DetailActions {
 
@@ -48,27 +46,26 @@ class DetailPresenter(
 
     fun getStudentById(id: Int) {
         compositeDisposable.add(
-            detailRepository.getById(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
+            detailDataSource.getStudentById(
+                id,
+                {
                     _student.value = it
                     view.initView(it)
-                }, { error ->
+                },
+                { error ->
                     view.showErrorSnackBar(String.format(resources.getString(R.string.error_message),
                         error.message))
                 }
-                )
+            )
         )
     }
 
     override fun buttonSaveClicked() {
         _student.value?.let {
             compositeDisposable.add(
-                detailRepository.update(it)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
+                detailDataSource.updateDataOfStudent(
+                    it,
+                    {
                         view.showSuccessSnackBar(resources.getString(R.string.success_message))
                         view.disabledViews()
                         _student.value?.let { updatedStudent -> view.initView(updatedStudent) }
@@ -84,17 +81,15 @@ class DetailPresenter(
     fun onPositiveButtonClicked() {
         _student.value?.let {
             compositeDisposable.add(
-                detailRepository.delete(it)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
+                detailDataSource.deleteStudentOfDataBase(
+                    it,
+                    {
                         view.navigateTo()
                         view.showSuccessSnackBar(resources.getString(R.string.delete_student))
-                    },
-                        { error ->
-                            view.showErrorSnackBar(String.format(resources.getString(R.string.error_message),
-                                error.message))
-                        })
+                    }, { error ->
+                        view.showErrorSnackBar(String.format(resources.getString(R.string.error_message),
+                            error.message))
+                    })
             )
         }
     }
