@@ -56,6 +56,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/schoolName"
                 android:layout_width="@dimen/match_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen16"
                 android:layout_marginEnd="@dimen/dimen16"
@@ -65,11 +66,12 @@
                 app:layout_constraintStart_toEndOf="@id/icSchool"
                 app:layout_constraintTop_toBottomOf="@id/headerActivityRegistration">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/schoolNameEditText"
+                <AutoCompleteTextView
+                    android:id="@+id/schoolNameAutoCompleteEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:afterTextChanged="@{()->registrationFragmet.getSchoolName()}"
+                    android:imeOptions="actionDone"
                     android:inputType="textCapWords" />
 
             </com.google.android.material.textfield.TextInputLayout>

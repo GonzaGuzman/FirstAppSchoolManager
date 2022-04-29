@@ -1,8 +1,11 @@
 package com.zalo.firstAppMVP.registration.registrationRepository
 
+import com.zalo.firstAppMVP.network.APIServiceImpl
+import com.zalo.firstAppMVP.network.models.Schools
 import com.zalo.firstAppMVP.util.sharedPreferences.MySharedPreferences
+import io.reactivex.rxjava3.core.Single
 
-class RegistrationRepository {
+class RegistrationRepository (private val apiService: APIServiceImpl) {
     fun setRepositorySchoolName(name: String) {
         MySharedPreferences.prefs.edit()
             .putString(MySharedPreferences.SCHOOL_NAME, name).apply()
@@ -20,6 +23,10 @@ class RegistrationRepository {
 
     fun wipeRepository() {
         MySharedPreferences.prefs.edit().clear().apply()
+    }
+
+    fun getSchools():Single<Schools>{
+        return apiService.getSchools()
     }
 
 }

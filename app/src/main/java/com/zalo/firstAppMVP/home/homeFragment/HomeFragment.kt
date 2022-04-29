@@ -78,13 +78,10 @@ class HomeFragment : Fragment(), HomeView {
         findNavController().navigate(R.id.action_homeFragment_to_addFragment)
     }
 
-    override fun showSuccessSnackBar(message: String) {
+    override fun showSnackBar(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
-    override fun showErrorSnackBar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-    }
 }
 
 

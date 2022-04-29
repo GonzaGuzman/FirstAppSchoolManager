@@ -177,6 +177,7 @@
                     android:layout_height="match_parent"
                     android:afterTextChanged="@{()->detailFragment.getUpdateAge()}"
                     android:enabled="false"
+                    android:imeOptions="actionDone"
                     android:inputType="number"
                     android:maxLength="3"
                     tools:text="edad" />

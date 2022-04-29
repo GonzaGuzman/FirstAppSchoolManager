@@ -53,7 +53,7 @@ class DetailPresenter(
                     view.initView(it)
                 },
                 { error ->
-                    view.showErrorSnackBar(String.format(resources.getString(R.string.error_message),
+                    view.showSnackBar(String.format(resources.getString(R.string.error_message),
                         error.message))
                 }
             )
@@ -66,11 +66,11 @@ class DetailPresenter(
                 detailDataSource.updateDataOfStudent(
                     it,
                     {
-                        view.showSuccessSnackBar(resources.getString(R.string.success_message))
+                        view.showSnackBar(resources.getString(R.string.success_message))
                         view.disabledViews()
                         _student.value?.let { updatedStudent -> view.initView(updatedStudent) }
                     }, { error ->
-                        view.showErrorSnackBar(String.format(resources.getString(R.string.error_message),
+                        view.showSnackBar(String.format(resources.getString(R.string.error_message),
                             error.message))
                     })
             )
@@ -85,9 +85,9 @@ class DetailPresenter(
                     it,
                     {
                         view.navigateTo()
-                        view.showSuccessSnackBar(resources.getString(R.string.delete_student))
+                        view.showSnackBar(resources.getString(R.string.delete_student))
                     }, { error ->
-                        view.showErrorSnackBar(String.format(resources.getString(R.string.error_message),
+                        view.showSnackBar(String.format(resources.getString(R.string.error_message),
                             error.message))
                     })
             )

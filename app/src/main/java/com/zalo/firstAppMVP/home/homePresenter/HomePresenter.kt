@@ -24,7 +24,7 @@ class HomePresenter(
                 { response: List<Student> ->
                     view.loadRecycler(response)
                 }, { error ->
-                    view.showErrorSnackBar(String.format(resources.getString(R.string.error_message),
+                    view.showSnackBar(String.format(resources.getString(R.string.error_message),
                         error.message))
                 }
             )

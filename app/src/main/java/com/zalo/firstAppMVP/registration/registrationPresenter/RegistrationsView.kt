@@ -1,5 +1,8 @@
 package com.zalo.firstAppMVP.registration.registrationPresenter
 
+import com.zalo.firstAppMVP.network.models.Schools
+import com.zalo.firstAppMVP.registration.registrationFragment.RegistrationFragment
+
 
 interface RegistrationsView {
     fun viewDisabled()
@@ -11,5 +14,7 @@ interface RegistrationsView {
     fun navigateTo()
     fun showAlertCloseSession()
     fun dialogDismiss()
-    fun showSuccessSnackBar(message: String)
+    fun showSnackBar(message: String)
+    fun listAdapter(schoolsNamesList: ArrayList<String>)
+    fun validateRadioButton(id: String)
 }

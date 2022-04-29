@@ -129,13 +129,10 @@ class DetailFragment : Fragment(), DetailView {
     }
 
 
-    override fun showSuccessSnackBar(message: String) {
+    override fun showSnackBar(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
-    override fun showErrorSnackBar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-    }
 
     companion object {
         const val ID = "studentID"

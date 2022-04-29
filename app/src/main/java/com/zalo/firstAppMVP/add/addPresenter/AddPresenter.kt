@@ -63,17 +63,17 @@ class AddPresenter(
                     addDataSource.insertNewStudent(
                         it,
                         {
-                            view.showSuccessSnackBar(resources.getString(R.string.successfully_added))
+                            view.showSnackBar(resources.getString(R.string.successfully_added))
                             view.resetView()
                         }, { error ->
-                            view.showErrorSnackBar(String.format(resources.getString(R.string.error_message),
+                            view.showSnackBar(String.format(resources.getString(R.string.error_message),
                                 error.message))
                         }
                     )
                 )
             }
         } else
-            view.showErrorSnackBar(resources.getString(R.string.please_complete_all_fields))
+            view.showSnackBar(resources.getString(R.string.please_complete_all_fields))
 
     }
 
