@@ -1,4 +1,4 @@
-package com.zalo.firstAppMVP.homeActivity.activity
+package com.zalo.firstAppMVP.ui
 
 
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.zalo.firstAppMVP.home.homeFragment
+package com.zalo.firstAppMVP.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentHomeBinding
-import com.zalo.firstAppMVP.homeActivity.Student
-import com.zalo.firstAppMVP.homeActivity.adapter.StudentAdapter
+import com.zalo.firstAppMVP.home.Student
+import com.zalo.firstAppMVP.home.adapter.StudentAdapter
 import com.zalo.firstAppMVP.model.SchoolViewModel
 import com.zalo.firstAppMVP.util.MyApplication
 import com.zalo.firstAppMVP.util.MySharedPreferences

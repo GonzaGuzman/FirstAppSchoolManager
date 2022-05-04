@@ -1,4 +1,4 @@
-package com.zalo.firstAppMVP.homeActivity.adapter
+package com.zalo.firstAppMVP.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,10 +6,9 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 
 import com.zalo.firstAppMVP.R
-import com.zalo.firstAppMVP.home.homeFragment.HomeFragmentDirections
-import com.zalo.firstAppMVP.homeActivity.Student
+import com.zalo.firstAppMVP.home.Student
 
-
+import com.zalo.firstAppMVP.ui.HomeFragmentDirections
 
 class StudentAdapter(private val list: List<Student>) : RecyclerView.Adapter<StudentViewHolder>() {
 

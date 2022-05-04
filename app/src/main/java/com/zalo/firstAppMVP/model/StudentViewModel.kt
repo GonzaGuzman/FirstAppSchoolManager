@@ -4,7 +4,7 @@ package com.zalo.firstAppMVP.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zalo.firstAppMVP.homeActivity.Student
+import com.zalo.firstAppMVP.home.Student
 import com.zalo.firstAppMVP.util.MyApplication
 import com.zalo.firstAppMVP.util.subscribeAndLogErrors
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -118,11 +118,14 @@ class StudentViewModel : ViewModel() {
             _student.value?.gender = _gender.value.toString()
         }
 
-            MyApplication.dataBase.studentDao().update(_student.value!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeAndLogErrors {
-                }
+        CompositeDisposable()
+            .add(
+                MyApplication.dataBase.studentDao().update(_student.value!!)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeAndLogErrors {
+                    }
+            )
 
     }
 
@@ -131,18 +134,14 @@ class StudentViewModel : ViewModel() {
      */
 
     fun deleteStudent() {
-        _student.value?.let {
-            MyApplication.dataBase.studentDao().delete(it)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeAndLogErrors {
-                }
-        }?.let {
-            CompositeDisposable()
-                .add(
-                    it
-                )
-        }
+        CompositeDisposable()
+            .add(
+                MyApplication.dataBase.studentDao().delete(_student.value!!)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeAndLogErrors {
+                    }
+            )
     }
 
     /*
@@ -150,13 +149,13 @@ class StudentViewModel : ViewModel() {
     NOTA: AUN EN PROCESO
      */
 
-    fun getAll() {
+    fun getAll(){
         MyApplication.dataBase.studentDao().getAllStudent()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeAndLogErrors { students ->
                 _studentsList.value?.addAll(students)
-            }
+                }
     }
 
     /*
@@ -169,9 +168,9 @@ class StudentViewModel : ViewModel() {
         _gender.value = ""
     }
 
-    /* init {
-         reset()
-     }
+   /* init {
+        reset()
+    }
 
-     */
+    */
 }
