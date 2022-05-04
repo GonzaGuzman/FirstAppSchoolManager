@@ -80,7 +80,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:afterTextChanged="@{()->addFragment.setAge()}"
+<<<<<<< HEAD
                 android:imeOptions="actionDone"
+=======
+>>>>>>> main
                 android:inputType="number"
                 android:maxLength="3" />
 

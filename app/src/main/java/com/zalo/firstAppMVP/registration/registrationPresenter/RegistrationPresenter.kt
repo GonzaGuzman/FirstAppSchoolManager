@@ -2,6 +2,7 @@ package com.zalo.firstAppMVP.registration.registrationPresenter
 
 import android.content.res.Resources
 import com.zalo.firstAppMVP.R
+<<<<<<< HEAD
 import com.zalo.firstAppMVP.network.models.Schools
 import com.zalo.firstAppMVP.registration.registrationDataSource.RegistrationDataSource
 
@@ -27,10 +28,26 @@ class RegistrationPresenter(
             view.viewDisabled()
         } else {
             getSchools()
+=======
+import com.zalo.firstAppMVP.registration.registrationRepository.RegistrationRepository
+
+class RegistrationPresenter(
+    private val view: RegistrationsView,
+    private val registrationRepository: RegistrationRepository,
+    private val resources: Resources,
+) : RegistrationActions {
+
+    fun initView() {
+        if (registrationRepository.schoolName.isNotEmpty() && registrationRepository.typeEducation.isNotEmpty()) {
+            view.initComponent(registrationRepository.schoolName,
+                registrationRepository.typeEducation)
+            view.viewDisabled()
+>>>>>>> main
         }
     }
 
     fun setSchoolName(nameSchool: String) {
+<<<<<<< HEAD
         registrationDataSource.setSchoolNameInShared(nameSchool)
     }
 
@@ -41,6 +58,17 @@ class RegistrationPresenter(
 
     override fun buttonContinueClicked() {
         if (registrationDataSource.getSchoolNameOfShared().isEmpty()) {
+=======
+        registrationRepository.schoolName = nameSchool
+    }
+
+    private fun setTypeEducation() {
+        registrationRepository.typeEducation = view.getTypeEducation()
+    }
+
+    override fun buttonContinueClicked() {
+        if (registrationRepository.schoolName.isEmpty()) {
+>>>>>>> main
             view.setErrorName(true)
         } else {
             view.setErrorName(false)
@@ -53,6 +81,7 @@ class RegistrationPresenter(
         view.showAlertCloseSession()
     }
 
+<<<<<<< HEAD
     private fun getSchools() {
         compositeDisposable.add(
             registrationDataSource.getSchoolsList(
@@ -82,15 +111,25 @@ class RegistrationPresenter(
         }
     }
 
+=======
+>>>>>>> main
     fun onNegativeButtonClicked() {
         view.dialogDismiss()
     }
 
     fun onPositiveButtonClicked() {
         view.viewEnabled()
+<<<<<<< HEAD
         registrationDataSource.wipe()
         getSchools()
         view.showSnackBar(resources.getString(R.string.closed_session))
     }
 
+=======
+        registrationRepository.wipe()
+        view.showSuccessSnackBar(resources.getString(R.string.closed_session))
+    }
+
+
+>>>>>>> main
 }
