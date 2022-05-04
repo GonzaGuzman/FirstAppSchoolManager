@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.zalo.firstAppMVP.data.StudentDataBase
+import dagger.hilt.android.HiltAndroidApp
 
 class MyApplication : Application() {
 

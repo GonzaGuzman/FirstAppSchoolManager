@@ -1,4 +1,4 @@
-package com.zalo.firstAppMVP.home
+package com.zalo.firstAppMVP.homeActivity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

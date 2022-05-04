@@ -5,7 +5,7 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
     //IMPORTANTE PARA QUE FUNCIONE SAFE AGR PORQUE AHUN NO ES COMPATIBLE CON LA ULTIMA VERSION DE ANDROID
     id 'androidx.navigation.safeargs.kotlin' version '2.4.1' apply false
-   }
+}
 
 task clean(type: Delete) {
     delete rootProject.buildDir

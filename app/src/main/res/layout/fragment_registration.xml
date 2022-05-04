@@ -2,17 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.RegistrationFragment">
+    tools:context=".registration.registrationFragment.RegistrationFragment">
 
     <data>
 
         <variable
-            name="viewModelSchool"
-            type="com.zalo.firstAppMVP.model.SchoolViewModel" />
+            name="presenterRegistrationActions"
+            type="com.zalo.firstAppMVP.registration.registrationPresenter.RegistrationPresenter" />
 
         <variable
             name="registrationFragmet"
-            type="com.zalo.firstAppMVP.ui.RegistrationFragment" />
+            type="com.zalo.firstAppMVP.registration.registrationFragment.RegistrationFragment" />
     </data>
 
     <ScrollView
@@ -23,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp">
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/headerActivityRegistration"
@@ -70,7 +69,7 @@
                     android:id="@+id/schoolNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:afterTextChanged="@{()->registrationFragmet.updateName()}"
+                    android:afterTextChanged="@{()->registrationFragmet.getSchoolName()}"
                     android:inputType="textCapWords" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -112,21 +111,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:onClick='@{()->viewModelSchool.setTypeEducation(@string/primaryEducation)}'
                     android:text="@string/primary" />
 
                 <RadioButton
                     android:id="@+id/highSchoolCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick='@{()->viewModelSchool.setTypeEducation(@string/highSchoolEducation)}'
                     android:text="@string/highSchool" />
 
                 <RadioButton
                     android:id="@+id/bothOfThemCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick='@{()->viewModelSchool.setTypeEducation(@string/bothOfThem)}'
                     android:text="@string/bothOfThem" />
             </RadioGroup>
 
@@ -137,7 +133,7 @@
                 android:layout_marginStart="@dimen/dimen16"
                 android:layout_marginTop="@dimen/dimen50"
                 android:layout_marginEnd="@dimen/dimen16"
-                android:onClick="@{()->registrationFragmet.continueNextView()}"
+                android:onClick="@{()->presenterRegistrationActions.buttonContinueClicked()}"
                 android:text="@string/continueBtn"
                 app:layout_constraintBottom_toTopOf="@+id/btnCloseSession"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -148,7 +144,7 @@
                 android:id="@+id/btnCloseSession"
                 android:layout_width="@dimen/match_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->registrationFragmet.closeSession()}"
+                android:onClick="@{()->presenterRegistrationActions.buttonCloseSessionClicked()}"
                 android:text="@string/close_session"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/btnContinue"
