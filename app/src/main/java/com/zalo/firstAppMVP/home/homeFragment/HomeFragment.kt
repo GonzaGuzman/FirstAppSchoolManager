@@ -17,6 +17,7 @@ import com.zalo.firstAppMVP.home.homeDataSource.HomeDataSource
 import com.zalo.firstAppMVP.home.homeRepository.HomeRepository
 import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import com.zalo.firstAppMVP.util.adapter.StudentAdapter
+import com.zalo.firstAppMVP.util.loadingScreen.LoadingScreen
 import com.zalo.firstAppMVP.util.myAplicationClass.MyApplication
 
 
@@ -50,7 +51,7 @@ class HomeFragment : Fragment(), HomeView {
             presenterHomeActions = homePresenter
             homeFragment = this@HomeFragment
         }
-
+        LoadingScreen.displayLoadingWithText(requireContext(), getString(R.string.please_wait), false)
     }
 
     override fun loadRecycler(studentList: List<Student>) {
@@ -58,6 +59,7 @@ class HomeFragment : Fragment(), HomeView {
         binding.recycler.layoutManager = LinearLayoutManager(context)
         adapter = StudentAdapter(studentList)
         binding.recycler.adapter = adapter
+        LoadingScreen.hideLoading()
     }
 
     override fun onDestroyView() {

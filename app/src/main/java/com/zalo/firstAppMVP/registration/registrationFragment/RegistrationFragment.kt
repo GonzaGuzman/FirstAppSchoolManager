@@ -52,6 +52,7 @@ class RegistrationFragment : Fragment(), RegistrationsView, AdapterView.OnItemCl
             presenterRegistrationActions = registrationPresenter
             registrationFragmet = this@RegistrationFragment
         }
+
         with(binding.schoolNameAutoCompleteEditText) {
             onItemClickListener = this@RegistrationFragment
         }
@@ -142,10 +143,10 @@ class RegistrationFragment : Fragment(), RegistrationsView, AdapterView.OnItemCl
             .setCancelable(false)
             .setNegativeButton(getString(R.string.no)) { _, _ ->
                 registrationPresenter.onNegativeButtonClicked()
-            }
+               }
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 registrationPresenter.onPositiveButtonClicked()
-            }.show()
+               }.show()
     }
 
     override fun dialogDismiss() {

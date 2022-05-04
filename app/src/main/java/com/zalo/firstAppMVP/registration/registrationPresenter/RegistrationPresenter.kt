@@ -28,8 +28,6 @@ class RegistrationPresenter(
         } else {
             getSchools()
         }
-
-
     }
 
     fun setSchoolName(nameSchool: String) {
