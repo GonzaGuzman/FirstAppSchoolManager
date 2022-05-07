@@ -2,123 +2,91 @@ package com.zalo.firstAppMVP.add.addPresenter
 
 
 import android.content.res.Resources
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.zalo.firstAppMVP.R
-<<<<<<< HEAD
 import com.zalo.firstAppMVP.add.addDataSource.AddDataSource
+import com.zalo.firstAppMVP.add.addPresenter.AddState.Companion.INIT_GENDER
+import com.zalo.firstAppMVP.add.addPresenter.AddState.Companion.ZERO
 import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-=======
-import com.zalo.firstAppMVP.add.addRepository.AddRepository
-import com.zalo.firstAppMVP.homeActivity.Student
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
->>>>>>> main
-
-const val zero = 0
 
 class AddPresenter(
     private val view: AddView,
-<<<<<<< HEAD
     private val addDataSource: AddDataSource,
-=======
-    private val addRepository: AddRepository,
->>>>>>> main
     private val resources: Resources,
+    private val addState: AddState,
 ) : AddActions {
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val _student = MutableLiveData<Student?>()
-    val student: LiveData<Student?> = _student
 
-    fun setName(name: String) {
-        _student.value?.name = name
+    override fun setName(name: String) {
+        addState.name.set(name)
     }
 
-    fun setLastName(lastName: String) {
-        _student.value?.lastName = lastName
+    override fun setLastName(lastName: String) {
+        addState.lastName.set(lastName)
     }
 
-    fun setAge(age: Int) {
-        _student.value?.age = age
-
+    override fun setAge(age: Int) {
+        addState.age.set(age)
     }
 
-    private fun setGender() {
-        _student.value?.gender = view.getGender()
+    override fun setGender(gender: String) {
+        addState.gender.set(gender)
     }
 
     override fun buttonAddClicked() {
-        if (_student.value?.name.isNullOrEmpty()) {
+        if (dataStudentIsNotEmpty()) {
+            val student = Student(ZERO, addState.name.get().orEmpty(), addState.lastName.get().orEmpty(),
+                addState.age.get() ?: 0, addState.gender.get() ?: INIT_GENDER)
+
+            compositeDisposable.add(
+                addDataSource.insertNewStudent(
+                    student,
+                    {
+                        view.showSnackBar(resources.getString(R.string.successfully_added))
+                        view.resetView()
+                    }, { error ->
+                        view.showSnackBar(String.format(resources.getString(R.string.error_message),
+                            error.message))
+                    }
+                )
+            )
+        } else
+            view.showSnackBar(resources.getString(R.string.please_complete_all_fields))
+    }
+
+    override fun dataStudentIsNotEmpty(): Boolean {
+        if (addState.name.get().isNullOrEmpty()) {
             view.setErrorName(true)
         } else
             view.setErrorName(false)
 
-        if (_student.value?.lastName.isNullOrEmpty()) {
+        if (addState.lastName.get().isNullOrEmpty()) {
             view.setErrorLastName(true)
         } else
             view.setErrorLastName(false)
 
-        if (_student.value?.age == zero) {
+        if (addState.age.get() == ZERO) {
             view.setErrorAge(true)
-        } else
+        } else {
             view.setErrorAge(false)
-
-        if (view.validationForAdd()) {
-            _student.value?.let {
-                setGender()
-                compositeDisposable.add(
-<<<<<<< HEAD
-                    addDataSource.insertNewStudent(
-                        it,
-                        {
-                            view.showSnackBar(resources.getString(R.string.successfully_added))
-                            view.resetView()
-                        }, { error ->
-                            view.showSnackBar(String.format(resources.getString(R.string.error_message),
-                                error.message))
-                        }
-                    )
-                )
-            }
-        } else
-            view.showSnackBar(resources.getString(R.string.please_complete_all_fields))
-=======
-                    addRepository.insert(it)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            view.showSuccessSnackBar(resources.getString(R.string.successfully_added))
-                            view.resetView()
-                        }, { error ->
-                            view.showErrorSnackBar(String.format(resources.getString(R.string.error_message),
-                                error.message))
-                        })
-                )
-            }
-        } else
-            view.showErrorSnackBar(resources.getString(R.string.please_complete_all_fields))
->>>>>>> main
-
+        }
+        return !(addState.name.get().isNullOrEmpty() || addState.lastName.get()
+            .isNullOrEmpty() || (addState.age.get() == ZERO))
     }
 
     override fun buttonCancelClicked() {
         view.navigateTo()
     }
 
-
-    fun reset() {
-        _student.value = Student(zero, "", "", zero, "")
-    }
-
-    init {
-        reset()
-    }
-
+    override fun reset() {
+           addState.name.set("")
+           addState.lastName.set("")
+           addState.age.set(0)
+           addState.gender.set(INIT_GENDER)
+         }
 
 }
 

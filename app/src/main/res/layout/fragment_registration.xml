@@ -60,7 +60,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen16"
                 android:layout_marginEnd="@dimen/dimen16"
-                android:hint="@string/nameSchool"
                 app:errorIconDrawable="@drawable/ic_error"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/icSchool"
@@ -70,12 +69,10 @@
                     android:id="@+id/schoolNameAutoCompleteEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/nameSchool"
                     android:afterTextChanged="@{()->registrationFragmet.getSchoolName()}"
-<<<<<<< HEAD
                     android:imeOptions="actionDone"
-=======
->>>>>>> main
-                    android:inputType="textCapWords" />
+                    android:inputType="textCapWords"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen16"
                 android:orientation="vertical"
+                android:onCheckedChanged="@{()->registrationFragmet.getTypeEducation()}"
                 app:layout_constraintStart_toStartOf="@id/typeEducation"
                 app:layout_constraintTop_toBottomOf="@id/typeEducation">
 

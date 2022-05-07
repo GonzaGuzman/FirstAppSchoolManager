@@ -1,10 +1,6 @@
 package com.zalo.firstAppMVP.detail.detailPresenter
 
-<<<<<<< HEAD
 import com.zalo.firstAppMVP.util.dataClassStudent.Student
-=======
-import com.zalo.firstAppMVP.homeActivity.Student
->>>>>>> main
 
 interface DetailView {
 
@@ -13,12 +9,7 @@ interface DetailView {
     fun disabledViews()
     fun navigateTo()
     fun showAlertDeleteDialog()
-<<<<<<< HEAD
-    fun showSnackBar(message : String)
-=======
-    fun showErrorSnackBar(message: String)
-    fun showSuccessSnackBar(message : String)
->>>>>>> main
+    fun showSnackBar(message: String)
     fun dialogDismiss()
     fun getUpdateName()
     fun getUpdateLastName()

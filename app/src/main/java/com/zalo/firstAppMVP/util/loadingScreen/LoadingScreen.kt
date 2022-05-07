@@ -10,7 +10,11 @@ import com.zalo.firstAppMVP.R
 
 object LoadingScreen {
     private var dialog: Dialog? = null //obj
-    fun displayLoadingWithText(context: Context?, text: String?, cancelable: Boolean) { // function -- context(parent (reference))
+    fun displayLoadingWithText(
+        context: Context?,
+        text: String?,
+        cancelable: Boolean,
+    ) { // function -- context(parent (reference))
         dialog = context?.let { it -> Dialog(it) }
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.setContentView(R.layout.layout_loding_screen)

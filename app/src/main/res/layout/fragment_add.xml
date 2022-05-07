@@ -15,6 +15,9 @@
             name="addFragment"
             type="com.zalo.firstAppMVP.add.addFragment.AddFragment" />
 
+
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,10 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:afterTextChanged="@{()->addFragment.setAge()}"
-<<<<<<< HEAD
                 android:imeOptions="actionDone"
-=======
->>>>>>> main
                 android:inputType="number"
                 android:maxLength="3" />
 
@@ -105,6 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/match_constraint"
             android:gravity="center"
+            android:onCheckedChanged="@{()->addFragment.setGender()}"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

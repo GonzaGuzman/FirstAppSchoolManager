@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:app/src/main/java/com/zalo/firstAppMVP/util/dataClassStudent/Student.kt
 package com.zalo.firstAppMVP.util.dataClassStudent
-========
-package com.zalo.firstAppMVP.homeActivity
->>>>>>>> main:app/src/main/java/com/zalo/firstAppMVP/homeActivity/Student.kt
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

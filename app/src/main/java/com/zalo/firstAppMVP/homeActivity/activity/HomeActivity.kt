@@ -1,12 +1,6 @@
-<<<<<<<< HEAD:app/src/main/java/com/zalo/firstAppMVP/homeActivity/HomeActivity.kt
-package com.zalo.firstAppMVP.homeActivity
-========
 package com.zalo.firstAppMVP.homeActivity.activity
->>>>>>>> main:app/src/main/java/com/zalo/firstAppMVP/homeActivity/activity/HomeActivity.kt
-
 
 import android.os.Bundle
-
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
