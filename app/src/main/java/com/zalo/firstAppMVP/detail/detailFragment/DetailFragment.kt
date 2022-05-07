@@ -11,24 +11,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentDetailBinding
-<<<<<<< HEAD
 import com.zalo.firstAppMVP.detail.detailDataSource.DetailDataSource
 import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import com.zalo.firstAppMVP.detail.detailPresenter.DetailPresenter
 import com.zalo.firstAppMVP.detail.detailPresenter.DetailView
 import com.zalo.firstAppMVP.detail.detailRepository.DetailRepository
 import com.zalo.firstAppMVP.util.myAplicationClass.MyApplication
-=======
-import com.zalo.firstAppMVP.homeActivity.Student
-import com.zalo.firstAppMVP.detail.detailPresenter.DetailPresenter
-import com.zalo.firstAppMVP.detail.detailPresenter.DetailView
-import com.zalo.firstAppMVP.detail.detailRepository.DetailRepository
-import com.zalo.firstAppMVP.util.MyApplication
->>>>>>> main
 
-/*
-Fragment encargado de mostrar y editar los atributos del estudiante
- */
 class DetailFragment : Fragment(), DetailView {
 
 
@@ -38,10 +27,7 @@ class DetailFragment : Fragment(), DetailView {
     private lateinit var detailPresenter: DetailPresenter
     private var dBStudent = MyApplication.dataBase
     private var detailRepository = DetailRepository(dBStudent)
-<<<<<<< HEAD
     private var detailDataSource = DetailDataSource(detailRepository)
-=======
->>>>>>> main
 
     private var idStudent: Int = 0
     private var dialog: AlertDialog? = null
@@ -57,11 +43,7 @@ class DetailFragment : Fragment(), DetailView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-<<<<<<< HEAD
         detailPresenter = DetailPresenter(this, detailDataSource, resources)
-=======
-        detailPresenter = DetailPresenter(this, detailRepository, resources)
->>>>>>> main
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
         detailPresenter.getStudentById(idStudent)
         return binding.root
@@ -144,20 +126,10 @@ class DetailFragment : Fragment(), DetailView {
     }
 
 
-<<<<<<< HEAD
     override fun showSnackBar(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
-=======
-    override fun showSuccessSnackBar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun showErrorSnackBar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-    }
->>>>>>> main
 
     companion object {
         const val ID = "studentID"

@@ -1,11 +1,7 @@
 package com.zalo.firstAppMVP.util.data
 
 import androidx.room.*
-<<<<<<< HEAD:app/src/main/java/com/zalo/firstAppMVP/util/data/StudentDao.kt
 import com.zalo.firstAppMVP.util.dataClassStudent.Student
-=======
-import com.zalo.firstAppMVP.homeActivity.Student
->>>>>>> main:app/src/main/java/com/zalo/firstAppMVP/data/StudentDao.kt
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.core.Completable
 

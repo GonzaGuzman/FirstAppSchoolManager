@@ -4,7 +4,6 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Egg/androidDeveloper/FirstAppMVP/FirstAppSchool/app/src/main/res/layout/fragment_detail.xml" value="0.25416666666666665" />
-<<<<<<< HEAD
         <entry key="..\:/Egg/androidDeveloper/FirstAppMVP/FirstAppSchoolMVP/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Egg/androidDeveloper/FirstAppMVP/FirstAppSchoolMVP/app/src/main/res/layout/fragment_add.xml" value="0.22" />
         <entry key="..\:/Egg/androidDeveloper/FirstAppMVP/FirstAppSchoolMVP/app/src/main/res/layout/fragment_detail.xml" value="0.25" />
@@ -13,11 +12,6 @@
         <entry key="..\:/Egg/androidDeveloper/FirstAppMVP/FirstAppSchoolMVP/app/src/main/res/layout/item.xml" value="0.25416666666666665" />
         <entry key="..\:/Egg/androidDeveloper/FirstAppMVP/FirstAppSchoolMVP/app/src/main/res/layout/item_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Egg/androidDeveloper/FirstAppMVP/FirstAppSchoolMVP/app/src/main/res/layout/layout_loding_screen.xml" value="0.25416666666666665" />
-=======
-        <entry key="..\:/Egg/androidDeveloper/FirstAppMVP/FirstAppSchoolMVP/app/src/main/res/layout/fragment_add.xml" value="0.1" />
-        <entry key="..\:/Egg/androidDeveloper/FirstAppMVP/FirstAppSchoolMVP/app/src/main/res/layout/fragment_detail.xml" value="0.1" />
-        <entry key="..\:/Egg/androidDeveloper/FirstAppMVP/FirstAppSchoolMVP/app/src/main/res/layout/fragment_registration.xml" value="0.23072916666666668" />
->>>>>>> main
         <entry key="..\:/Users/Gonza/AndroidStudioProjects/FirstAppSchoolManager/app/src/main/res/layout/activity_add_student.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Gonza/AndroidStudioProjects/FirstAppSchoolManager/app/src/main/res/layout/activity_detail.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Gonza/AndroidStudioProjects/FirstAppSchoolManager/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />

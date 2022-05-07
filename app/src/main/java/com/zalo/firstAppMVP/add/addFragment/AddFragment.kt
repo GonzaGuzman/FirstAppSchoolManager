@@ -9,19 +9,12 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
-<<<<<<< HEAD
 import com.zalo.firstAppMVP.add.addDataSource.AddDataSource
-=======
->>>>>>> main
 import com.zalo.firstAppMVP.add.addPresenter.AddPresenter
 import com.zalo.firstAppMVP.add.addPresenter.AddView
 import com.zalo.firstAppMVP.add.addRepository.AddRepository
 import com.zalo.firstAppMVP.databinding.FragmentAddBinding
-<<<<<<< HEAD
 import com.zalo.firstAppMVP.util.myAplicationClass.MyApplication
-=======
-import com.zalo.firstAppMVP.util.MyApplication
->>>>>>> main
 
 /*
 Fragment encargado de la vista de agregar nuevo estudiante
@@ -33,21 +26,14 @@ class AddFragment : Fragment(), AddView {
     private lateinit var addPresenter: AddPresenter
     private var dBStudent = MyApplication.dataBase
     private var addRepository = AddRepository(dBStudent)
-<<<<<<< HEAD
     private var addDataSource = AddDataSource(addRepository)
-=======
->>>>>>> main
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-<<<<<<< HEAD
         addPresenter = AddPresenter(this, addDataSource, resources)
-=======
-        addPresenter = AddPresenter(this, addRepository, resources)
->>>>>>> main
         _binding = FragmentAddBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -128,20 +114,10 @@ class AddFragment : Fragment(), AddView {
                 )
     }
 
-<<<<<<< HEAD
     override fun showSnackBar(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
-=======
-    override fun showSuccessSnackBar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun showErrorSnackBar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-    }
->>>>>>> main
 
     override fun resetView() {
         addPresenter.reset()

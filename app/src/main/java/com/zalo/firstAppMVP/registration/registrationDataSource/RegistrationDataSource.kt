@@ -1,5 +1,8 @@
 package com.zalo.firstAppMVP.registration.registrationDataSource
 
+
+import com.zalo.firstAppMVP.network.models.ResponseNetwork
+import com.zalo.firstAppMVP.network.models.School
 import com.zalo.firstAppMVP.network.models.Schools
 import com.zalo.firstAppMVP.registration.registrationRepository.RegistrationRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -33,4 +36,18 @@ class RegistrationDataSource(private val registrationRepository: RegistrationRep
             )
     }
 
+
+    fun postSchool(
+        school: School,
+        onSuccess: (responsive: ResponseNetwork) -> Unit,
+        onError: (Throwable) -> Unit,
+    ): Disposable {
+        return registrationRepository.postNewSchool(school)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { onSuccess(it) },
+                { onError(it) }
+            )
+    }
 }

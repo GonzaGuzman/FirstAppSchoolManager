@@ -5,5 +5,5 @@ interface DetailActions {
     fun buttonEditClicked()
     fun buttonRemoveClicked()
     fun buttonSaveClicked()
-    fun setGender(gender:String)
+    fun setGender(gender: String)
 }
