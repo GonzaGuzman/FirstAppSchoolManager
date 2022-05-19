@@ -36,7 +36,6 @@ android {
     buildFeatures {
         dataBinding true
         viewBinding true
-
     }
 
     kapt{
@@ -56,7 +55,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //mockito
-    testImplementation 'org.mockito:mockito-core:4.0.0'
+    testImplementation 'org.mockito:mockito-core:4.5.1'
     testImplementation 'org.mockito:mockito-inline:3.7.7'
     testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
 
@@ -85,19 +84,11 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.1"
 
-    //Dagger Hilt
-    implementation 'com.google.dagger:hilt-android:2.41'
-    kapt 'com.google.dagger:hilt-compiler:2.41'
-
     // For instrumentation tests
     androidTestImplementation  'com.google.dagger:hilt-android-testing:2.41'
     kaptAndroidTest 'com.google.dagger:hilt-compiler:2.41'
 
-    // For local unit tests
-    testImplementation 'com.google.dagger:hilt-android-testing:2.41'
-    kaptTest 'com.google.dagger:hilt-compiler:2.41'
-
-    //Retrofit
+  //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'

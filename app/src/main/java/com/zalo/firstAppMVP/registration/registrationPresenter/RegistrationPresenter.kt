@@ -7,62 +7,54 @@ import com.zalo.firstAppMVP.network.models.Schools
 import com.zalo.firstAppMVP.registration.registrationDataSource.RegistrationDataSource
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-
 class RegistrationPresenter(
     private val view: RegistrationsView,
     private val registrationDataSource: RegistrationDataSource,
     private val resources: Resources,
 ) : RegistrationActions {
-
     private val listOfSchools = mutableMapOf<String, String>()
     private val compositeDisposable = CompositeDisposable()
 
-    fun initView() {
-        if (registrationDataSource.getSchoolNameOfShared()
-                .isNotEmpty() && registrationDataSource.getTypeEducationOfShared()
-                .isNotEmpty()
+    override fun initView() {
+        val nameSchool = registrationDataSource.getSchoolNameOfShared()
+        val typeEducation = registrationDataSource.getTypeEducationOfShared()
+        if (nameSchool.isNotEmpty() && typeEducation.isNotEmpty()
         ) {
-            view.initComponent(registrationDataSource.getSchoolNameOfShared(),
-                registrationDataSource.getTypeEducationOfShared())
+            view.initComponent(nameSchool,typeEducation)
             view.viewDisabled()
         } else {
             getSchools()
         }
     }
 
-    fun setSchoolName(nameSchool: String) {
+    override fun setSchoolName(nameSchool: String) {
         registrationDataSource.setSchoolNameInShared(nameSchool)
     }
 
-    private fun setTypeEducation() {
-        val currentTypeEducation = view.getTypeEducation()
+    override fun setTypeEducation(currentTypeEducation: String) {
         registrationDataSource.setTypeEducationInShared(currentTypeEducation)
     }
 
     override fun buttonContinueClicked() {
-        if (registrationDataSource.getSchoolNameOfShared().isEmpty()) {
+        val nameSchool = registrationDataSource.getSchoolNameOfShared()
+        val typeEducation = registrationDataSource.getTypeEducationOfShared()
+        if (nameSchool.isEmpty()) {
             view.setErrorName(true)
         } else {
             view.setErrorName(false)
-            setTypeEducation()
-            val aux = School(registrationDataSource.getSchoolNameOfShared(),
-                registrationDataSource.getTypeEducationOfShared())
-            if (!listOfSchools.containsKey(aux.name)) {
-                postSchool(aux)
-            } else
-                view.navigateTo(resources.getString(R.string.welcome).uppercase())
-
-
+            val auxSchool = School(nameSchool, typeEducation)
+            if (!listOfSchools.containsKey(auxSchool.name)) {
+                postSchool(auxSchool)
+            }
+            view.navigateTo()
         }
-
-
     }
 
     override fun buttonCloseSessionClicked() {
         view.showAlertCloseSession()
     }
 
-    private fun getSchools() {
+    override fun getSchools() {
         compositeDisposable.add(
             registrationDataSource.getSchoolsList(
                 {
@@ -78,38 +70,38 @@ class RegistrationPresenter(
         )
     }
 
-    private fun postSchool(school: School) {
+   override fun postSchool(school: School) {
         compositeDisposable.add(
             registrationDataSource.postSchool(
                 school,
-                { responsive -> view.navigateTo(responsive.msm.uppercase()) },
-                { error -> view.navigateTo(error.toString().uppercase()) }
+                { responsive -> println(responsive.msm.uppercase()) },
+                { error -> println(error.toString().uppercase()) }
             )
         )
     }
 
-    private fun getArrayOfSchoolName(list: Schools): ArrayList<String> {
+   override fun getArrayOfSchoolName(list: Schools): ArrayList<String> {
         val listOfNames: ArrayList<String> = ArrayList()
         list.schools.forEach { listOfNames.add(it.name) }
         return listOfNames
     }
 
 
-    fun validateTypeEducation(name: String) {
+    override fun validateTypeEducation(name: String) {
         if (listOfSchools.contains(name)) {
             view.validateRadioButton(listOfSchools.getValue(name))
         }
     }
 
-    fun onNegativeButtonClicked() {
+    override fun onNegativeButtonClicked() {
         view.dialogDismiss()
     }
 
-    fun onPositiveButtonClicked() {
+    override fun onPositiveButtonClicked() {
         view.viewEnabled()
         registrationDataSource.wipe()
         getSchools()
+        setTypeEducation(resources.getString(R.string.primaryEducation))
         view.showSnackBar(resources.getString(R.string.closed_session))
     }
-
 }

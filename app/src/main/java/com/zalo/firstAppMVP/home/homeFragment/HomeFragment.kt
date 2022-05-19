@@ -28,18 +28,11 @@ class HomeFragment : Fragment(), HomeView {
     private var homeRepository = HomeRepository(dBStudent)
     private var homeDataSource = HomeDataSource(homeRepository)
 
-    private lateinit var networkResponse: String
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: StudentAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            networkResponse = it.getString(MESSAGE_STATUS,"")
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +59,6 @@ class HomeFragment : Fragment(), HomeView {
         adapter = StudentAdapter(studentList)
         binding.recycler.adapter = adapter
         LoadingScreen.hideLoading()
-        showSnackBar(networkResponse)
     }
 
 
@@ -85,10 +77,6 @@ class HomeFragment : Fragment(), HomeView {
 
     override fun showSnackBar(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    companion object {
-        const val MESSAGE_STATUS = "networkResponse"
     }
 
     override fun onDestroyView() {

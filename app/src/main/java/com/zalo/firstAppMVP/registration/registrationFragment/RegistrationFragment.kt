@@ -15,7 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentRegistrationBinding
 import com.zalo.firstAppMVP.network.APIServiceImpl
-import com.zalo.firstAppMVP.registration.registrationDataSource.RegistrationDataSource
+import com.zalo.firstAppMVP.registration.registrationDataSource.RegistrationDataSourceImplementation
 import com.zalo.firstAppMVP.registration.registrationPresenter.RegistrationPresenter
 import com.zalo.firstAppMVP.registration.registrationPresenter.RegistrationsView
 import com.zalo.firstAppMVP.registration.registrationRepository.RegistrationRepository
@@ -31,14 +31,16 @@ class RegistrationFragment : Fragment(), RegistrationsView, AdapterView.OnItemCl
     private lateinit var registrationPresenter: RegistrationPresenter
     private val apiServiceImp = APIServiceImpl
     private val registrationRepository = RegistrationRepository(apiServiceImp)
-    private val registrationDataSource = RegistrationDataSource(registrationRepository)
+    private val registrationDataSourceImplementation =
+        RegistrationDataSourceImplementation(registrationRepository)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
 
-        registrationPresenter = RegistrationPresenter(this, registrationDataSource, resources)
+        registrationPresenter =
+            RegistrationPresenter(this, registrationDataSourceImplementation, resources)
         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
         registrationPresenter.initView()
         return binding.root
@@ -115,12 +117,13 @@ class RegistrationFragment : Fragment(), RegistrationsView, AdapterView.OnItemCl
         registrationPresenter.setSchoolName(binding.schoolNameAutoCompleteEditText.text.toString())
     }
 
-    override fun getTypeEducation(): String {
-        return when (binding.typeEduOptions.checkedRadioButtonId) {
+    override fun getTypeEducation() {
+        val currentTypeEducation = when (binding.typeEduOptions.checkedRadioButtonId) {
             binding.primaryCheck.id -> getString(R.string.primaryEducation)
             binding.highSchoolCheck.id -> getString(R.string.highSchoolEducation)
             else -> getString(R.string.bothOfThem)
         }
+        registrationPresenter.setTypeEducation(currentTypeEducation)
     }
 
     override fun validateRadioButton(id: String) {
@@ -137,10 +140,8 @@ class RegistrationFragment : Fragment(), RegistrationsView, AdapterView.OnItemCl
         }
     }
 
-    override fun navigateTo(message: String) {
-        val action =
-            RegistrationFragmentDirections.actionRegistrationFragmentToHomeFragment(networkResponse = message)
-        findNavController().navigate(action)
+    override fun navigateTo() {
+        findNavController().navigate(R.id.action_registrationFragment_to_homeFragment)
     }
 
     override fun showAlertCloseSession() {
@@ -152,6 +153,7 @@ class RegistrationFragment : Fragment(), RegistrationsView, AdapterView.OnItemCl
             }
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 registrationPresenter.onPositiveButtonClicked()
+                binding.primaryCheck.isChecked = true
             }.show()
     }
 
