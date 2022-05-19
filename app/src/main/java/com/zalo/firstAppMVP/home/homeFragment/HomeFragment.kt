@@ -1,22 +1,22 @@
 package com.zalo.firstAppMVP.home.homeFragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentHomeBinding
+import com.zalo.firstAppMVP.home.homeDataSource.HomeDataSourceImplementation
 import com.zalo.firstAppMVP.home.homePresenter.HomePresenter
 import com.zalo.firstAppMVP.home.homePresenter.HomeView
-import com.zalo.firstAppMVP.home.homeDataSource.HomeDataSource
 import com.zalo.firstAppMVP.home.homeRepository.HomeRepository
-import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import com.zalo.firstAppMVP.util.adapter.StudentAdapter
+import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import com.zalo.firstAppMVP.util.loadingScreen.LoadingScreen
 import com.zalo.firstAppMVP.util.myAplicationClass.MyApplication
 
@@ -26,7 +26,7 @@ class HomeFragment : Fragment(), HomeView {
     private lateinit var homePresenter: HomePresenter
     private var dBStudent = MyApplication.dataBase
     private var homeRepository = HomeRepository(dBStudent)
-    private var homeDataSource = HomeDataSource(homeRepository)
+    private var homeDataSourceImplementation = HomeDataSourceImplementation(homeRepository)
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -38,7 +38,7 @@ class HomeFragment : Fragment(), HomeView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        homePresenter = HomePresenter(this, homeDataSource, resources)
+        homePresenter = HomePresenter(this, homeDataSourceImplementation, resources)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         homePresenter.initSchoolDate()
         homePresenter.initComponent()

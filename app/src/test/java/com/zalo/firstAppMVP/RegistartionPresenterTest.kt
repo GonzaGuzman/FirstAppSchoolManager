@@ -282,7 +282,6 @@ class RegistrationPresenterTest {
 
     private fun getSchoolListSuccessfully() {
         val schools = Mockito.mock(Schools::class.java)
-        // val scl = spy<Schools>().schools
         val success = argumentCaptor<(Schools) -> Unit>()
         val error = argumentCaptor<(Throwable) -> Unit>()
         whenever(registrationDataSource.getSchoolsList(

@@ -16,9 +16,6 @@ import com.zalo.firstAppMVP.add.addRepository.AddRepository
 import com.zalo.firstAppMVP.databinding.FragmentAddBinding
 import com.zalo.firstAppMVP.util.myAplicationClass.MyApplication
 
-/*
-Fragment encargado de la vista de agregar nuevo estudiante
- */
 class AddFragment : Fragment(), AddView {
 
     private var _binding: FragmentAddBinding? = null
