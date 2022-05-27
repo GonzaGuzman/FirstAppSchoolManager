@@ -3,20 +3,21 @@ package com.zalo.firstAppMVP.registration.registrationFragment
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentRegistrationBinding
 import com.zalo.firstAppMVP.network.APIServiceImpl
-import com.zalo.firstAppMVP.registration.registrationDataSource.RegistrationDataSourceImplementation
+import com.zalo.firstAppMVP.registration.registrationDataSource.RegistrationDataSourceImplements
 import com.zalo.firstAppMVP.registration.registrationPresenter.RegistrationPresenter
+import com.zalo.firstAppMVP.registration.registrationPresenter.RegistrationState
 import com.zalo.firstAppMVP.registration.registrationPresenter.RegistrationsView
 import com.zalo.firstAppMVP.registration.registrationRepository.RegistrationRepository
 import com.zalo.firstAppMVP.util.loadingScreen.LoadingScreen
@@ -27,12 +28,13 @@ class RegistrationFragment : Fragment(), RegistrationsView, AdapterView.OnItemCl
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
 
-    private var dialog: AlertDialog? = null
+    private val dialog: AlertDialog? = null
     private lateinit var registrationPresenter: RegistrationPresenter
     private val apiServiceImp = APIServiceImpl
     private val registrationRepository = RegistrationRepository(apiServiceImp)
-    private val registrationDataSourceImplementation =
-        RegistrationDataSourceImplementation(registrationRepository)
+    private val registrationState = RegistrationState()
+    private val registrationDataSourceImplements =
+        RegistrationDataSourceImplements(registrationRepository)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +42,7 @@ class RegistrationFragment : Fragment(), RegistrationsView, AdapterView.OnItemCl
     ): View {
 
         registrationPresenter =
-            RegistrationPresenter(this, registrationDataSourceImplementation, resources)
+            RegistrationPresenter(this, registrationDataSourceImplements, resources, registrationState)
         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
         registrationPresenter.initView()
         return binding.root

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentHomeBinding
-import com.zalo.firstAppMVP.home.homeDataSource.HomeDataSourceImplementation
+import com.zalo.firstAppMVP.home.homeDataSource.HomeDataSourceImplements
 import com.zalo.firstAppMVP.home.homePresenter.HomePresenter
 import com.zalo.firstAppMVP.home.homePresenter.HomeView
 import com.zalo.firstAppMVP.home.homeRepository.HomeRepository
@@ -24,21 +24,19 @@ import com.zalo.firstAppMVP.util.myAplicationClass.MyApplication
 class HomeFragment : Fragment(), HomeView {
 
     private lateinit var homePresenter: HomePresenter
-    private var dBStudent = MyApplication.dataBase
-    private var homeRepository = HomeRepository(dBStudent)
-    private var homeDataSourceImplementation = HomeDataSourceImplementation(homeRepository)
-
+    private val dBStudent = MyApplication.dataBase
+    private val homeRepository = HomeRepository(dBStudent)
+    private val homeDataSourceImplements = HomeDataSourceImplements(homeRepository)
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: StudentAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        homePresenter = HomePresenter(this, homeDataSourceImplementation, resources)
+        homePresenter = HomePresenter(this, homeDataSourceImplements, resources)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         homePresenter.initSchoolDate()
         homePresenter.initComponent()

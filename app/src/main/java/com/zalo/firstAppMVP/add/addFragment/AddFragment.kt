@@ -2,15 +2,16 @@ package com.zalo.firstAppMVP.add.addFragment
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
-import com.zalo.firstAppMVP.add.addDataSource.AddDataSource
+import com.zalo.firstAppMVP.add.addDataSource.AddDataSourceImplements
 import com.zalo.firstAppMVP.add.addPresenter.AddPresenter
+import com.zalo.firstAppMVP.add.addPresenter.AddState
 import com.zalo.firstAppMVP.add.addPresenter.AddView
 import com.zalo.firstAppMVP.add.addRepository.AddRepository
 import com.zalo.firstAppMVP.databinding.FragmentAddBinding
@@ -21,16 +22,17 @@ class AddFragment : Fragment(), AddView {
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
     private lateinit var addPresenter: AddPresenter
-    private var dBStudent = MyApplication.dataBase
-    private var addRepository = AddRepository(dBStudent)
-    private var addDataSource = AddDataSource(addRepository)
+    private val dBStudent = MyApplication.dataBase
+    private val addRepository = AddRepository(dBStudent)
+    private val addDataSourceImplements = AddDataSourceImplements(addRepository)
+    private val state = AddState()
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        addPresenter = AddPresenter(this, addDataSource, resources)
+        addPresenter = AddPresenter(this, addDataSourceImplements, resources, state)
         _binding = FragmentAddBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -85,30 +87,20 @@ class AddFragment : Fragment(), AddView {
     override fun setAge() {
         if ((binding.textInputAge.text?.isNotEmpty() ?: "") as Boolean) {
             addPresenter.setAge(binding.textInputAge.text.toString().toInt())
-            /* if (!binding.textInputAge.didTouchFocusSelect()) {
-                 binding.textInputAge.hideKeyboard()
-             }*/
         }
     }
 
-    override fun getGender(): String {
-        return if (binding.radioButtonMale.isChecked) {
+    override fun setGender() {
+        val gender = if (binding.radioButtonMale.isChecked) {
             getString(R.string.maleText)
         } else
             getString(R.string.femaleText)
+        addPresenter.setGender(gender)
     }
 
     override fun navigateTo() {
 
         findNavController().navigate(R.id.action_addFragment_to_homeFragment)
-    }
-
-
-    override fun validationForAdd(): Boolean {
-        return ((!binding.textInputName.text.isNullOrEmpty()
-                && !binding.textInputLastName.text.isNullOrEmpty()
-                && !binding.textInputAge.text.isNullOrEmpty())
-                )
     }
 
     override fun showSnackBar(message: String) {
@@ -121,6 +113,7 @@ class AddFragment : Fragment(), AddView {
         binding.textInputName.text?.clear()
         binding.textInputLastName.text?.clear()
         binding.textInputAge.text?.clear()
+        binding.radioButtonMale.isChecked = true
     }
 
     /*fun View.hideKeyboard() {

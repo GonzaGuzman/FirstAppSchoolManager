@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class RegistrationDataSourceImplementation(private val registrationRepository: RegistrationRepository) :
+class RegistrationDataSourceImplements(private val registrationRepository: RegistrationRepository) :
     RegistrationDataSource {
 
     override fun getSchoolNameOfShared() = registrationRepository.getRepositorySchoolName()

@@ -10,8 +10,7 @@ interface AddView {
     fun setAge()
     fun navigateTo()
     fun showSnackBar(message: String)
-    fun validationForAdd(): Boolean
-    fun getGender(): String
+    fun setGender()
 
 
 }

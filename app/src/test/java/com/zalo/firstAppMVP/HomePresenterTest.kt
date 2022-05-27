@@ -1,7 +1,6 @@
 package com.zalo.firstAppMVP
 
 import android.content.res.Resources
-import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
@@ -10,11 +9,10 @@ import com.zalo.firstAppMVP.home.homePresenter.HomePresenter
 import com.zalo.firstAppMVP.home.homePresenter.HomeView
 import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import io.reactivex.rxjava3.disposables.Disposable
+import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.anyString
-import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
@@ -30,7 +28,6 @@ class HomePresenterTest {
     @Mock
     private lateinit var resources: Resources
 
-    @InjectMocks
     private lateinit var homePresenter: HomePresenter
 
     @Mock
@@ -58,12 +55,12 @@ class HomePresenterTest {
     fun `when initComponent is successfully`() {
         //GIVEN
         getListOfStudentSuccessfully()
-
+        val listOfStudent = Mockito.mock(listOf<Student>()::class.java)
         //WHEN
         homePresenter.initComponent()
 
         //THEN
-        verify(homeView).loadRecycler(any())
+        assertEquals(homeView.loadRecycler(listOf()), homeView.loadRecycler(listOfStudent))
     }
 
 
@@ -71,29 +68,27 @@ class HomePresenterTest {
     fun `when initComponent is unsuccessfully`() {
         //GIVEN
         getListOfStudentUnsuccessfully()
-        whenever(resources.getString(R.string.error_message)).thenReturn("This failed")
+        whenever(resources.getString(R.string.error_message)).thenReturn(FAIL)
 
         //WHEN
         homePresenter.initComponent()
 
         //THEN
-        verify(homeView).showSnackBar(anyString())
+        verify(homeView).showSnackBar(String.format(FAIL, THIS_FAILED))
     }
 
     @Test
     fun `when initSchoolDate is call`() {
         //GIVEN
-        val name = "SchoolName"
-        val type = "TypeEducation"
-        whenever(homeDataSource.getSchoolName()).thenReturn(name)
-        whenever(homeDataSource.getSchoolTypeEducation()).thenReturn(type)
+        whenever(homeDataSource.getSchoolName()).thenReturn(SCHOOL_NAME)
+        whenever(homeDataSource.getSchoolTypeEducation()).thenReturn(SCHOOL_TYPE)
 
         //WHEN
         homePresenter.initSchoolDate()
 
         //THEN
-        verify(homeView).showSchoolName(name)
-        verify(homeView).showSchoolTypeEducation(type)
+        verify(homeView).showSchoolName(SCHOOL_NAME)
+        verify(homeView).showSchoolTypeEducation(SCHOOL_TYPE)
 
     }
 
@@ -101,29 +96,36 @@ class HomePresenterTest {
     private fun getListOfStudentSuccessfully() {
         val success = argumentCaptor<(List<Student>) -> Unit>()
         val error = argumentCaptor<(Throwable) -> Unit>()
+        val listOfStudent = Mockito.mock(listOf<Student>()::class.java)
         whenever(homeDataSource.getListOfStudent(
             success.capture(),
             error.capture(),
         )).thenAnswer {
-            success.firstValue.invoke(listOf())
+            success.firstValue.invoke(listOfStudent)
             mockDisposable
         }
     }
 
     private fun getListOfStudentUnsuccessfully() {
-        val fail = Mockito.mock(Throwable::class.java)
+        val responseThrowable = Mockito.mock(Throwable::class.java)
+        whenever(responseThrowable.message).thenReturn(THIS_FAILED)
         val success = argumentCaptor<(List<Student>) -> Unit>()
         val error = argumentCaptor<(Throwable) -> Unit>()
         whenever(homeDataSource.getListOfStudent(
             success.capture(),
             error.capture(),
         )).thenAnswer {
-            error.firstValue.invoke(fail)
+            error.firstValue.invoke(responseThrowable)
             mockDisposable
         }
     }
 
-
+    companion object {
+        const val FAIL = "ALGO SALIO MAL %s"
+        const val THIS_FAILED = "FALLA, NO SE OBTUVO LA LISTA"
+        const val SCHOOL_NAME = "SchoolName"
+        const val SCHOOL_TYPE = "TypeEducation"
+    }
 }
 
 

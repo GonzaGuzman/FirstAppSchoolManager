@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class HomeDataSourceImplementation(private val homeRepository: HomeRepository) : HomeDataSource {
+class HomeDataSourceImplements(private val homeRepository: HomeRepository) : HomeDataSource {
 
     override fun getSchoolName() = homeRepository.getRepositorySchoolName()
 

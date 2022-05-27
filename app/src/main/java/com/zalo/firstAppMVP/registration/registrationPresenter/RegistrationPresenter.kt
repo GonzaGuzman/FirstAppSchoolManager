@@ -11,8 +11,8 @@ class RegistrationPresenter(
     private val view: RegistrationsView,
     private val registrationDataSource: RegistrationDataSource,
     private val resources: Resources,
+    private val registrationState: RegistrationState,
 ) : RegistrationActions {
-    private val listOfSchools = mutableMapOf<String, String>()
     private val compositeDisposable = CompositeDisposable()
 
     override fun initView() {
@@ -20,7 +20,7 @@ class RegistrationPresenter(
         val typeEducation = registrationDataSource.getTypeEducationOfShared()
         if (nameSchool.isNotEmpty() && typeEducation.isNotEmpty()
         ) {
-            view.initComponent(nameSchool,typeEducation)
+            view.initComponent(nameSchool, typeEducation)
             view.viewDisabled()
         } else {
             getSchools()
@@ -43,7 +43,7 @@ class RegistrationPresenter(
         } else {
             view.setErrorName(false)
             val auxSchool = School(nameSchool, typeEducation)
-            if (!listOfSchools.containsKey(auxSchool.name)) {
+            if (registrationState.listOfSchools.get()?.containsKey(auxSchool.name) == false) {
                 postSchool(auxSchool)
             }
             view.navigateTo()
@@ -58,9 +58,11 @@ class RegistrationPresenter(
         compositeDisposable.add(
             registrationDataSource.getSchoolsList(
                 {
-                    it.schools.forEach { it1 -> listOfSchools[it1.name] = it1.type }
-                    val listSchoolsNames: ArrayList<String> = getArrayOfSchoolName(it)
-                    view.listAdapter(listSchoolsNames)
+                    val listResponse = mutableMapOf<String, String>()
+                    it.schools.forEach { it1 -> listResponse[it1.name] = it1.type }
+                    registrationState.listOfSchools.set(listResponse)
+                    getArrayOfSchoolName(it)
+                    registrationState.listOfNamesSchools.get()?.let { it1 -> view.listAdapter(it1) }
                 },
                 { error ->
                     view.showSnackBar(String.format(resources.getString(R.string.error_message),
@@ -70,27 +72,29 @@ class RegistrationPresenter(
         )
     }
 
-   override fun postSchool(school: School) {
+    override fun postSchool(school: School) {
+        val errorMessage = "POST FAIL"
         compositeDisposable.add(
             registrationDataSource.postSchool(
                 school,
-                { responsive -> println(responsive.msm.uppercase()) },
-                { error -> println(error.toString().uppercase()) }
+                { println(it.msm.uppercase()) },
+                { println(errorMessage.uppercase())}
             )
         )
     }
 
-   override fun getArrayOfSchoolName(list: Schools): ArrayList<String> {
+    override fun getArrayOfSchoolName(list: Schools) {
         val listOfNames: ArrayList<String> = ArrayList()
         list.schools.forEach { listOfNames.add(it.name) }
-        return listOfNames
+        listOfNames.sort()
+        registrationState.listOfNamesSchools.set(listOfNames)
     }
 
 
     override fun validateTypeEducation(name: String) {
-        if (listOfSchools.contains(name)) {
-            view.validateRadioButton(listOfSchools.getValue(name))
-        }
+        val listSchools = registrationState.listOfSchools.get()
+        if (listSchools?.contains(name) == true)
+            view.validateRadioButton(listSchools.getValue(name))
     }
 
     override fun onNegativeButtonClicked() {
@@ -101,7 +105,7 @@ class RegistrationPresenter(
         view.viewEnabled()
         registrationDataSource.wipe()
         getSchools()
-        setTypeEducation(resources.getString(R.string.primaryEducation))
+        registrationDataSource.setTypeEducationInShared(resources.getString(R.string.primaryEducation))
         view.showSnackBar(resources.getString(R.string.closed_session))
     }
 }

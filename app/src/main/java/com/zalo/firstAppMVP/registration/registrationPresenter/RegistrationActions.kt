@@ -11,7 +11,7 @@ interface RegistrationActions {
     fun setSchoolName(nameSchool: String)
     fun setTypeEducation(currentTypeEducation: String)
     fun postSchool(school: School)
-    fun getArrayOfSchoolName(list: Schools): ArrayList<String>
+    fun getArrayOfSchoolName(list: Schools)
     fun validateTypeEducation(name: String)
     fun onNegativeButtonClicked()
     fun onPositiveButtonClicked()
