@@ -22,7 +22,7 @@ class DetailDataSourceImplements(private val detailRepository: DetailRepository)
             )
     }
 
-    override fun updateDataOfStudent(
+    override fun updateDataStudent(
         student: Student,
         onSuccess: () -> Unit,
         onError: (Throwable) -> Unit,

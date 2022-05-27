@@ -10,43 +10,61 @@ class DetailPresenter(
     private val view: DetailView,
     private val detailDataSource: DetailDataSource,
     private val resources: Resources,
+    private val detailState: DetailState,
 ) : DetailActions {
 
     private val compositeDisposable = CompositeDisposable()
 
-    private lateinit var student: Student
+    override fun setId(id: Int) {
+        detailState.id.set(id)
+    }
 
     override fun setName(name: String) {
-        if (student.name != name) {
-            student.name = name
+        if (detailState.name.get() != name) {
+            detailState.name.set(name)
         }
     }
 
     override fun setLastName(lastName: String) {
-        if (student.lastName != lastName) {
-            student.lastName = lastName
+        if (detailState.lastName.get() != lastName) {
+            detailState.lastName.set(lastName)
         }
     }
 
     override fun setAge(age: Int) {
-        if (student.age != age) {
-            student.age = age
+        if (detailState.age.get() != age) {
+            detailState.age.set(age)
         }
     }
 
     override fun setGender(gender: String) {
-        if (student.gender != gender) {
-            student.gender = gender
+        if (detailState.gender.get() != gender) {
+            detailState.gender.set(gender)
         }
     }
 
+    override fun setAll(student: Student) {
+        setId(student.id)
+        setName(student.name)
+        setLastName(student.lastName)
+        setAge(student.age)
+        setGender(student.gender)
+    }
+
+    override fun getAll(): Student {
+        return Student(detailState.id.get() ?: 0,
+            detailState.name.get().orEmpty(),
+            detailState.lastName.get().orEmpty(),
+            detailState.age.get() ?: 0,
+            detailState.gender.get().orEmpty())
+    }
 
     override fun getStudentById(id: Int) {
         compositeDisposable.add(
             detailDataSource.getStudentById(
                 id,
                 {
-                    student = it
+                    setAll(it)
                     view.initView(it)
                 },
                 { error ->
@@ -58,41 +76,38 @@ class DetailPresenter(
     }
 
     override fun buttonSaveClicked() {
-        student.let {
-            compositeDisposable.add(
-                detailDataSource.updateDataOfStudent(
-                    it,
-                    {
-                        view.showSnackBar(resources.getString(R.string.success_message))
-                        view.disabledViews()
-                        student.let { updatedStudent -> view.initView(updatedStudent) }
-                    }, { error ->
-                        view.showSnackBar(String.format(resources.getString(R.string.error_message),
-                            error.message))
-                    })
-            )
-        }
-
-    }
-
-   override fun onPositiveButtonClicked() {
-        student.let {
-            compositeDisposable.add(
-                detailDataSource.deleteStudentOfDataBase(
-                    it,
-                    {
-                        view.navigateTo()
-                        view.showSnackBar(resources.getString(R.string.delete_student))
-                    }, { error ->
-                        view.showSnackBar(String.format(resources.getString(R.string.error_message),
-                            error.message))
-                    })
-            )
-        }
+        val student = getAll()
+        compositeDisposable.add(
+            detailDataSource.updateDataStudent(
+                student,
+                {
+                    view.showSnackBar(resources.getString(R.string.success_message))
+                    view.disabledViews()
+                    view.initView(student)
+                }, { error ->
+                    view.showSnackBar(String.format(resources.getString(R.string.error_message),
+                        error.message))
+                })
+        )
     }
 
 
-   override fun onNegativeButtonClicked() {
+    override fun onPositiveButtonClicked() {
+        val student = getAll()
+        compositeDisposable.add(
+            detailDataSource.deleteStudentOfDataBase(
+                student,
+                {
+                    view.navigateTo()
+                    view.showSnackBar(resources.getString(R.string.delete_student))
+                }, { error ->
+                    view.showSnackBar(String.format(resources.getString(R.string.error_message),
+                        error.message))
+                })
+        )
+    }
+
+    override fun onNegativeButtonClicked() {
         view.dialogDismiss()
     }
 

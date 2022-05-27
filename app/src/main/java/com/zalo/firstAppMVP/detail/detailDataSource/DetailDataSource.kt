@@ -11,7 +11,7 @@ interface DetailDataSource {
         onError: (Throwable) -> Unit,
     ): Disposable
 
-    fun updateDataOfStudent(
+    fun updateDataStudent(
         student: Student,
         onSuccess: () -> Unit,
         onError: (Throwable) -> Unit,

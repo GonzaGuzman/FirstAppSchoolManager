@@ -14,32 +14,32 @@ class AddPresenter(
     private val view: AddView,
     private val addDataSource: AddDataSource,
     private val resources: Resources,
-    private val state: AddState,
+    private val addState: AddState,
 ) : AddActions {
 
     private val compositeDisposable = CompositeDisposable()
 
 
     override fun setName(name: String) {
-        state.name.set(name)
+        addState.name.set(name)
     }
 
     override fun setLastName(lastName: String) {
-        state.lastName.set(lastName)
+        addState.lastName.set(lastName)
     }
 
     override fun setAge(age: Int) {
-        state.age.set(age)
+        addState.age.set(age)
     }
 
     override fun setGender(gender: String) {
-        state.gender.set(gender)
+        addState.gender.set(gender)
     }
 
     override fun buttonAddClicked() {
         if (dataStudentIsNotEmpty()) {
-            val student = Student(ZERO, state.name.get().orEmpty(), state.lastName.get().orEmpty(),
-                state.age.get() ?: 0, state.gender.get() ?: INIT_GENDER)
+            val student = Student(ZERO, addState.name.get().orEmpty(), addState.lastName.get().orEmpty(),
+                addState.age.get() ?: 0, addState.gender.get() ?: INIT_GENDER)
 
             compositeDisposable.add(
                 addDataSource.insertNewStudent(
@@ -58,23 +58,23 @@ class AddPresenter(
     }
 
     override fun dataStudentIsNotEmpty(): Boolean {
-        if (state.name.get().isNullOrEmpty()) {
+        if (addState.name.get().isNullOrEmpty()) {
             view.setErrorName(true)
         } else
             view.setErrorName(false)
 
-        if (state.lastName.get().isNullOrEmpty()) {
+        if (addState.lastName.get().isNullOrEmpty()) {
             view.setErrorLastName(true)
         } else
             view.setErrorLastName(false)
 
-        if (state.age.get() == ZERO) {
+        if (addState.age.get() == ZERO) {
             view.setErrorAge(true)
         } else {
             view.setErrorAge(false)
         }
-        return !(state.name.get().isNullOrEmpty() || state.lastName.get()
-            .isNullOrEmpty() || (state.age.get() == ZERO))
+        return !(addState.name.get().isNullOrEmpty() || addState.lastName.get()
+            .isNullOrEmpty() || (addState.age.get() == ZERO))
     }
 
     override fun buttonCancelClicked() {
@@ -82,10 +82,10 @@ class AddPresenter(
     }
 
     override fun reset() {
-           state.name.set("")
-           state.lastName.set("")
-           state.age.set(0)
-           state.gender.set(INIT_GENDER)
+           addState.name.set("")
+           addState.lastName.set("")
+           addState.age.set(0)
+           addState.gender.set(INIT_GENDER)
          }
 
 }

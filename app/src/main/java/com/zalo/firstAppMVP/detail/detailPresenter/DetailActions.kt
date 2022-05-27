@@ -1,5 +1,7 @@
 package com.zalo.firstAppMVP.detail.detailPresenter
 
+import com.zalo.firstAppMVP.util.dataClassStudent.Student
+
 interface DetailActions {
 
     fun buttonEditClicked()
@@ -12,4 +14,7 @@ interface DetailActions {
     fun getStudentById(id: Int)
     fun onPositiveButtonClicked()
     fun onNegativeButtonClicked()
+    fun setId(id: Int)
+    fun setAll(student: Student)
+    fun getAll(): Student
 }

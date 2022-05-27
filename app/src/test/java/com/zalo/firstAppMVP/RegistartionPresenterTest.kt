@@ -283,7 +283,9 @@ class RegistrationPresenterTest {
         //GIVEN
         whenever(resources.getString(R.string.primaryEducation)).thenReturn(PRIMARY_TYPE)
         whenever(resources.getString(R.string.closed_session)).thenReturn(CLOSE_SESSION)
+        val mapSchools = LIST_SCHOOL_TEST.associateBy({ it.name }, { it.type })
         getSchoolListSuccessfully()
+
         //WHEN
         registrationPresenter.onPositiveButtonClicked()
 
@@ -292,8 +294,10 @@ class RegistrationPresenterTest {
         verify(registrationDataSource).wipe()
         verify(registrationDataSource).setTypeEducationInShared(PRIMARY_TYPE)
         verify(registrationView).showSnackBar(CLOSE_SESSION)
+        assertEquals(registrationState.listOfSchools.get(), mapSchools)
 
     }
+
 
     private fun postSchoolSuccessfully() {
         val success = argumentCaptor<(ResponseNetwork) -> Unit>()

@@ -2,20 +2,21 @@ package com.zalo.firstAppMVP.detail.detailFragment
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentDetailBinding
 import com.zalo.firstAppMVP.detail.detailDataSource.DetailDataSourceImplements
-import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import com.zalo.firstAppMVP.detail.detailPresenter.DetailPresenter
+import com.zalo.firstAppMVP.detail.detailPresenter.DetailState
 import com.zalo.firstAppMVP.detail.detailPresenter.DetailView
 import com.zalo.firstAppMVP.detail.detailRepository.DetailRepository
+import com.zalo.firstAppMVP.util.dataClassStudent.Student
 import com.zalo.firstAppMVP.util.myAplicationClass.MyApplication
 
 class DetailFragment : Fragment(), DetailView {
@@ -25,12 +26,13 @@ class DetailFragment : Fragment(), DetailView {
     private val binding get() = _binding!!
 
     private lateinit var detailPresenter: DetailPresenter
-    private var dBStudent = MyApplication.dataBase
-    private var detailRepository = DetailRepository(dBStudent)
-    private var detailDataSourceImplements = DetailDataSourceImplements(detailRepository)
+    private val dBStudent = MyApplication.dataBase
+    private val detailRepository = DetailRepository(dBStudent)
+    private val detailDataSourceImplements = DetailDataSourceImplements(detailRepository)
+    private val detailState = DetailState()
 
     private var idStudent: Int = 0
-    private var dialog: AlertDialog? = null
+    private val dialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +45,7 @@ class DetailFragment : Fragment(), DetailView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        detailPresenter = DetailPresenter(this, detailDataSourceImplements, resources)
+        detailPresenter = DetailPresenter(this, detailDataSourceImplements, resources, detailState)
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
         detailPresenter.getStudentById(idStudent)
         return binding.root
