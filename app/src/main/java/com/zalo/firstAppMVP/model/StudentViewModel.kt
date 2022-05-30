@@ -4,9 +4,9 @@ package com.zalo.firstAppMVP.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zalo.firstAppMVP.homeActivity.Student
-import com.zalo.firstAppMVP.util.MyApplication
-import com.zalo.firstAppMVP.util.subscribeAndLogErrors
+import com.zalo.firstAppMVP.util.dataClassStudent.Student
+import com.zalo.firstAppMVP.util.myAplicationClass.MyApplication
+import com.zalo.firstAppMVP.util.extensions.subscribeAndLogErrors
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -118,11 +118,11 @@ class StudentViewModel : ViewModel() {
             _student.value?.gender = _gender.value.toString()
         }
 
-            MyApplication.dataBase.studentDao().update(_student.value!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeAndLogErrors {
-                }
+        MyApplication.dataBase.studentDao().update(_student.value!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeAndLogErrors {
+            }
 
     }
 

@@ -3,34 +3,46 @@ package com.zalo.firstAppMVP.registration.registrationFragment
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.zalo.firstAppMVP.R
 import com.zalo.firstAppMVP.databinding.FragmentRegistrationBinding
+import com.zalo.firstAppMVP.network.APIServiceImpl
+import com.zalo.firstAppMVP.registration.registrationDataSource.RegistrationDataSourceImplements
 import com.zalo.firstAppMVP.registration.registrationPresenter.RegistrationPresenter
+import com.zalo.firstAppMVP.registration.registrationPresenter.RegistrationState
 import com.zalo.firstAppMVP.registration.registrationPresenter.RegistrationsView
 import com.zalo.firstAppMVP.registration.registrationRepository.RegistrationRepository
+import com.zalo.firstAppMVP.util.loadingScreen.LoadingScreen
 
-class RegistrationFragment : Fragment(), RegistrationsView {
+class RegistrationFragment : Fragment(), RegistrationsView, AdapterView.OnItemClickListener {
 
 
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
-    private var dialog: AlertDialog? = null
-    private lateinit var registrationPresenter: RegistrationPresenter
-    private var registrationRepository = RegistrationRepository()
 
+    private val dialog: AlertDialog? = null
+    private lateinit var registrationPresenter: RegistrationPresenter
+    private val apiServiceImp = APIServiceImpl
+    private val registrationRepository = RegistrationRepository(apiServiceImp)
+    private val registrationState = RegistrationState()
+    private val registrationDataSourceImplements =
+        RegistrationDataSourceImplements(registrationRepository)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        registrationPresenter = RegistrationPresenter(this, registrationRepository, resources)
+
+        registrationPresenter =
+            RegistrationPresenter(this, registrationDataSourceImplements, resources, registrationState)
         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
         registrationPresenter.initView()
         return binding.root
@@ -46,10 +58,23 @@ class RegistrationFragment : Fragment(), RegistrationsView {
             registrationFragmet = this@RegistrationFragment
         }
 
+        with(binding.schoolNameAutoCompleteEditText) {
+            onItemClickListener = this@RegistrationFragment
+        }
+
+    }
+
+    override fun listAdapter(schoolsNamesList: ArrayList<String>) {
+        val schoolNamesAdapter = ArrayAdapter(
+            requireContext(),
+            R.layout.item_list,
+            schoolsNamesList
+        )
+        binding.schoolNameAutoCompleteEditText.setAdapter(schoolNamesAdapter)
     }
 
     override fun initComponent(nameSchool: String, typeEducation: String) {
-        binding.schoolNameEditText.setText(nameSchool)
+        binding.schoolNameAutoCompleteEditText.setText(nameSchool)
         when (typeEducation) {
             getString(R.string.primaryEducation) -> {
                 binding.primaryCheck.isChecked = true
@@ -64,15 +89,15 @@ class RegistrationFragment : Fragment(), RegistrationsView {
     }
 
     override fun viewDisabled() {
-        binding.schoolNameEditText.isEnabled = false
+        binding.schoolNameAutoCompleteEditText.isEnabled = false
         binding.primaryCheck.isEnabled = false
         binding.highSchoolCheck.isEnabled = false
         binding.bothOfThemCheck.isEnabled = false
     }
 
     override fun viewEnabled() {
-        binding.schoolNameEditText.text?.clear()
-        binding.schoolNameEditText.isEnabled = true
+        binding.schoolNameAutoCompleteEditText.text?.clear()
+        binding.schoolNameAutoCompleteEditText.isEnabled = true
         binding.primaryCheck.isEnabled = true
         binding.highSchoolCheck.isEnabled = true
         binding.bothOfThemCheck.isEnabled = true
@@ -84,17 +109,36 @@ class RegistrationFragment : Fragment(), RegistrationsView {
             binding.schoolName.error = getString(R.string.please_enter_name)
         } else {
             binding.schoolName.isErrorEnabled = false
+            LoadingScreen.displayLoadingWithText(requireContext(),
+                getString(R.string.please_wait),
+                false)
         }
     }
 
-    override fun getSchoolName() =
-        registrationPresenter.setSchoolName(binding.schoolNameEditText.text.toString())
+    override fun getSchoolName() {
+        registrationPresenter.setSchoolName(binding.schoolNameAutoCompleteEditText.text.toString())
+    }
 
-    override fun getTypeEducation(): String {
-        return when (binding.typeEduOptions.checkedRadioButtonId) {
+    override fun getTypeEducation() {
+        val currentTypeEducation = when (binding.typeEduOptions.checkedRadioButtonId) {
             binding.primaryCheck.id -> getString(R.string.primaryEducation)
             binding.highSchoolCheck.id -> getString(R.string.highSchoolEducation)
             else -> getString(R.string.bothOfThem)
+        }
+        registrationPresenter.setTypeEducation(currentTypeEducation)
+    }
+
+    override fun validateRadioButton(id: String) {
+        when (id) {
+            getString(R.string.primaryEducation) -> {
+                binding.primaryCheck.isChecked = true
+            }
+            getString(R.string.highSchoolEducation) -> {
+                binding.highSchoolCheck.isChecked = true
+            }
+            getString(R.string.bothOfThem) -> {
+                binding.bothOfThemCheck.isChecked = true
+            }
         }
     }
 
@@ -111,6 +155,7 @@ class RegistrationFragment : Fragment(), RegistrationsView {
             }
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 registrationPresenter.onPositiveButtonClicked()
+                binding.primaryCheck.isChecked = true
             }.show()
     }
 
@@ -118,13 +163,18 @@ class RegistrationFragment : Fragment(), RegistrationsView {
         dialog?.dismiss()
     }
 
-    override fun showSuccessSnackBar(message: String) {
+    override fun showSnackBar(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClick(parent: AdapterView<*>?, radioGroup: View?, position: Int, id: Long) {
+        val item = parent?.getItemAtPosition(position).toString()
+        registrationPresenter.validateTypeEducation(item)
     }
 }
 

@@ -1,4 +1,4 @@
-package com.zalo.firstAppMVP.homeActivity
+package com.zalo.firstAppMVP.util.dataClassStudent
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

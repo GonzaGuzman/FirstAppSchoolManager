@@ -1,4 +1,4 @@
-package com.zalo.firstAppMVP
+package com.zalo.firstAppMVP.generalActivity
 
 import android.content.Context
 import android.content.DialogInterface
@@ -7,12 +7,11 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.zalo.firstAppMVP.util.MySharedPreferences
-import com.zalo.firstAppMVP.util.showMessage
+import com.zalo.firstAppMVP.R
+import com.zalo.firstAppMVP.util.extensions.showMessage
 
 abstract class GeneralActivity : AppCompatActivity() {
 
-    val sharedPreferences = MySharedPreferences()
 
     // Bloque de codigo para validar la finalizacion de la app al tocar la KEY Back el teclado del movil
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -41,7 +40,7 @@ abstract class GeneralActivity : AppCompatActivity() {
     }
 
 
-     fun handleKeyEvent(view: View, keyCode: Int): Boolean {
+    fun handleKeyEvent(view: View, keyCode: Int): Boolean {
         if (keyCode == KeyEvent.KEYCODE_ENTER) {
             // Hide the keyboard
             val inputMethodManager =

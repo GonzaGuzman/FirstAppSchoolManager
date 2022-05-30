@@ -56,21 +56,23 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/schoolName"
                 android:layout_width="@dimen/match_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen16"
                 android:layout_marginEnd="@dimen/dimen16"
-                android:hint="@string/nameSchool"
                 app:errorIconDrawable="@drawable/ic_error"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/icSchool"
                 app:layout_constraintTop_toBottomOf="@id/headerActivityRegistration">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/schoolNameEditText"
+                <AutoCompleteTextView
+                    android:id="@+id/schoolNameAutoCompleteEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/nameSchool"
                     android:afterTextChanged="@{()->registrationFragmet.getSchoolName()}"
-                    android:inputType="textCapWords" />
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapWords"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen16"
                 android:orientation="vertical"
+                android:onCheckedChanged="@{()->registrationFragmet.getTypeEducation()}"
                 app:layout_constraintStart_toStartOf="@id/typeEducation"
                 app:layout_constraintTop_toBottomOf="@id/typeEducation">
 
@@ -149,6 +152,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/btnContinue"
                 app:layout_constraintStart_toStartOf="@+id/btnContinue" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.523"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_editor_absoluteX="143dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="viewModelSchool"
-            type="com.zalo.firstAppMVP.model.SchoolViewModel" />
+            name="presenterHomeActions"
+            type="com.zalo.firstAppMVP.home.homePresenter.HomePresenter" />
 
         <variable
             name="homeFragment"
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimen16"
             android:layout_marginBottom="@dimen/dimen16"
-            android:onClick="@{()->homeFragment.goToAdd()}"
+            android:onClick="@{()->presenterHomeActions.buttonAddClicked()}"
             android:text="@string/add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

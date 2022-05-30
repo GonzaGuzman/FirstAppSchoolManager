@@ -3,7 +3,7 @@ package com.zalo.firstAppMVP.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zalo.firstAppMVP.util.MySharedPreferences
+import com.zalo.firstAppMVP.util.sharedPreferences.MySharedPreferences
 
 /*
 ViewModel con los metodos para guardar y obtener los datos de las escuelas desde MyShraredPreferences
@@ -41,8 +41,8 @@ class SchoolViewModel : ViewModel() {
         MySharedPreferences().wipe()
     }
 
-    fun reset(){
-        _schoolName.value =""
+    fun reset() {
+        _schoolName.value = ""
         _type.value = ""
     }
 

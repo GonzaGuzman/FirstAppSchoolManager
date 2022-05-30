@@ -1,9 +1,9 @@
-package com.zalo.firstAppMVP.homeActivity.adapter
+package com.zalo.firstAppMVP.util.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.zalo.firstAppMVP.databinding.ItemBinding
-import com.zalo.firstAppMVP.homeActivity.Student
+import com.zalo.firstAppMVP.util.dataClassStudent.Student
 
 class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -16,5 +16,4 @@ class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.lastNameStudentItem.text = nameDetail
     }
 
-    //NOTA: Ver porque no funciona Resources con marcadores de posicion
 }

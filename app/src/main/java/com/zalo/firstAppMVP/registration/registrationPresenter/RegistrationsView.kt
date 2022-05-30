@@ -7,9 +7,11 @@ interface RegistrationsView {
     fun initComponent(nameSchool: String, typeEducation: String)
     fun setErrorName(error: Boolean)
     fun getSchoolName()
-    fun getTypeEducation(): String
-    fun navigateTo()
+    fun getTypeEducation()
     fun showAlertCloseSession()
     fun dialogDismiss()
-    fun showSuccessSnackBar(message: String)
+    fun showSnackBar(message: String)
+    fun listAdapter(schoolsNamesList: ArrayList<String>)
+    fun validateRadioButton(id: String)
+    fun navigateTo()
 }
